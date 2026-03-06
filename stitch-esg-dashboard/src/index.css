@@ -1,45 +1,75 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #17cf54;
+  --color-primary: #10b981;
   --color-primary-teal: #2ec4b6;
-  --color-primary-soft: #20b2aa;
+  --color-primary-soft: rgba(16, 185, 129, 0.1);
   
   --color-secondary: #ff7f50;
   
-  --color-background-light: #f0fdfa;
-  --color-background-dark: #0d1b1e;
-  --color-nav-dark: #112116;
+  --color-background-light: #f8fafc;
+  --color-background-dark: #0f172a;
+  --color-nav-dark: #1e293b;
   
   --color-environmental: #10b981;
   --color-social: #f59e0b;
   --color-governance: #3b82f6;
   
-  --font-display: "Inter", sans-serif;
+  --font-sans: "Fira Sans", sans-serif;
+  --font-mono: "Fira Code", monospace;
   
-  --radius-default: 0.75rem;
+  --radius-default: 1rem;
   --radius-lg: 1.25rem;
-  --radius-xl: 2rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+
+  /* Tremor specific shadows/colors mapping for v4 compatibility if needed */
+  --shadow-tremor-card: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-tremor-dropdown: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 @layer base {
   body {
-    @apply font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100;
+    @apply font-sans bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased;
   }
 }
 
 @layer utilities {
+  .glass-surface {
+    @apply bg-white/90 dark:bg-slate-900/80 backdrop-blur-md border border-white/10;
+  }
+  
   .chunky-shadow {
-    border-bottom-width: 4px;
-    border-right-width: 4px;
-    border-color: currentColor;
+    @apply shadow-xl shadow-emerald-900/5;
   }
   
   .chunky-card {
-    @apply border-2 border-slate-900 dark:border-slate-100 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)] dark:shadow-[4px_4px_0px_0px_rgba(248,250,252,1)];
+    @apply bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl shadow-emerald-900/5 rounded-2xl;
   }
   
   .chunky-button {
-    @apply border-2 border-slate-900 dark:border-slate-100 shadow-[2px_2px_0px_0px_rgba(15,23,42,1)] dark:shadow-[2px_2px_0px_0px_rgba(248,250,252,1)] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all;
+    @apply transition-all duration-200 hover:scale-[1.02] active:scale-[0.98];
   }
+
+  /* Custom Glow for Progress */
+  .emerald-glow {
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+  }
+}
+
+/* Custom scrollbar for enterprise feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 dark:bg-slate-800 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary/20;
 }

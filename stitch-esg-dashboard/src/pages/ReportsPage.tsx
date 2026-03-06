@@ -4,14 +4,11 @@ import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import { 
   BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer,
-  Cell
-} from 'recharts';
+  BadgeDelta,
+  DonutChart,
+  List,
+  ListItem
+} from '@tremor/react';
 import { 
   FileDown, 
   Database, 
@@ -28,15 +25,24 @@ import {
 } from 'lucide-react';
 
 const carbonData = [
-  { month: 'JAN', value: 0.42 },
-  { month: 'FEV', value: 0.38 },
-  { month: 'MAR', value: 0.31 },
-  { month: 'ABR', value: 0.52 },
-  { month: 'MAI', value: 0.28 },
-  { month: 'JUN', value: 0.21 },
-  { month: 'JUL', value: 0.35 },
-  { month: 'AGO', value: 0.29 },
+  { month: 'JAN', 'Toneladas': 0.42 },
+  { month: 'FEV', 'Toneladas': 0.38 },
+  { month: 'MAR', 'Toneladas': 0.31 },
+  { month: 'ABR', 'Toneladas': 0.52 },
+  { month: 'MAI', 'Toneladas': 0.28 },
+  { month: 'JUN', 'Toneladas': 0.21 },
+  { month: 'JUL', 'Toneladas': 0.35 },
+  { month: 'AGO', 'Toneladas': 0.29 },
 ];
+
+const regionalData = [
+  { name: 'Sudeste', value: 45 },
+  { name: 'Sul', value: 25 },
+  { name: 'Centro-Oeste', value: 15 },
+  { name: 'Norte/NE', value: 15 },
+];
+
+const dataFormatter = (number: number) => `${Intl.NumberFormat('us').format(number).toString()} t`;
 
 export const ReportsPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState('environmental');
@@ -96,42 +102,40 @@ export const ReportsPage: React.FC = () => {
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <Card className="p-8 border-4 border-primary/10 hover:border-primary transition-colors relative overflow-hidden group h-full">
+          <Card className="p-2 border-primary/10 hover:border-primary transition-colors relative overflow-hidden group h-full">
             <div className="absolute -top-4 -right-4 p-6 opacity-10 group-hover:opacity-20 transition-opacity rotate-12">
               <Globe size={120} className="text-primary" />
             </div>
-            <p className="text-primary font-black uppercase text-[10px] tracking-[0.2em] mb-2 text-primary-soft">Missão 01</p>
+            <p className="text-primary font-black uppercase text-[10px] tracking-[0.2em] mb-2">Missão 01</p>
             <p className="text-slate-500 dark:text-slate-400 font-bold mb-1">Redução de Carbono</p>
             <h3 className="text-4xl font-black text-slate-900 dark:text-white mb-4">
-              1.240 <span className="text-lg font-bold text-slate-400">Toneladas</span>
+              1.240 <span className="text-lg font-bold text-slate-400 font-mono text-xs uppercase">Toneladas</span>
             </h3>
-            <div className="inline-flex items-center gap-2 text-white font-black bg-primary px-4 py-1.5 rounded-full text-[10px] uppercase tracking-wider">
-              <Zap size={12} fill="currentColor" />
+            <BadgeDelta deltaType="moderateIncrease" className="font-black uppercase text-[10px]">
               +12.4% vs ano anterior
-            </div>
+            </BadgeDelta>
           </Card>
 
-          <Card className="p-8 border-4 border-primary/10 hover:border-primary transition-colors relative overflow-hidden group h-full">
+          <Card className="p-2 border-primary/10 hover:border-primary transition-colors relative overflow-hidden group h-full">
             <div className="absolute -top-4 -right-4 p-6 opacity-10 group-hover:opacity-20 transition-opacity -rotate-12">
               <Zap size={120} className="text-primary" />
             </div>
-            <p className="text-primary font-black uppercase text-[10px] tracking-[0.2em] mb-2 text-primary-soft">Missão 02</p>
+            <p className="text-primary font-black uppercase text-[10px] tracking-[0.2em] mb-2">Missão 02</p>
             <p className="text-slate-500 dark:text-slate-400 font-bold mb-1">Energia Renovável</p>
             <h3 className="text-4xl font-black text-slate-900 dark:text-white mb-4">85.2%</h3>
-            <div className="inline-flex items-center gap-2 text-white font-black bg-primary px-4 py-1.5 rounded-full text-[10px] uppercase tracking-wider">
-              <Stars size={12} />
+            <BadgeDelta deltaType="increase" className="font-black uppercase text-[10px]">
               Meta: 90% até 2025
-            </div>
+            </BadgeDelta>
           </Card>
 
-          <Card className="p-8 border-4 border-primary/10 hover:border-primary transition-colors relative overflow-hidden group h-full">
+          <Card className="p-2 border-primary/10 hover:border-primary transition-colors relative overflow-hidden group h-full">
             <div className="absolute -top-4 -right-4 p-6 opacity-10 group-hover:opacity-20 transition-opacity rotate-45">
               <Recycle size={120} className="text-primary" />
             </div>
-            <p className="text-primary font-black uppercase text-[10px] tracking-[0.2em] mb-2 text-primary-soft">Missão 03</p>
+            <p className="text-primary font-black uppercase text-[10px] tracking-[0.2em] mb-2">Missão 03</p>
             <p className="text-slate-500 dark:text-slate-400 font-bold mb-1">Resíduos Desviados</p>
             <h3 className="text-4xl font-black text-slate-900 dark:text-white mb-4">92.0%</h3>
-            <div className="inline-flex items-center gap-2 text-white font-black bg-primary px-4 py-1.5 rounded-full text-[10px] uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 text-emerald-600 font-black px-3 py-1 bg-emerald-50 rounded-lg text-[10px] uppercase tracking-wider border border-emerald-100">
               <Trophy size={12} />
               Grau A+ de Desempenho
             </div>
@@ -141,7 +145,7 @@ export const ReportsPage: React.FC = () => {
         {/* Visualization & Details */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
           {/* Main Chart Area */}
-          <Card className="lg:col-span-2 p-8 border-2 border-slate-100 dark:border-slate-800 h-full flex flex-col">
+          <Card className="lg:col-span-2 p-2 border-slate-100 dark:border-slate-800 h-full flex flex-col">
             <div className="flex items-center justify-between mb-8">
               <div>
                 <h4 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">Nossa Jornada de Carbono</h4>
@@ -153,48 +157,17 @@ export const ReportsPage: React.FC = () => {
               </select>
             </div>
             
-            <div className="h-72 w-full mt-auto">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={carbonData} margin={{ top: 20, right: 0, left: -20, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                  <XAxis 
-                    dataKey="month" 
-                    axisLine={false} 
-                    tickLine={false} 
-                    tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 900 }} 
-                    dy={10}
-                  />
-                  <YAxis 
-                    axisLine={false} 
-                    tickLine={false} 
-                    tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 900 }}
-                  />
-                  <Tooltip 
-                    cursor={{ fill: 'transparent' }}
-                    contentStyle={{ 
-                      borderRadius: '1rem', 
-                      border: 'none', 
-                      boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
-                      backgroundColor: '#0f172a',
-                      color: '#fff'
-                    }}
-                    itemStyle={{ color: '#20B2AA', fontWeight: 900 }}
-                  />
-                  <Bar 
-                    dataKey="value" 
-                    radius={[10, 10, 10, 10]} 
-                    barSize={30}
-                  >
-                    {carbonData.map((_, index) => (
-                      <Cell 
-                        key={`cell-${index}`} 
-                        fill={index === 5 ? '#20B2AA' : '#20B2AA33'} 
-                        className="hover:fill-primary transition-all duration-300 cursor-pointer"
-                      />
-                    ))}
-                  </Bar>
-                </BarChart>
-              </ResponsiveContainer>
+            <div className="h-80 w-full">
+              <BarChart
+                className="h-full"
+                data={carbonData}
+                index="month"
+                categories={['Toneladas']}
+                colors={['emerald']}
+                valueFormatter={dataFormatter}
+                yAxisWidth={48}
+                showAnimation={true}
+              />
             </div>
 
             <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -217,7 +190,7 @@ export const ReportsPage: React.FC = () => {
                   }`}>
                     {item.label}
                   </p>
-                  <p className={`text-sm font-black ${
+                  <p className={`text-sm font-black font-mono ${
                     item.color === 'primary' ? 'text-primary' : 'text-slate-700 dark:text-slate-200'
                   }`}>
                     {item.value}
@@ -229,12 +202,7 @@ export const ReportsPage: React.FC = () => {
 
           {/* Qualitative Statements */}
           <div className="flex flex-col gap-6">
-            <Card className="p-8 border-2 border-primary/10 bg-primary/5 dark:bg-primary/10 h-full flex flex-col">
-              <h4 className="text-2xl font-black text-slate-900 dark:text-white mb-8 flex items-center gap-3 uppercase tracking-tighter">
-                <Trophy size={28} className="text-primary" />
-                Resumo Estratégico
-              </h4>
-              
+            <Card className="p-2 border-primary/10 bg-primary/5 dark:bg-primary/10 h-full flex flex-col" title="Resumo Estratégico">
               <div className="space-y-6 flex-1">
                 {[
                   { icon: Droplets, title: 'Consumo de Água', desc: '22% de redução em processos intensivos' },
@@ -268,26 +236,24 @@ export const ReportsPage: React.FC = () => {
 
         {/* Regional Impact Map & Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          <Card className="p-8 border-2 border-slate-100 dark:border-slate-800 flex flex-col">
-            <h4 className="text-xl font-black text-slate-900 dark:text-white mb-8 uppercase tracking-tighter">Distribuição ESG Regional</h4>
-            <div className="relative flex-1 w-full bg-slate-50 dark:bg-slate-800/50 rounded-3xl overflow-hidden min-h-[300px] flex items-center justify-center shadow-inner group">
-              <div 
-                className="absolute inset-0 opacity-20 grayscale group-hover:grayscale-0 group-hover:opacity-40 transition-all duration-1000 bg-cover bg-center" 
-                style={{ backgroundImage: "url('https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=800&auto=format&fit=crop')" }}
-              ></div>
-              <div className="relative z-10 grid grid-cols-2 gap-6 p-6">
-                {[
-                  { region: 'Sudeste', score: 'A+', color: 'primary' },
-                  { region: 'Sul', score: 'A', color: 'primary' },
-                  { region: 'Centro-Oeste', score: 'B+', color: 'secondary' },
-                  { region: 'Norte/NE', score: 'A-', color: 'primary' },
-                ].map((reg, i) => (
-                  <div key={i} className="bg-white/95 dark:bg-slate-900/95 p-6 rounded-[2rem] border-4 border-primary shadow-2xl transition-all hover:scale-110 cursor-default">
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">{reg.region}</p>
-                    <p className={`text-3xl font-black ${reg.color === 'primary' ? 'text-primary' : 'text-secondary'}`}>{reg.score}</p>
-                  </div>
+          <Card className="p-2 border-slate-100 dark:border-slate-800 flex flex-col" title="Distribuição ESG Regional">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8 mt-4">
+              <DonutChart
+                className="h-40"
+                data={regionalData}
+                category="value"
+                index="name"
+                colors={['emerald', 'teal', 'amber', 'rose']}
+                showAnimation={true}
+              />
+              <List className="flex-1">
+                {regionalData.map((item) => (
+                  <ListItem key={item.name} className="uppercase font-black text-[10px] tracking-widest">
+                    <span>{item.name}</span>
+                    <span className="font-mono text-sm">{item.value}%</span>
+                  </ListItem>
                 ))}
-              </div>
+              </List>
             </div>
           </Card>
 
@@ -298,7 +264,7 @@ export const ReportsPage: React.FC = () => {
               { icon: Users, label: 'Engajamento', value: '84%', trend: 'Score de Clima' },
               { icon: Scale, label: 'Compliance', value: '100%', trend: 'Zero Incidentes' },
             ].map((stat, i) => (
-              <Card key={i} className="p-8 border-2 border-slate-100 dark:border-slate-800 flex flex-col justify-between hover:border-primary/30 transition-all group">
+              <Card key={i} className="p-2 border-slate-100 dark:border-slate-800 flex flex-col justify-between hover:border-primary/30 transition-all group">
                 <div>
                   <div className="h-12 w-12 rounded-2xl bg-primary/5 text-primary flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all">
                     <stat.icon size={24} />
@@ -306,7 +272,7 @@ export const ReportsPage: React.FC = () => {
                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{stat.label}</p>
                 </div>
                 <div className="mt-4">
-                  <h5 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter">{stat.value}</h5>
+                  <h5 className="text-4xl font-black text-slate-900 dark:text-white tracking-tighter font-mono">{stat.value}</h5>
                   <p className="text-[10px] text-primary font-black uppercase tracking-widest mt-1">{stat.trend}</p>
                 </div>
               </Card>

@@ -10,6 +10,7 @@ import {
   Filter,
   Info
 } from 'lucide-react';
+import { ProgressCircle } from '@tremor/react';
 import { useAuth } from '../context/useAuth';
 import { collection, query, orderBy, getDocs, limit, doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -25,13 +26,11 @@ export const RankingPage: React.FC = () => {
   useEffect(() => {
     const fetchRanking = async () => {
       try {
-        // Fetch all companies sorted by XP/Level
         const q = query(collection(db, 'companies'), orderBy('currentXP', 'desc'), limit(50));
         const querySnapshot = await getDocs(q);
         const companiesList = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Company));
         setCompanies(companiesList);
 
-        // Fetch user's company specifically to highlight
         if (user) {
           const userDoc = await getDoc(doc(db, 'users', user.uid));
           if (userDoc.exists()) {
@@ -86,36 +85,30 @@ export const RankingPage: React.FC = () => {
           </p>
         </div>
 
-        {/* User Performance Callout (Glassmorphic) */}
+        {/* User Performance Callout (Glassmorphic with Tremor) */}
         {userCompany && (
           <div className="bg-emerald-500/5 backdrop-blur-md border-2 border-primary/20 rounded-3xl p-8 mb-10 shadow-xl shadow-emerald-900/5 relative overflow-hidden group">
             <div className="absolute -top-12 -right-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all duration-700"></div>
             
             <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
               <div className="flex items-center gap-8">
-                <div className="relative w-28 h-28 flex items-center justify-center">
-                  <svg className="w-full h-full transform -rotate-90">
-                    <circle className="text-primary/10" cx="56" cy="56" fill="transparent" r="48" stroke="currentColor" strokeWidth="8"></circle>
-                    <circle 
-                      className="text-primary drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]" 
-                      cx="56" cy="56" fill="transparent" r="48" 
-                      stroke="currentColor" 
-                      strokeDasharray="301.6" 
-                      strokeDashoffset={301.6 - (301.6 * (userCompany.esgScores.environmental + userCompany.esgScores.social + userCompany.esgScores.governance) / 300)} 
-                      strokeWidth="8"
-                      strokeLinecap="round"
-                    ></circle>
-                  </svg>
-                  <span className="absolute text-3xl font-black font-mono">
+                <ProgressCircle
+                  value={Math.round((userCompany.esgScores.environmental + userCompany.esgScores.social + userCompany.esgScores.governance) / 3)}
+                  size="xl"
+                  color="emerald"
+                  showAnimation={true}
+                >
+                  <span className="text-2xl font-black font-mono">
                     {Math.round((userCompany.esgScores.environmental + userCompany.esgScores.social + userCompany.esgScores.governance) / 3)}
                   </span>
-                </div>
+                </ProgressCircle>
+                
                 <div>
                   <h3 className="text-2xl font-black text-slate-900 dark:text-white flex items-center gap-3 uppercase tracking-tight">
                     {userCompany.name} <span className="text-[10px] bg-primary text-white px-3 py-1 rounded-full font-black tracking-widest">ELITE</span>
                   </h3>
                   <p className="text-slate-500 font-bold uppercase text-xs mt-1 tracking-widest">
-                    Sua empresa está no <span className="text-primary">Top 15%</span> do setor de {userCompany.industry}.
+                    Sua empresa está no <span className="text-primary font-black italic">Top 15%</span> do setor de {userCompany.industry}.
                   </p>
                   <div className="flex gap-6 mt-4">
                     <div className="flex items-center gap-2">
@@ -157,7 +150,7 @@ export const RankingPage: React.FC = () => {
           </div>
           <div className="w-full md:w-auto">
             <label className="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Setor</label>
-            <select className="w-full md:w-56 px-4 py-3.5 rounded-2xl border-2 border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 focus:border-primary outline-none font-bold text-sm appearance-none">
+            <select className="w-full md:w-56 px-4 py-3.5 rounded-2xl border-2 border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 focus:border-primary outline-none font-bold text-sm appearance-none cursor-pointer">
               <option>Todos os Setores</option>
               <option>Tecnologia</option>
               <option>Energia</option>
@@ -196,7 +189,7 @@ export const RankingPage: React.FC = () => {
                       </td>
                       <td className="px-6 py-4">
                         <div className="flex items-center gap-4">
-                          <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-black text-primary text-lg border border-slate-200 dark:border-slate-700">
+                          <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-black text-primary text-lg border border-slate-200 dark:border-slate-700 group-hover:emerald-glow transition-all">
                             {comp.name.charAt(0)}
                           </div>
                           <div>
@@ -211,7 +204,7 @@ export const RankingPage: React.FC = () => {
                       </td>
                       <td className="px-6 py-4 text-center">
                         <span className={`px-4 py-1.5 rounded-xl font-mono text-sm font-black transition-all ${
-                          isUserComp ? 'bg-primary text-slate-900' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
+                          isUserComp ? 'bg-primary text-slate-900 shadow-[0_0_10px_rgba(16,185,129,0.3)]' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'
                         }`}>
                           {avgScore}
                         </span>
@@ -277,7 +270,7 @@ export const RankingPage: React.FC = () => {
             <div className="flex items-center -space-x-3 mt-4">
               {[1, 2, 3, 4].map(i => (
                 <div key={i} className="w-10 h-10 rounded-full border-4 border-white dark:border-slate-900 bg-slate-200 overflow-hidden">
-                  <div className="w-full h-full bg-primary/20 flex items-center justify-center text-primary text-[10px] font-black">USER</div>
+                  <div className="w-full h-full bg-primary/20 flex items-center justify-center text-primary text-[10px] font-black uppercase">User</div>
                 </div>
               ))}
               <div className="w-10 h-10 rounded-full bg-primary text-slate-900 border-4 border-white dark:border-slate-900 text-[10px] flex items-center justify-center font-black">+21</div>
@@ -299,14 +292,14 @@ export const RankingPage: React.FC = () => {
         </div>
 
         {/* CTA */}
-        <div className="mt-16 bg-gradient-to-br from-slate-900 to-primary text-white rounded-[2.5rem] p-12 text-center relative overflow-hidden chunky-shadow">
+        <div className="mt-16 bg-gradient-to-br from-slate-900 to-primary text-white rounded-[2.5rem] p-12 text-center relative overflow-hidden shadow-2xl">
           <div className="relative z-10 max-w-2xl mx-auto">
-            <h3 className="text-4xl font-black mb-6 uppercase tracking-tighter">Pronto para Subir de Nível?</h3>
+            <h3 className="text-4xl font-black mb-6 uppercase tracking-tighter italic">Pronto para Subir de Nível?</h3>
             <p className="text-white/70 font-bold mb-10 text-lg uppercase tracking-widest">
               Nossos mentores podem te ajudar a desbloquear novas conquistas e dominar o ranking nacional.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <button className="bg-white text-primary px-10 py-4 rounded-2xl font-black uppercase text-xs tracking-[0.2em] hover:bg-slate-50 transition-all border-b-4 border-slate-200 active:scale-95 shadow-lg">
+              <button className="bg-white text-primary px-10 py-4 rounded-2xl font-black uppercase text-xs tracking-[0.2em] hover:bg-slate-50 transition-all active:scale-95 shadow-lg shadow-white/10">
                 Falar com um Mestre
               </button>
               <button className="bg-transparent border-2 border-white/30 text-white px-10 py-4 rounded-2xl font-black uppercase text-xs tracking-[0.2em] hover:bg-white/10 transition-all active:scale-95">

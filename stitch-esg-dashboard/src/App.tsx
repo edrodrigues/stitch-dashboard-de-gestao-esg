@@ -1,19 +1,29 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { useAuth } from './context/useAuth';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { DiagnosticProtectedRoute } from './components/DiagnosticProtectedRoute';
-import { LoginPage } from './pages/LoginPage';
-import { RegisterPage } from './pages/RegisterPage';
-import { DashboardPage } from './pages/DashboardPage';
-import { ProfilePage } from './pages/ProfilePage';
-import { LandingPage } from './pages/LandingPage';
-import { DiagnosticPage } from './pages/DiagnosticPage';
-import { ReportsPage } from './pages/ReportsPage';
-import { RankingPage } from './pages/RankingPage';
-import { EnvironmentalPage } from './pages/EnvironmentalPage';
-import { SocialPage } from './pages/SocialPage';
-import { GovernancePage } from './pages/GovernancePage';
+
+// Dynamic Imports for Pages
+const LoginPage = lazy(() => import('./pages/LoginPage').then(m => ({ default: m.LoginPage })));
+const RegisterPage = lazy(() => import('./pages/RegisterPage').then(m => ({ default: m.RegisterPage })));
+const DashboardPage = lazy(() => import('./pages/DashboardPage').then(m => ({ default: m.DashboardPage })));
+const ProfilePage = lazy(() => import('./pages/ProfilePage').then(m => ({ default: m.ProfilePage })));
+const LandingPage = lazy(() => import('./pages/LandingPage').then(m => ({ default: m.LandingPage })));
+const DiagnosticPage = lazy(() => import('./pages/DiagnosticPage').then(m => ({ default: m.DiagnosticPage })));
+const ReportsPage = lazy(() => import('./pages/ReportsPage').then(m => ({ default: m.ReportsPage })));
+const RankingPage = lazy(() => import('./pages/RankingPage').then(m => ({ default: m.RankingPage })));
+const EnvironmentalPage = lazy(() => import('./pages/EnvironmentalPage').then(m => ({ default: m.EnvironmentalPage })));
+const SocialPage = lazy(() => import('./pages/SocialPage').then(m => ({ default: m.SocialPage })));
+const GovernancePage = lazy(() => import('./pages/GovernancePage').then(m => ({ default: m.GovernancePage })));
+
+// Loading Component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background-light dark:bg-background-dark">
+    <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
 // Helper component to redirect logged-in users away from auth pages
 const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -25,86 +35,88 @@ const PublicRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 function AppRoutes() {
   return (
-    <Routes>
-      {/* Public Landing Page */}
-      <Route path="/" element={<LandingPage />} />
-      
-      {/* Auth Pages - Redirect if already logged in */}
-      <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
-      <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
-      
-      {/* Protected Dashboard Routes */}
-      <Route 
-        path="/dashboard" 
-        element={
-          <ProtectedRoute>
-            <DashboardPage />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/profile" 
-        element={
-          <ProtectedRoute>
-            <ProfilePage />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/diagnostic" 
-        element={
-          <ProtectedRoute>
-            <DiagnosticPage />
-          </ProtectedRoute>
-        } 
-      />
-      
-      {/* ESG Pillar Pages - Protected by Diagnostic Completion */}
-      <Route 
-        path="/environmental" 
-        element={
-          <DiagnosticProtectedRoute>
-            <EnvironmentalPage />
-          </DiagnosticProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/social" 
-        element={
-          <DiagnosticProtectedRoute>
-            <SocialPage />
-          </DiagnosticProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/governance" 
-        element={
-          <DiagnosticProtectedRoute>
-            <GovernancePage />
-          </DiagnosticProtectedRoute>
-        } 
-      />
+    <Suspense fallback={<PageLoader />}>
+      <Routes>
+        {/* Public Landing Page */}
+        <Route path="/" element={<LandingPage />} />
+        
+        {/* Auth Pages - Redirect if already logged in */}
+        <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+        <Route path="/register" element={<PublicRoute><RegisterPage /></PublicRoute>} />
+        
+        {/* Protected Dashboard Routes */}
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/profile" 
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/diagnostic" 
+          element={
+            <ProtectedRoute>
+              <DiagnosticPage />
+            </ProtectedRoute>
+          } 
+        />
+        
+        {/* ESG Pillar Pages - Protected by Diagnostic Completion */}
+        <Route 
+          path="/environmental" 
+          element={
+            <DiagnosticProtectedRoute>
+              <EnvironmentalPage />
+            </DiagnosticProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/social" 
+          element={
+            <DiagnosticProtectedRoute>
+              <SocialPage />
+            </DiagnosticProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/governance" 
+          element={
+            <DiagnosticProtectedRoute>
+              <GovernancePage />
+            </DiagnosticProtectedRoute>
+          } 
+        />
 
-      <Route 
-        path="/reports" 
-        element={
-          <ProtectedRoute>
-            <ReportsPage />
-          </ProtectedRoute>
-        } 
-      />
-      <Route 
-        path="/ranking" 
-        element={
-          <ProtectedRoute>
-            <RankingPage />
-          </ProtectedRoute>
-        } 
-      />
-      
-      {/* Catch-all - Redirect to landing or dashboard based on status */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        <Route 
+          path="/reports" 
+          element={
+            <ProtectedRoute>
+              <ReportsPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/ranking" 
+          element={
+            <ProtectedRoute>
+              <RankingPage />
+            </ProtectedRoute>
+          } 
+        />
+        
+        {/* Catch-all - Redirect to landing or dashboard based on status */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Suspense>
   );
 }
 

@@ -5,7 +5,8 @@ import { EvolutionChart } from '../components/dashboard/EvolutionChart';
 import { RecentMissions } from '../components/dashboard/RecentMissions';
 import { HeroJourney } from '../components/dashboard/HeroJourney';
 import { LevelUpModal, type Particle } from '../components/dashboard/LevelUpModal';
-import { Leaf, Users, Gavel, TrendingUp, TrendingDown, PlusCircle, Mail, CloudSync, Zap } from 'lucide-react';
+import { Leaf, Users, Gavel, PlusCircle, Mail, CloudSync, Zap } from 'lucide-react';
+import { BarChart, BadgeDelta } from '@tremor/react';
 import { useAuth } from '../context/useAuth';
 import { doc, getDoc, collection, query, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -17,7 +18,6 @@ export const DashboardPage: React.FC = () => {
   const [missions, setMissions] = useState<Mission[]>([]);
   const [loading, setLoading] = useState(true);
   
-  // Level Up State
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [newLevelInfo, setNewLevelInfo] = useState({ level: 1, name: 'Elementar' });
   const [particles, setParticles] = useState<Particle[]>([]);
@@ -27,7 +27,6 @@ export const DashboardPage: React.FC = () => {
       if (!user) return;
       
       try {
-        // Fetch User and Company
         const userDoc = await getDoc(doc(db, 'users', user.uid));
         if (userDoc.exists()) {
           const companyId = userDoc.data().companyId;
@@ -36,7 +35,6 @@ export const DashboardPage: React.FC = () => {
           if (companyDoc.exists()) {
             setCompany({ id: companyDoc.id, ...companyDoc.data() } as Company);
             
-            // Fetch Recent Missions
             const missionsQuery = query(
               collection(db, 'missions'),
               where('companyId', '==', companyId),
@@ -57,7 +55,6 @@ export const DashboardPage: React.FC = () => {
     fetchData();
   }, [user]);
 
-  // Mock data for chart if company has no evolutionData yet
   const chartData = company?.evolutionData || [
     { month: 'JAN', score: 45 },
     { month: 'FEV', score: 52 },
@@ -65,6 +62,13 @@ export const DashboardPage: React.FC = () => {
     { month: 'ABR', score: 61 },
     { month: 'MAI', score: 55 },
     { month: 'JUN', score: 67 },
+  ];
+
+  const goalsData = [
+    { name: 'Energia', 'Atingido': 85 },
+    { name: 'Resíduos', 'Atingido': 65 },
+    { name: 'Diversid.', 'Atingido': 45 },
+    { name: 'Ética', 'Atingido': 95 },
   ];
 
   const getLevelInfo = (xp: number) => {
@@ -84,7 +88,6 @@ export const DashboardPage: React.FC = () => {
     setCompany({ ...company, currentXP: newXP });
     
     if (newLevel.level > oldLevel) {
-      // Generate stable particles for the modal
       const newParticles = [...Array(20)].map((_, i) => ({
         id: i,
         left: `${Math.random() * 100}%`,
@@ -118,11 +121,11 @@ export const DashboardPage: React.FC = () => {
       />
 
       <div className="mb-8">
-        <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
+        <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100 uppercase">
           Olá, {user?.displayName || 'Mestre ESG'}! 👋
         </h2>
-        <p className="text-slate-500 dark:text-slate-400 mt-1">
-          Aqui está o panorama atual de impacto da <span className="text-primary font-bold">{company?.name}</span>.
+        <p className="text-slate-500 dark:text-slate-400 mt-1 font-bold uppercase text-[10px] tracking-widest opacity-70">
+          Panorama atual de impacto da <span className="text-primary font-black">{company?.name}</span>.
         </p>
       </div>
 
@@ -131,55 +134,61 @@ export const DashboardPage: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <Card variant="chunky">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Ambiental</span>
-            <div className="p-2 bg-environmental text-white rounded-lg chunky-shadow">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Ambiental</span>
+            <div className="p-2 bg-environmental text-white rounded-xl shadow-lg shadow-emerald-500/20">
               <Leaf size={20} />
             </div>
           </div>
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-3xl font-black text-slate-900 dark:text-slate-100">{company?.esgScores.environmental || 0}</p>
-              <p className="text-environmental text-[10px] font-black uppercase tracking-wider flex items-center gap-1 mt-1">
-                <TrendingUp size={14} /> +5.2% XP
-              </p>
+              <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores.environmental || 0}</p>
+              <div className="mt-2">
+                <BadgeDelta deltaType="moderateIncrease" className="font-black text-[10px] uppercase">
+                  +5.2% XP
+                </BadgeDelta>
+              </div>
             </div>
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Carbono</div>
+            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest opacity-50 italic">E-Score</div>
           </div>
         </Card>
 
         <Card variant="chunky">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Social</span>
-            <div className="p-2 bg-social text-white rounded-lg chunky-shadow">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Social</span>
+            <div className="p-2 bg-social text-white rounded-xl shadow-lg shadow-amber-500/20">
               <Users size={20} />
             </div>
           </div>
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-3xl font-black text-slate-900 dark:text-slate-100">{company?.esgScores.social || 0}</p>
-              <p className="text-rose-500 text-[10px] font-black uppercase tracking-wider flex items-center gap-1 mt-1">
-                <TrendingDown size={14} /> -1.5% XP
-              </p>
+              <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores.social || 0}</p>
+              <div className="mt-2">
+                <BadgeDelta deltaType="moderateDecrease" className="font-black text-[10px] uppercase">
+                  -1.5% XP
+                </BadgeDelta>
+              </div>
             </div>
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Pessoas</div>
+            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest opacity-50 italic">S-Score</div>
           </div>
         </Card>
 
         <Card variant="chunky">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Governança</span>
-            <div className="p-2 bg-governance text-white rounded-lg chunky-shadow">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Governança</span>
+            <div className="p-2 bg-governance text-white rounded-xl shadow-lg shadow-blue-500/20">
               <Gavel size={20} />
             </div>
           </div>
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-3xl font-black text-slate-900 dark:text-slate-100">{company?.esgScores.governance || 0}</p>
-              <p className="text-environmental text-[10px] font-black uppercase tracking-wider flex items-center gap-1 mt-1">
-                <TrendingUp size={14} /> +2.1% XP
-              </p>
+              <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores.governance || 0}</p>
+              <div className="mt-2">
+                <BadgeDelta deltaType="increase" className="font-black text-[10px] uppercase">
+                  +2.1% XP
+                </BadgeDelta>
+              </div>
             </div>
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Ética</div>
+            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest opacity-50 italic">G-Score</div>
           </div>
         </Card>
       </div>
@@ -188,27 +197,18 @@ export const DashboardPage: React.FC = () => {
         <EvolutionChart data={chartData} />
         
         <Card title="Recursos do Nível" subtitle="Metas batidas por categoria">
-          <div className="h-64 flex items-end justify-between px-4 gap-4">
-            {[
-              { label: 'Energia', val: 85, color: 'bg-primary' },
-              { label: 'Resíduos', val: 65, color: 'bg-primary' },
-              { label: 'Diversid.', val: 45, color: 'bg-rose-500' },
-              { label: 'Ética', val: 95, color: 'bg-primary' },
-            ].map((stat, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center gap-3">
-                <div className="w-full bg-slate-100 dark:bg-slate-800 rounded-t-xl relative h-48 overflow-hidden">
-                  <div 
-                    className={`absolute bottom-0 w-full ${stat.color} opacity-20 rounded-t-xl transition-all duration-1000`} 
-                    style={{ height: `${stat.val}%` }}
-                  />
-                  <div 
-                    className={`absolute bottom-[${stat.val}%] w-full border-t-2 ${stat.color.replace('bg-', 'border-')}`}
-                    style={{ bottom: `${stat.val}%` }}
-                  />
-                </div>
-                <span className="text-[10px] font-black uppercase tracking-tighter text-slate-400">{stat.label}</span>
-              </div>
-            ))}
+          <div className="h-72 mt-4">
+            <BarChart
+              className="h-full"
+              data={goalsData}
+              index="name"
+              categories={['Atingido']}
+              colors={['emerald']}
+              valueFormatter={(number: number) => `${number}%`}
+              showAnimation={true}
+              showLegend={false}
+              yAxisWidth={40}
+            />
           </div>
         </Card>
       </div>
@@ -222,51 +222,51 @@ export const DashboardPage: React.FC = () => {
           <div className="space-y-4">
             <button 
               onClick={handleSimulateXP}
-              className="w-full p-4 flex items-center gap-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-left group"
+              className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group"
             >
-              <div className="w-12 h-12 rounded-xl bg-yellow-500/10 text-yellow-500 flex items-center justify-center group-hover:bg-yellow-500 group-hover:text-white transition-all">
+              <div className="w-12 h-12 rounded-xl bg-yellow-500/10 text-yellow-500 flex items-center justify-center group-hover:bg-yellow-500 group-hover:text-white transition-all shadow-sm">
                 <Zap size={24} />
               </div>
               <div>
-                <p className="font-bold text-sm text-slate-900 dark:text-slate-100">Simular Progresso</p>
-                <p className="text-xs text-slate-500">+500 XP (Teste Level Up)</p>
+                <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Simular Progresso</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">+500 XP (Teste Level Up)</p>
               </div>
             </button>
 
-            <button className="w-full p-4 flex items-center gap-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-left group">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
+            <button className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
                 <PlusCircle size={24} />
               </div>
               <div>
-                <p className="font-bold text-sm text-slate-900 dark:text-slate-100">Novo Lançamento</p>
-                <p className="text-xs text-slate-500">Métricas de emissão ou sociais</p>
+                <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Novo Lançamento</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Métricas de emissão ou sociais</p>
               </div>
             </button>
-            <button className="w-full p-4 flex items-center gap-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-left group">
-              <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-all">
+            <button className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group">
+              <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-all shadow-sm">
                 <Mail size={24} />
               </div>
               <div>
-                <p className="font-bold text-sm text-slate-900 dark:text-slate-100">Enviar Relatório</p>
-                <p className="text-xs text-slate-500">Sumário trimestral automático</p>
+                <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Enviar Relatório</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Sumário trimestral automático</p>
               </div>
             </button>
-            <button className="w-full p-4 flex items-center gap-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-left group">
-              <div className="w-12 h-12 rounded-xl bg-slate-500/10 text-slate-500 flex items-center justify-center group-hover:bg-slate-500 group-hover:text-white transition-all">
+            <button className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group">
+              <div className="w-12 h-12 rounded-xl bg-slate-500/10 text-slate-500 flex items-center justify-center group-hover:bg-slate-500 group-hover:text-white transition-all shadow-sm">
                 <CloudSync size={24} />
               </div>
               <div>
-                <p className="font-bold text-sm text-slate-900 dark:text-slate-100">Sincronizar APIs</p>
-                <p className="text-xs text-slate-500">GRI, SASB e TCFD</p>
+                <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Sincronizar APIs</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">GRI, SASB e TCFD</p>
               </div>
             </button>
             
-            <div className="mt-6 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Status do Sistema</p>
-              <div className="flex items-center justify-between text-xs font-bold">
+            <div className="mt-6 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Status do Sistema</p>
+              <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-[0.2em]">
                 <span className="flex items-center gap-2 text-emerald-600">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> 
-                  Conectado ao Firebase
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span> 
+                  Connected
                 </span>
                 <span className="font-mono text-slate-400">V2.4.0</span>
               </div>
