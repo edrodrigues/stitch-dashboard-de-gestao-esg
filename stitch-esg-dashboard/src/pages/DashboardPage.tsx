@@ -3,7 +3,9 @@ import { Card } from '../components/ui/Card';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { EvolutionChart } from '../components/dashboard/EvolutionChart';
 import { RecentMissions } from '../components/dashboard/RecentMissions';
-import { Leaf, Users, Gavel, TrendingUp, TrendingDown, PlusCircle, Mail, CloudSync } from 'lucide-react';
+import { HeroJourney } from '../components/dashboard/HeroJourney';
+import { LevelUpModal } from '../components/dashboard/LevelUpModal';
+import { Leaf, Users, Gavel, TrendingUp, TrendingDown, PlusCircle, Mail, CloudSync, Zap } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { doc, getDoc, collection, query, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -14,6 +16,10 @@ export const DashboardPage: React.FC = () => {
   const [company, setCompany] = useState<Company | null>(null);
   const [missions, setMissions] = useState<Mission[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  // Level Up State
+  const [showLevelUp, setShowLevelUp] = useState(false);
+  const [newLevelInfo, setNewLevelInfo] = useState({ level: 1, name: 'Elementar' });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,6 +66,28 @@ export const DashboardPage: React.FC = () => {
     { month: 'JUN', score: 67 },
   ];
 
+  const getLevelInfo = (xp: number) => {
+    if (xp >= 4000) return { level: 5, name: 'Transformador' };
+    if (xp >= 3000) return { level: 4, name: 'Proativo' };
+    if (xp >= 2000) return { level: 3, name: 'Engajado' };
+    if (xp >= 1000) return { level: 2, name: 'Consciente' };
+    return { level: 1, name: 'Elementar' };
+  };
+
+  const handleSimulateXP = () => {
+    if (!company) return;
+    const newXP = company.currentXP + 500;
+    const oldLevel = getLevelInfo(company.currentXP).level;
+    const newLevel = getLevelInfo(newXP);
+    
+    setCompany({ ...company, currentXP: newXP });
+    
+    if (newLevel.level > oldLevel) {
+      setNewLevelInfo(newLevel);
+      setShowLevelUp(true);
+    }
+  };
+
   if (loading) {
     return (
       <DashboardLayout>
@@ -72,6 +100,13 @@ export const DashboardPage: React.FC = () => {
 
   return (
     <DashboardLayout>
+      <LevelUpModal 
+        isOpen={showLevelUp} 
+        onClose={() => setShowLevelUp(false)} 
+        level={newLevelInfo.level} 
+        levelName={newLevelInfo.name} 
+      />
+
       <div className="mb-8">
         <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">
           Olá, {user?.displayName || 'Mestre ESG'}! 👋
@@ -81,58 +116,60 @@ export const DashboardPage: React.FC = () => {
         </p>
       </div>
 
+      <HeroJourney currentXP={company?.currentXP || 0} />
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card>
+        <Card variant="chunky">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Meio Ambiente</span>
-            <div className="p-2 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-lg">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Ambiental</span>
+            <div className="p-2 bg-environmental text-white rounded-lg chunky-shadow">
               <Leaf size={20} />
             </div>
           </div>
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-3xl font-black text-slate-900 dark:text-slate-100">{company?.esgScores.environmental || 0}/100</p>
-              <p className="text-emerald-600 text-sm font-bold flex items-center gap-1 mt-1">
-                <TrendingUp size={16} /> +5.2%
+              <p className="text-3xl font-black text-slate-900 dark:text-slate-100">{company?.esgScores.environmental || 0}</p>
+              <p className="text-environmental text-[10px] font-black uppercase tracking-wider flex items-center gap-1 mt-1">
+                <TrendingUp size={14} /> +5.2% XP
               </p>
             </div>
-            <div className="text-xs text-slate-400 italic">Carbono & Energia</div>
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Carbono</div>
           </div>
         </Card>
 
-        <Card>
+        <Card variant="chunky">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Impacto Social</span>
-            <div className="p-2 bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-lg">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Social</span>
+            <div className="p-2 bg-social text-white rounded-lg chunky-shadow">
               <Users size={20} />
             </div>
           </div>
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-3xl font-black text-slate-900 dark:text-slate-100">{company?.esgScores.social || 0}/100</p>
-              <p className="text-rose-600 text-sm font-bold flex items-center gap-1 mt-1">
-                <TrendingDown size={16} /> -1.5%
+              <p className="text-3xl font-black text-slate-900 dark:text-slate-100">{company?.esgScores.social || 0}</p>
+              <p className="text-rose-500 text-[10px] font-black uppercase tracking-wider flex items-center gap-1 mt-1">
+                <TrendingDown size={14} /> -1.5% XP
               </p>
             </div>
-            <div className="text-xs text-slate-400 italic">Pessoas & Cultura</div>
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Pessoas</div>
           </div>
         </Card>
 
-        <Card>
+        <Card variant="chunky">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-sm font-bold text-slate-500 uppercase tracking-wider">Governança</span>
-            <div className="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg">
+            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Governança</span>
+            <div className="p-2 bg-governance text-white rounded-lg chunky-shadow">
               <Gavel size={20} />
             </div>
           </div>
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-3xl font-black text-slate-900 dark:text-slate-100">{company?.esgScores.governance || 0}/100</p>
-              <p className="text-emerald-600 text-sm font-bold flex items-center gap-1 mt-1">
-                <TrendingUp size={16} /> +2.1%
+              <p className="text-3xl font-black text-slate-900 dark:text-slate-100">{company?.esgScores.governance || 0}</p>
+              <p className="text-environmental text-[10px] font-black uppercase tracking-wider flex items-center gap-1 mt-1">
+                <TrendingUp size={14} /> +2.1% XP
               </p>
             </div>
-            <div className="text-xs text-slate-400 italic">Ética & Transparência</div>
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Ética</div>
           </div>
         </Card>
       </div>
@@ -173,6 +210,19 @@ export const DashboardPage: React.FC = () => {
         
         <Card title="Ações Rápidas">
           <div className="space-y-4">
+            <button 
+              onClick={handleSimulateXP}
+              className="w-full p-4 flex items-center gap-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-left group"
+            >
+              <div className="w-12 h-12 rounded-xl bg-yellow-500/10 text-yellow-500 flex items-center justify-center group-hover:bg-yellow-500 group-hover:text-white transition-all">
+                <Zap size={24} />
+              </div>
+              <div>
+                <p className="font-bold text-sm text-slate-900 dark:text-slate-100">Simular Progresso</p>
+                <p className="text-xs text-slate-500">+500 XP (Teste Level Up)</p>
+              </div>
+            </button>
+
             <button className="w-full p-4 flex items-center gap-4 rounded-2xl border border-slate-100 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all text-left group">
               <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
                 <PlusCircle size={24} />

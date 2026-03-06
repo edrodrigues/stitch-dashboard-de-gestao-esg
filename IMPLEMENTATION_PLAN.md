@@ -45,15 +45,16 @@ Este documento detalha o plano passo a passo para transformar os protótipos est
 *   [x] Lógica de cálculo: Atualizar o Score ESG e XP da empresa ao finalizar seções.
 *   [x] Geração automática de missões baseada nas respostas.
 
-### Fase 4: Jornada do Herói e Gamificação [PRÓXIMO]
-*   [ ] Criar o componente visual da jornada (Step Indicator horizontal).
-*   [ ] Lógica de Levels: `level = Math.floor(currentXP / 1000)`.
-*   [ ] Animações de "Level Up" e notificações de conquistas.
+### Phase 4: Jornada do Herói e Gamificação [CONCLUÍDO]
+*   [x] Criar o componente visual da jornada (Step Indicator horizontal).
+*   [x] Lógica de Levels: `level = Math.floor(currentXP / 1000)`.
+*   [x] Animações de "Level Up" e notificações de conquistas.
 
-### Fase 5: Ranking de Mestres
+### Fase 5: Ranking de Mestres [PRÓXIMO]
 *   [ ] Criar query no Firestore para listar empresas ordenadas por XP.
 *   [ ] Implementar filtros por Indústria e Região.
 *   [ ] Destaque visual para a posição da empresa logada no ranking.
+
 
 ## 5. Funcionalidades Avançadas
 *   [ ] **Exportação de PDF:** Usar `jspdf` para gerar relatórios baseados nos dados.

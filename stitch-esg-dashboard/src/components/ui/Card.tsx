@@ -6,6 +6,7 @@ interface CardProps {
   title?: string;
   subtitle?: string;
   headerAction?: React.ReactNode;
+  variant?: 'default' | 'chunky';
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -14,9 +15,16 @@ export const Card: React.FC<CardProps> = ({
   title,
   subtitle,
   headerAction,
+  variant = 'default',
 }) => {
+  const baseStyles = 'bg-white dark:bg-slate-900 rounded-xl overflow-hidden transition-all';
+  const variants = {
+    default: 'border border-slate-200 dark:border-slate-800 shadow-sm',
+    chunky: 'chunky-card',
+  };
+
   return (
-    <div className={`bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden ${className}`}>
+    <div className={`${baseStyles} ${variants[variant]} ${className}`}>
       {(title || subtitle || headerAction) && (
         <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
           <div>

@@ -23,14 +23,14 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col fixed h-full z-50">
+    <aside className="w-72 bg-slate-900 dark:bg-nav-dark border-r-4 border-primary/20 flex flex-col fixed h-full z-50">
       <div className="p-6 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-slate-900">
+        <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-slate-900 chunky-shadow">
           <LeafyGreen size={24} />
         </div>
         <div>
-          <h1 className="text-lg font-bold leading-tight uppercase tracking-wider text-slate-900 dark:text-slate-100">GUIA ESG</h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400">Painel de Controle</p>
+          <h1 className="text-lg font-black leading-tight uppercase tracking-tighter text-white">GUIA ESG</h1>
+          <p className="text-[10px] font-black uppercase tracking-widest text-primary">Painel de Herói</p>
         </div>
       </div>
 
@@ -40,20 +40,20 @@ export const Sidebar: React.FC = () => {
             key={item.path}
             to={item.path}
             className={({ isActive }) => `
-              flex items-center gap-3 px-4 py-3 rounded-xl transition-colors font-medium
+              flex items-center gap-3 px-4 py-3 rounded-xl transition-all font-black uppercase text-xs tracking-widest
               ${isActive 
-                ? 'bg-primary/10 text-primary font-bold' 
-                : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100'}
+                ? 'bg-primary text-slate-900 chunky-shadow translate-x-1' 
+                : 'text-slate-400 hover:bg-slate-800 hover:text-white'}
             `}
           >
-            <item.icon size={20} />
+            <item.icon size={18} />
             <span>{item.label}</span>
           </NavLink>
         ))}
       </nav>
 
-      <div className="p-4 border-t border-slate-200 dark:border-slate-800">
-        <Button className="w-full gap-2">
+      <div className="p-4 border-t border-slate-800">
+        <Button variant="chunky" className="w-full gap-2">
           <Download size={18} />
           <span>Exportar Dados</span>
         </Button>
