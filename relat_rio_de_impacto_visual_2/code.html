@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GUIA ESG BRASIL - Relatório de Impacto</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#20B2AA",
+                        "background-light": "#f0fcf9",
+                        "background-dark": "#0d1f1b",
+                        "accent": "#ff7f50",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "1.5rem", "xl": "2rem", "full": "9999px"},
+                },
+            },
+        }</script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-size: 20px; vertical-align: middle; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-300">
+<div class="relative flex min-h-screen w-full flex-col">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 md:px-20 py-4">
+<div class="flex items-center justify-between mx-auto max-w-[1400px]">
+<div class="flex items-center gap-3">
+<div class="bg-primary p-2 rounded-lg text-white">
+<span class="material-symbols-outlined text-2xl">eco</span>
+</div>
+<h2 class="text-slate-900 dark:text-slate-100 text-xl font-bold tracking-tight">GUIA ESG BRASIL</h2>
+</div>
+<nav class="hidden md:flex items-center gap-8"><a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-bold transition-colors" href="#">Painel</a>
+<a class="text-primary text-sm font-bold border-b-4 border-primary pb-1" href="#">Relatórios</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-bold transition-colors" href="#">Comparativos</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-bold transition-colors" href="#">Estratégia</a></nav>
+<div class="flex items-center gap-4">
+<button class="p-2 rounded-full hover:bg-primary/10 text-slate-600 dark:text-slate-400 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full border-2 border-primary/20 bg-cover bg-center overflow-hidden" data-alt="User profile avatar portrait" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCe5PZOdx5K7fKYDGNFkEU-m3zmSWWhIbm-25KrY8uaIppcnBeuasgqYDyUa-wbxZk8racZNDlhFuTKQaZQJemsquC_rqJLFrjiUcH_Ht5TcB5JSiU17gJhNcT1NmcAMXw2sAoq4WQTnsh_Uh8vfiTpmjLWgXPLcYRsR76Y89UsySoVZCo9HWi15l4ANNrkBrh2mSZtq3y6KJo5NHR4uDPhsgtB1vr9R4lZ1GA_qyCFDyZgJkPCpvInwTIqUz0MMoISpi3-mleHV6bo')">
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 w-full max-w-[1400px] mx-auto px-6 md:px-20 py-8 bg-emerald-50/30">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10">
+<div class="max-w-2xl"><div class="flex items-center gap-2 text-primary font-black text-sm uppercase tracking-widest mb-2">
+<span class="material-symbols-outlined text-sm">stars</span>
+                        Desempenho Anual
+                    </div>
+<h1 class="text-4xl md:text-6xl font-black text-slate-900 dark:text-slate-100 leading-tight">Relatório de Impacto ESG 2023</h1>
+<p class="mt-4 text-slate-600 dark:text-slate-400 text-lg leading-relaxed font-medium">
+                        Uma jornada visual pelas nossas pegadas ambientais, iniciativas sociais e padrões de governança em todo o Brasil.
+                    </p></div>
+<div class="flex flex-wrap gap-3"><button class="flex items-center gap-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 px-5 py-3 rounded-2xl font-black text-sm border-2 border-slate-200 transition-all hover:bg-slate-50">
+<span class="material-symbols-outlined">database</span>
+                        Dados CSV
+                    </button>
+<button class="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-2xl font-black text-sm shadow-xl shadow-primary/30 transition-all hover:scale-105 active:scale-95" innerhtml='&lt;span class="material-symbols-outlined"&gt;picture_as_pdf&lt;/span&gt; Baixar Livro de Impacto (PDF)'>
+<span class="material-symbols-outlined">auto_stories</span>
+                        Baixar Livro de Impacto
+                    </button></div>
+</div>
+<!-- Dashboard Navigation -->
+<div class="flex items-center p-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-2xl mb-8 w-fit"><button class="px-6 py-2 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 font-black text-sm">Meio Ambiente</button>
+<button class="px-6 py-2 rounded-xl text-slate-500 dark:text-slate-400 font-bold text-sm hover:text-primary transition-colors">Social</button>
+<button class="px-6 py-2 rounded-xl text-slate-500 dark:text-slate-400 font-bold text-sm hover:text-primary transition-colors">Governança</button>
+<button class="px-6 py-2 rounded-xl text-slate-500 dark:text-slate-400 font-bold text-sm hover:text-primary transition-colors">Suprimentos</button></div>
+<!-- Summary Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"><div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border-4 border-primary/20 shadow-xl relative overflow-hidden group hover:border-primary transition-colors">
+<div class="absolute -top-4 -right-4 p-6 opacity-20 group-hover:opacity-40 transition-opacity rotate-12">
+<span class="material-symbols-outlined text-8xl text-primary">eco</span>
+</div>
+<p class="text-primary font-black uppercase text-xs mb-2">Missão 01</p>
+<p class="text-slate-500 dark:text-slate-400 font-bold mb-1">Redução de Carbono</p>
+<h3 class="text-4xl font-black text-slate-900 dark:text-slate-100 mb-4">1.240 <span class="text-lg font-bold text-slate-400">Toneladas</span></h3>
+<div class="flex items-center gap-2 text-white font-black bg-primary px-4 py-1.5 rounded-full text-xs">
+<span class="material-symbols-outlined text-xs">bolt</span>
+                        +12.4% vs ano anterior
+                    </div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border-4 border-primary/20 shadow-xl relative overflow-hidden group hover:border-primary transition-colors">
+<div class="absolute -top-4 -right-4 p-6 opacity-20 group-hover:opacity-40 transition-opacity -rotate-12">
+<span class="material-symbols-outlined text-8xl text-primary">electric_bolt</span>
+</div>
+<p class="text-primary font-black uppercase text-xs mb-2">Missão 02</p>
+<p class="text-slate-500 dark:text-slate-400 font-bold mb-1">Energia Renovável</p>
+<h3 class="text-4xl font-black text-slate-900 dark:text-slate-100 mb-4">85.2%</h3>
+<div class="flex items-center gap-2 text-white font-black bg-primary px-4 py-1.5 rounded-full text-xs">
+<span class="material-symbols-outlined text-xs">target</span>
+                        Meta: 90% até 2025
+                    </div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border-4 border-primary/20 shadow-xl relative overflow-hidden group hover:border-primary transition-colors">
+<div class="absolute -top-4 -right-4 p-6 opacity-20 group-hover:opacity-40 transition-opacity rotate-45">
+<span class="material-symbols-outlined text-8xl text-primary">cyclone</span>
+</div>
+<p class="text-primary font-black uppercase text-xs mb-2">Missão 03</p>
+<p class="text-slate-500 dark:text-slate-400 font-bold mb-1">Resíduos Desviados</p>
+<h3 class="text-4xl font-black text-slate-900 dark:text-slate-100 mb-4">92.0%</h3>
+<div class="flex items-center gap-2 text-white font-black bg-primary px-4 py-1.5 rounded-full text-xs">
+<span class="material-symbols-outlined text-xs">verified</span>
+                        Grau A+ de Desempenho
+                    </div>
+</div></div>
+<!-- Visualization & Details -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+<!-- Main Chart Area -->
+<div class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-3xl border border-primary/10 p-8 shadow-sm"><div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="text-2xl font-black text-slate-900 dark:text-slate-100">Nossa Jornada de Carbono</h4>
+<p class="text-slate-500 font-bold">kg CO2e por receita em BRL</p>
+</div>
+<select class="bg-primary/10 border-none rounded-2xl text-sm font-black text-primary px-4 py-2 focus:ring-primary">
+<option>Últimos 12 Meses</option>
+<option>Últimos 2 Anos</option>
+</select>
+</div>
+<div class="h-64 flex items-end justify-between gap-3 px-2">
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary/20 rounded-full h-[60%] hover:bg-primary transition-all cursor-pointer relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">0.42</div>
+</div>
+<span class="text-[10px] text-slate-400 font-black">JAN</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary/20 rounded-full h-[55%] hover:bg-primary transition-all cursor-pointer relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">0.38</div>
+</div>
+<span class="text-[10px] text-slate-400 font-black">FEV</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary/20 rounded-full h-[45%] hover:bg-primary transition-all cursor-pointer relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">0.31</div>
+</div>
+<span class="text-[10px] text-slate-400 font-black">MAR</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary/30 rounded-full h-[75%] hover:bg-primary transition-all cursor-pointer relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">0.52</div>
+</div>
+<span class="text-[10px] text-slate-400 font-black">ABR</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary/20 rounded-full h-[40%] hover:bg-primary transition-all cursor-pointer relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">0.28</div>
+</div>
+<span class="text-[10px] text-slate-400 font-black">MAI</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary rounded-full h-[30%] hover:scale-110 transition-all cursor-pointer relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">0.21</div>
+</div>
+<span class="text-[10px] text-primary font-black">JUN</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary/20 rounded-full h-[50%] hover:bg-primary transition-all cursor-pointer relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">0.35</div>
+</div>
+<span class="text-[10px] text-slate-400 font-black">JUL</span>
+</div>
+<div class="flex-1 flex flex-col items-center gap-2">
+<div class="w-full bg-primary/20 rounded-full h-[42%] hover:bg-primary transition-all cursor-pointer relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-xs font-bold px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg">0.29</div>
+</div>
+<span class="text-[10px] text-slate-400 font-black">AGO</span>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl border-2 border-slate-100 dark:border-slate-700">
+<p class="text-[10px] uppercase font-black text-slate-400 mb-1">Escopo 1</p>
+<p class="text-sm font-black text-slate-700 dark:text-slate-200">120 tCO2e</p>
+</div>
+<div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl border-2 border-slate-100 dark:border-slate-700">
+<p class="text-[10px] uppercase font-black text-slate-400 mb-1">Escopo 2</p>
+<p class="text-sm font-black text-slate-700 dark:text-slate-200">450 tCO2e</p>
+</div>
+<div class="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl border-2 border-slate-100 dark:border-slate-700">
+<p class="text-[10px] uppercase font-black text-slate-400 mb-1">Escopo 3</p>
+<p class="text-sm font-black text-slate-700 dark:text-slate-200">670 tCO2e</p>
+</div>
+<div class="p-4 bg-primary/10 rounded-2xl border-2 border-primary/20">
+<p class="text-[10px] uppercase font-black text-primary mb-1">Compensação</p>
+<p class="text-sm font-black text-primary">-200 tCO2e</p>
+</div>
+</div></div>
+<!-- Qualitative Statements -->
+<div class="flex flex-col gap-6">
+<div class="bg-primary/5 dark:bg-primary/10 border border-primary/20 p-6 rounded-3xl h-full"><h4 class="text-2xl font-black text-slate-900 dark:text-slate-100 mb-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-3xl">emoji_events</span>
+                            Resumo Estratégico
+                        </h4>
+<div class="space-y-6"><div class="bg-white dark:bg-slate-900 rounded-[2rem] border-4 border-primary/10 p-6 flex items-center justify-between group cursor-pointer hover:border-primary transition-all hover:translate-x-2">
+<div class="flex items-center gap-4">
+<div class="h-14 w-14 rounded-2xl bg-primary/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">water_drop</span>
+</div>
+<div>
+<h5 class="font-black text-slate-900 dark:text-slate-100">Consumo de Água</h5>
+<p class="text-sm font-medium text-slate-500">22% de redução em processos intensivos</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-[2rem] border-4 border-primary/10 p-6 flex items-center justify-between group cursor-pointer hover:border-primary transition-all hover:translate-x-2">
+<div class="flex items-center gap-4">
+<div class="h-14 w-14 rounded-2xl bg-primary/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">diversity_3</span>
+</div>
+<div>
+<h5 class="font-black text-slate-900 dark:text-slate-100">Inclusão Social</h5>
+<p class="text-sm font-medium text-slate-500">45% de mulheres em cargos de liderança</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div>
+<div class="bg-white dark:bg-slate-900 rounded-[2rem] border-4 border-primary/10 p-6 flex items-center justify-between group cursor-pointer hover:border-primary transition-all hover:translate-x-2">
+<div class="flex items-center gap-4">
+<div class="h-14 w-14 rounded-2xl bg-primary/20 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl">balance</span>
+</div>
+<div>
+<h5 class="font-black text-slate-900 dark:text-slate-100">Ética e Conformidade</h5>
+<p class="text-sm font-medium text-slate-500">100% da equipe treinada contra corrupção</p>
+</div>
+</div>
+<span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</div></div>
+<button class="w-full mt-8 py-4 bg-primary/10 text-primary font-black text-sm rounded-2xl hover:bg-primary hover:text-white transition-all border-2 border-primary/20">
+                            Ver Nossa Metodologia
+                        </button></div>
+</div>
+</div>
+<!-- Regional Impact Map & Stats -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+<div class="bg-white dark:bg-slate-900 rounded-3xl border border-primary/10 p-8 shadow-sm flex flex-col">
+<h4 class="text-xl font-bold text-slate-900 dark:text-slate-100 mb-6" innertext="Performance ESG por Região">Distribuição ESG Regional</h4>
+<div class="relative h-64 w-full bg-slate-100 dark:bg-slate-800 rounded-2xl overflow-hidden mb-6 flex items-center justify-center shadow-inner">
+<div class="absolute inset-0 opacity-50 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&amp;w=800&amp;auto=format&amp;fit=crop')]" data-alt="Abstract map of Brazil regions" data-location="Brazil" style="filter: hue-rotate(120deg) saturate(1.5);"></div>
+<div class="relative z-10 grid grid-cols-2 gap-4"><div class="bg-white/95 dark:bg-slate-900/95 p-4 rounded-2xl border-2 border-primary shadow-2xl transition-transform hover:scale-110">
+<p class="text-[10px] font-black text-slate-500 uppercase tracking-tighter">Sudeste</p>
+<p class="text-2xl font-black text-primary">A+</p>
+</div>
+<div class="bg-white/95 dark:bg-slate-900/95 p-4 rounded-2xl border-2 border-primary shadow-2xl transition-transform hover:scale-110">
+<p class="text-[10px] font-black text-slate-500 uppercase tracking-tighter">Sul</p>
+<p class="text-2xl font-black text-primary">A</p>
+</div>
+<div class="bg-white/95 dark:bg-slate-900/95 p-4 rounded-2xl border-2 border-accent/50 shadow-2xl transition-transform hover:scale-110">
+<p class="text-[10px] font-black text-slate-500 uppercase tracking-tighter">Centro-Oeste</p>
+<p class="text-2xl font-black text-accent">B+</p>
+</div>
+<div class="bg-white/95 dark:bg-slate-900/95 p-4 rounded-2xl border-2 border-primary shadow-2xl transition-transform hover:scale-110">
+<p class="text-[10px] font-black text-slate-500 uppercase tracking-tighter">Norte/NE</p>
+<p class="text-2xl font-black text-primary">A-</p>
+</div></div>
+</div>
+</div>
+<div class="space-y-6"><div class="grid grid-cols-2 gap-4 h-full">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-primary/10 shadow-sm flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-primary mb-2">recycling</span>
+<p class="text-xs font-black text-slate-400 uppercase">Taxa de Reciclagem</p>
+</div>
+<h5 class="text-3xl font-black text-slate-900 dark:text-slate-100">78%</h5>
+<p class="text-[10px] text-primary font-bold">+5% desde o Q1</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-primary/10 shadow-sm flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-primary mb-2">energy_savings_leaf</span>
+<p class="text-xs font-black text-slate-400 uppercase">Ecoeficiência</p>
+</div>
+<h5 class="text-3xl font-black text-slate-900 dark:text-slate-100">92/100</h5>
+<p class="text-[10px] text-primary font-bold">Líder do Setor</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-primary/10 shadow-sm flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-primary mb-2">groups</span>
+<p class="text-xs font-black text-slate-400 uppercase">Engajamento</p>
+</div>
+<h5 class="text-3xl font-black text-slate-900 dark:text-slate-100">84%</h5>
+<p class="text-[10px] text-primary font-bold">Score de Clima</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-primary/10 shadow-sm flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-primary mb-2">gavel</span>
+<p class="text-xs font-black text-slate-400 uppercase">Compliance</p>
+</div>
+<h5 class="text-3xl font-black text-slate-900 dark:text-slate-100">100%</h5>
+<p class="text-[10px] text-primary font-bold">Zero Incidentes</p>
+</div>
+</div></div>
+</div>
+<!-- Footer Info -->
+<div class="border-t border-primary/10 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-500 text-xs gap-4">
+<p>© 2023 GUIA ESG BRASIL. Reporting verified by Bureau Veritas.</p>
+<div class="flex items-center gap-6">
+<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="#">Data Transparency</a>
+<a class="hover:text-primary transition-colors" href="#">Help Center</a>
+</div>
+</div>
+</main>
+</div>
+</body></html>
