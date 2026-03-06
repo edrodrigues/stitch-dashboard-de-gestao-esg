@@ -4,7 +4,6 @@ import {
   LeafyGreen, 
   ArrowRight, 
   ShieldCheck, 
-  BarChart3, 
   Users, 
   Globe, 
   Zap,

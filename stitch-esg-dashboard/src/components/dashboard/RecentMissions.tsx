@@ -1,11 +1,10 @@
 import React from 'react';
 import { Card } from '../ui/Card';
-import { Mission } from '../../types';
+import { type Mission } from '../../types';
 import { CheckCircle2, Clock, AlertCircle } from 'lucide-react';
 
 interface RecentMissionsProps {
   missions: Mission[];
-  loading?: boolean;
 }
 
 const statusConfig = {
@@ -20,7 +19,7 @@ const typeIconStyles = {
   G: 'bg-blue-100 text-blue-600',
 };
 
-export const RecentMissions: React.FC<RecentMissionsProps> = ({ missions, loading }) => {
+export const RecentMissions: React.FC<RecentMissionsProps> = ({ missions }) => {
   return (
     <Card title="Missões Recentes" headerAction={<button className="text-sm text-primary font-bold hover:underline">Ver Todas</button>}>
       <div className="overflow-x-auto -mx-6">

@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { diagnosticQuestions, Question } from '../data/questions';
+import { diagnosticQuestions } from '../data/questions';
 import { useAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
-import { ArrowLeft, ArrowRight, CheckCircle2, Save } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 export const DiagnosticPage: React.FC = () => {
   const { user } = useAuth();

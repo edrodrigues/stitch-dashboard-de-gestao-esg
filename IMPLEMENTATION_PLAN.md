@@ -46,7 +46,7 @@ Este documento detalha o plano passo a passo para transformar os protótipos est
 *   [x] Geração automática de missões baseada nas respostas.
 
 ### Fase 4: Jornada do Herói e Gamificação [PRÓXIMO]
-*   [ ] Criar o componente visual da jornada (Step Indicator vertical/curvo).
+*   [ ] Criar o componente visual da jornada (Step Indicator horizontal).
 *   [ ] Lógica de Levels: `level = Math.floor(currentXP / 1000)`.
 *   [ ] Animações de "Level Up" e notificações de conquistas.
 
