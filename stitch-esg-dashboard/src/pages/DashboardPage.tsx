@@ -141,7 +141,7 @@ export const DashboardPage: React.FC = () => {
           </div>
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores.environmental || 0}</p>
+              <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores?.environmental || 0}</p>
               <div className="mt-2">
                 <BadgeDelta deltaType="moderateIncrease" className="font-black text-[10px] uppercase">
                   +5.2% XP
@@ -161,7 +161,7 @@ export const DashboardPage: React.FC = () => {
           </div>
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores.social || 0}</p>
+              <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores?.social || 0}</p>
               <div className="mt-2">
                 <BadgeDelta deltaType="moderateDecrease" className="font-black text-[10px] uppercase">
                   -1.5% XP
@@ -181,7 +181,7 @@ export const DashboardPage: React.FC = () => {
           </div>
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores.governance || 0}</p>
+              <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores?.governance || 0}</p>
               <div className="mt-2">
                 <BadgeDelta deltaType="increase" className="font-black text-[10px] uppercase">
                   +2.1% XP

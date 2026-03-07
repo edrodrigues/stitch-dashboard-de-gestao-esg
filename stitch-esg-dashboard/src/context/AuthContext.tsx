@@ -35,7 +35,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   useEffect(() => {
+    let isSubscribed = true;
+    
     const unsubscribe = onAuthStateChanged(auth, async (u) => {
+      if (!isSubscribed) return;
+      
       setUser(u);
       if (u) {
         await fetchDiagnosticStatus(u.uid);
@@ -45,7 +49,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setLoading(false);
     });
 
-    return unsubscribe;
+    return () => {
+      isSubscribed = false;
+      unsubscribe();
+    };
   }, [fetchDiagnosticStatus]);
 
   const signOut = () => firebaseSignOut(auth);

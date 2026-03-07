@@ -1,0 +1,200 @@
+,,,,,,,,,DESTAQUES,,
+TEMA,,PERGUNTA,COND.,TEMA MATERIAL,PONTOS,PESO,MENSAGEM,Relatório,PONTOS FORTES,PONTOS FRACOS,RECOMENDAÇÕES
+2. SGA,2.1,A sua empresa monitora e reporta indicadores ambientais?,,,,,,,,,
+,1,Não monitoramos.,,SIM,1,"0,5","
+",,,"Os indicadores ambientais precisam ser conhecidos e reportados, são tão importantes para o desempenho da sua empresa quanto números financeiros.","Organize um Sistema de Gestão Ambiental segundo a Norma ISO 14.001/2005 em sua empresa. 
+
+Um sistema de gestão ambiental (SGA) é um conjunto de políticas, procedimentos e práticas adotadas por uma organização para gerenciar e minimizar seu impacto ambiental. Ele visa promover a sustentabilidade ao integrar considerações ambientais nas operações diárias da empresa. 
+
+Um SGA geralmente inclui atividades como identificação e avaliação de impactos ambientais, estabelecimento de metas e objetivos ambientais, implementação de medidas de controle e monitoramento do desempenho ambiental. O objetivo final é reduzir a pegada ecológica da organização e promover práticas empresariais responsáveis em relação ao meio ambiente."
+,2,Monitoramos alguns indicadores ambientais. ,,SIM,2,"0,5",,,,,"Organize um Sistema de Gestão Ambiental segundo a Norma ISO 14.001/2005 em sua empresa. 
+
+Um sistema de gestão ambiental (SGA) é um conjunto de políticas, procedimentos e práticas adotadas por uma organização para gerenciar e minimizar seu impacto ambiental. Ele visa promover a sustentabilidade ao integrar considerações ambientais nas operações diárias da empresa. 
+
+Um SGA geralmente inclui atividades como identificação e avaliação de impactos ambientais, estabelecimento de metas e objetivos ambientais, implementação de medidas de controle e monitoramento do desempenho ambiental. O objetivo final é reduzir a pegada ecológica da organização e promover práticas empresariais responsáveis em relação ao meio ambiente."
+,3,"
+A empresa monitora seus indicadores ambientais e os reporta internamente.  ",,SIM,3,1,,,"Ótimo, conhecer o seu desempenho ambiental permite tomar decisões importantes rumo à sustentabilidade empresarial. ",,"Organize um Sistema de Gestão Ambiental segundo a Norma ISO 14.001/2005 em sua empresa. 
+
+Um sistema de gestão ambiental (SGA) é um conjunto de políticas, procedimentos e práticas adotadas por uma organização para gerenciar e minimizar seu impacto ambiental. Ele visa promover a sustentabilidade ao integrar considerações ambientais nas operações diárias da empresa. 
+
+Um SGA geralmente inclui atividades como identificação e avaliação de impactos ambientais, estabelecimento de metas e objetivos ambientais, implementação de medidas de controle e monitoramento do desempenho ambiental. O objetivo final é reduzir a pegada ecológica da organização e promover práticas empresariais responsáveis em relação ao meio ambiente."
+,4,A empresa monitora e possui metas estabelecidas para melhorar seu desempenho.,,SIM,4,2,,,,,"Organize um Sistema de Gestão Ambiental segundo a Norma ISO 14.001/2005 em sua empresa. 
+
+Um sistema de gestão ambiental (SGA) é um conjunto de políticas, procedimentos e práticas adotadas por uma organização para gerenciar e minimizar seu impacto ambiental. Ele visa promover a sustentabilidade ao integrar considerações ambientais nas operações diárias da empresa. 
+
+Um SGA geralmente inclui atividades como identificação e avaliação de impactos ambientais, estabelecimento de metas e objetivos ambientais, implementação de medidas de controle e monitoramento do desempenho ambiental. O objetivo final é reduzir a pegada ecológica da organização e promover práticas empresariais responsáveis em relação ao meio ambiente."
+,5,"A empresa monitora seus indicadores ambientais, possui um Sistema de Gestão Ambiental e já alcançou metas relevantes nesse setor.  ",,SIM,5,2,,,,,
+,2.2,Existe algum documento que aborde o posicionamento socioambiental ou a política ambiental da empresa? ,,,,,,,,,
+,1,Não,,,2,1,A missão socioambiental da empresa é um documento importante que deve estar divulgado em todos os materiais públicos da empresa. ,,,"O posicionamento socioambiental da empresa é super importante, serve para comunicar os seus compromissos com fornecedores, clientes e demais stakeholders.
+
+Deve estar divulgado em todos os materiais públicos da empresa. ",
+,2,Sim,"*
+abre a 2.3",,5,1,A missão socioambiental da empresa é um documento importante que deve estar divulgado em todos os materiais públicos da empresa. ,,,,
+,2.3,Descreva aqui o posicionamento socioambiental da empresa. ,,,,,,,,,
+,,[TEXTO CURTO],,,,,,RELATÓRIO DE IMPACTO,,,
+3. ENERGIA,3.1,Como a sua empresa monitora o consumo de energia?,,,,,,,,,
+,1,Não monitoramos.,"*
+Não abre a 3.2",SIM,1,"0,5","A indústria moveleira utiliza energia em várias etapas do processo de produção, desde a extração de matéria-prima até a fabricação, transporte e montagem dos móveis. Por isso, a energia é um dos impactos mais significativos.  ",,,Monitoramento de Energia,
+,2,"Monitoramos, mas não estabelecemos metas de redução.","*
+abre a 3.2",SIM,2,"0,5",,,,,
+,3,A empresa monitora e tem reduzido o seu consumo.,"*
+abre a 3.2",SIM,3,1,,,,,
+,4,Alcançamos as metas de redução no consumo no último ano fiscal.,"*
+abre a 3.2",SIM,4,2,,,,,
+,5,A empresa possui tecnologias verdes implementadas para diversificar suas fontes de fornecimento de energia.,"*
+abre a 3.2",SIM,5,2,,,,,
+,3.2,Consumo de energia no último ano fiscal?,,,,,,,,,
+,,"
+Kw",,,,,,RELATÓRIO DE IMPACTO,,,
+,3.3,Fontes de fornecimento de energia,,,,,,,,,
+,1,Fornecimento regular e geradores movidos à diesel eventualmente.,"*
+não abre a 3.4",SIM,1,"0,5","A energia é o impacto um dos impactos mais significativos para a indústria moveleira, por isso, adotar fontes renováveis e responsáveis é um dos pontos mais importantes desta avaliação. ",,,,
+,2,Fornecimento regular,"*
+não abre a 3.4",SIM,2,"0,5",,,,,
+,3,"
+Fornecimento regular e outras fontes ecoeficientes como energia solar. ","*
+abre a 3.4",SIM,3,1,,,,,
+,4,Energia adquirida no mercado livre,"*
+abre a 3.4",SIM,4,2,,,,,
+,5,"A empresa passou por uma transição energética, possui metas de redução ou transição para fontes ecoeficientes e geração própria de energia por biodigestão ou outras tecnologias verdes. ","*
+abre a 3.4",SIM,5,2,,,,,
+,3.4,Qual o percentual do fornecimento de energia é proveniente de fontes sustentáveis e ecoeficientes?,,,,,,,,,
+,,1) Menos de 10%,,,1,1,,,,,
+,,"
+2) 10%",,,2,1,,,,,
+,,3) 15%,,,3,1,,RELATÓRIO DE IMPACTO,,,
+,,4) 20%,,,4,1,,RELATÓRIO DE IMPACTO,,,
+,,5) + de 50%,,,5,1,,RELATÓRIO DE IMPACTO,,,
+4. ÁGUA E EFLUENTES,4.1,Como a sua empresa monitora o consumo de água?,,,,,,,,,
+,,1) Não monitoramos ainda.,"*
+não abre a 3.2",,1,1,,,,Não monitoramento do consumo de água. ,
+,,"2) Monitoramos, mas não estabelecemos metas de redução.","*
+abre a 3.2",,2,1,,,,,
+,,"
+3) A empresa monitora e tem reduzido o seu consumo.","*
+abre a 3.2",,3,1,,,,,
+,,4) Alcançamos as metas de redução no último ano fiscal.,"*
+abre a 3.2",,4,1,,,,,
+,,5) A empresa passou por uma transição e mais de 50% do consumo atual de água é proveniente de fontes ecoeficientes.,"*
+abre a 3.2",,5,1,,,Reuso de água,,
+,4.2,Consumo de água no último ano fiscal?,,,,,,,,,
+,,"
+Lts",,,,,,RELATÓRIO DE IMPACTO,,,
+,4.3,Fontes de fornecimento de água,,,,,,,,,
+,,1) Captação em corpos hídricos.,"*
+não Abre o 3.4",,1,1,,,,Exploração em corpos hídricos,
+,,"
+2) Poço artesiano ou caminhão-pipa.","*
+não Abre o 3.4",,2,1,,,,Fontes não seguras de fornecimento de água,
+,,3) Fornecimento regular.,"*
+não Abre o 3.4",,3,1,,ok,,,
+,,"
+4) Reutilização de água de chuva.","*
+Abre o 3.4",,4,1,,,,,
+,,5) Autossuficiência em água através de fontes responsáveis de aproveitamento e reaproveitamento de águas tratadas pela empresa.,"*
+Abre o 3.4",,5,1,,,,,
+,4.4,Qual o percentual do fornecimento de energia é proveniente de fontes sustentáveis e ecoeficientes?,,,,,,,,,
+,,1) Menos de 10%,,,1,1,,,,,
+,,2) 10%,,,2,1,,,,,
+,,3) 15%,,,3,1,,RELATÓRIO DE IMPACTO,,,
+,,4) 20%,,,4,1,,RELATÓRIO DE IMPACTO,,,
+,,5) 50% ou mais,,,5,1,,RELATÓRIO DE IMPACTO,,,
+,4.5,De que forma a empresa descarta seus efluentes?,,,,,,,,,
+,,1) In natura em corpos hídricos.,,,1,1,,,,,
+,,2) Tratamento feito pela empresa e despejado em corpos hídricos.,,,2,1,,,,,
+,,"
+3) In natura para o esgoto regular. ",,,3,1,,,,,
+,,4) A empresa possui Estação de Tratamento de Efluentes que após tratados são enviados para o esgoto regular,,,4,1,,,,,
+,,"
+5) A empresa possui em suas instalações tecnologias de tratamento e reaproveitamento de água de esgoto. ",,,5,1,,,,,
+,4.6,A empresa emite efluentes tóxicos?,,,,,,,,,
+,,1) Não,"*
+Não Abre o 4.7",,5,1,,RELATÓRIO DE IMPACTO,,,
+,,2) Sim,"*
+Abre o 4.7",,0,1,,,,,
+,4.7,De que forma a empresa monitora o tratamento e descarte dos efluentes tóxicos? ,,,,,,,,,
+,,1) Não adotamos nenhuma medida.,,,1,1,,,,,
+,,2) A empresa monitora sua toxicidade e volume. ,,,2,1,,,,,
+,,"3) A empresa monitora sua toxicidade, volume e possui uma Estação de Tratamento de Efluentes. ",,,3,1,,,,,
+,,"4) A empresa monitora sua toxicidade, volume, possui uma Estação de Tratamento de Efluentes e estabeleceu metas de redução do volume do material residual tóxico. ",,,4,1,,,,,
+,,5) A empresa conseguiu reduzir em mais de 50% ou zerar a emissão de efluentes tóxicos.,,,5,1,,RELATÓRIO DE IMPACTO,,,
+5. GESTAO DE RESIDUOS,5.1,A empresa possui um plano de gerenciamento de resíduos?,,,,,,,,,
+,,1) Não,"*
+Não Abre o 5.2",,0,1,,,,,
+,,2) Sim,"*
+Abre o 5.2",,5,1,,,,,
+,5.2,Qual o volume de resíduos gerados no último ano fiscal?,,,,,,,,,
+,,"[NÚMERO TOTAL] Kg
+
+[NÚMERO RECICLÁVEIS] Kg",,,,,,,,,
+,5.3,Qual o destino final dos resíduos gerados pela empresa?,,,,,,,,,
+,,1) Coleta regular.,* não Abre o 5.4,,1,1,,,,,
+,,2) Coleta regular e cooperativa de materiais recicláveis.,* Abre o 5.4,,2,1,,,,,
+,,"3) Reaproveitamento no processo produtivo, coleta regular e cooperativa de materiais recicláveis.",* Abre o 5.4,,3,1,,,,,
+,,4) Temos uma empresa contratada para fazer a destinação final correta. ,* Abre o 5.4,,4,1,,,,,
+,,5) Conseguimos reduzir em mais de 50% o volume dos resíduos gerados ou somos uma empresa que possui o compromisso de produzir lixo zero. ,* Abre o 5.4,,5,1,,RELATÓRIO DE IMPACTO,,,
+,5.4,Quais as medidas relacionadas à redução de resíduos são adotadas pela sua empresa?,,,,,,,,,
+,,1) Fazemos a coleta seletiva do lixo.,,,1,1,,RELATÓRIO DE IMPACTO,,,
+,,"
+2) Fazemos a coleta seletiva do lixo e nos comprometemos com o treinamento de toda a equipe e a sensibilização acerca do tema resíduos e o desperdício de materiais. ",,,2,1,,RELATÓRIO DE IMPACTO,,,
+,,"3) Fazemos a coleta seletiva, destinamos de forma correta e adotamos medidas práticas para a redução da produção de lixo em nossos processos.",,,3,1,,RELATÓRIO DE IMPACTO,,,
+,,"4) Temos parcerias com instituições que reaproveitam os materiais recicláveis descartados, como cooperativas de catadores. ",,,4,1,,RELATÓRIO DE IMPACTO,,,
+,,5) Reaproveitamos nossos resíduos como matéria-prima para produzir novos produtos. ,,,5,1,,RELATÓRIO DE IMPACTO,,,
+,5.5,A empresa monitora o volume de resíduos perigosos gerados?,,,,,,,,,
+,,1) Não,,,0,1,,,,,
+,,2) Sim,,,5,1,,,,,
+,5.6,Existe alguma medida ou tecnologia aplicada às embalagens para evitar a proliferação de materiais plásticos? ,,,,,,,,,
+,,1) Não,,,0,1,,,,,
+,,2) Sim,,,5,1,,,,,
+6. AR E CLIMA,6.1,De que forma a sua empresa monitora as emissões de Gases de Efeito Estufa? ,,,,,,,,,
+,,1) Atualmente não monitoramos.,* não Abre o 6.2,,1,1,,,,,
+,,2) Monitoramos de forma parcial.,* Abre o 6.2,,2,1,,,,,
+,,3) Monitoramos através de um Inventário verificação de GEE.,* Abre o 6.2,,3,1,,,,,
+,,4) Monitoramos e estabelecemos metas de redução.,* Abre o 6.2,,4,1,,,,,
+,,5) Monitoramos e estabelecemos meta de carbono zero.,* Abre o 6.2,,5,1,,RELATÓRIO DE IMPACTO,,,
+,6.2,Qual a emissão em CO2 durante o último ano fiscal?,,,,,,,,,
+,,Total do ESCOPO 1,,,,,,RELATÓRIO DE IMPACTO,,,
+,,Total do ESCOPO 2,,,,,,RELATÓRIO DE IMPACTO,,,
+,,Total do ESCOPO 3,,,,,,RELATÓRIO DE IMPACTO,,,
+,6.3,De que forma a sua empresa monitora qualidade do ar nas suas instalações? ,,,,,,,,,
+,,1) Atualmente não monitoramos.,,,1,1,,,,,
+,,"2) Não monitoramos, mas possuímos ambientes abertos e ventilados.",,,2,1,,,,,
+,,3) Monitoramos periodicamente e possuímos aparelhos de filtragem de ar.,,,3,1,,,,,
+,,"4) Monitoramos periodicamente, possuímos aparelhos de filtragem de ar e estabelecemos metas de melhoria.",,,4,1,,,,,
+,,"5) Monitoramos periodicamente, possuímos aparelhos de filtragem de ar e alcançamos nossas metas de melhoria.",,,5,1,,,,,
+7. MATÉRIA-PRIMA,7.1,A empresa possui alguma certificação de rastreabilidade?,,,,,,,,,
+,,1) Não monitoramos a origem de nossas matérias-prima.,,SIM,1,"0,5",,,,,
+,,"2) Nossa matéria-prima é verificada, mas não é certificada.",,SIM,2,"0,5",,,,,
+,,3) Utilizamos mais de 50% de matéria-prima certificada.,,SIM,3,1,,RELATÓRIO DE IMPACTO,,,
+,,4) Utilizamos apenas matéria-prima certificada.,,SIM,4,2,,RELATÓRIO DE IMPACTO,,,
+,,5) A empresa é certificada pela FSC ou por outras certificação de manejo florestal responsável.,,SIM,5,2,,RELATÓRIO DE IMPACTO,,,
+,7.2,Na empresa existem iniciativas para fortalecer o manejo sustentável dos fornecedores de madeira?   ,,,,,,,,,
+,,1) A empresa não possui iniciativas de fortalecimento de manejo estabelecidas e implantadas.,,SIM,1,"0,5",,,,,
+,,2) A empresa planeja adotar iniciativas para fortalecer o manejo sustentável pelos fornecedores de madeira.,,SIM,2,"0,5",,,,,
+,,3) Existem iniciativas de fortalecimento do manejo florestal estabelecidas e implantadas.,,SIM,3,1,,,,,
+,,4) As  iniciativas de fortalecimento de manejo  florestal estão estabelecidas e em implantação.,,SIM,4,2,,,,,
+,,"5) Temos um programa de manejo sustentável com os fornecedores e também buscamos regenerar florestas como forma de compensar nossos impactos negativos.
+",,SIM,5,2,,RELATÓRIO DE IMPACTO,,,
+8. DESIGN CIRCULAR E CICLO DE VIDA,8.1,A empresa possui a gestão do ciclo de vida do produto?,,,,,,,,,
+,,1) Não possuímos a gestão do ciclo de vida.,,SIM,1,"0,5",,,,,
+,,"2) Conhecemos o ciclo de vida do nosso produto, mas não nos responsabilizamos pela sua destinação final.",,SIM,2,"0,5",,,,,
+,,3) Conhecemos o ciclo de vida do nosso produto e fazemos as recomendações na embalagem sobre o descarte adequado.,,SIM,3,1,,,,,
+,,4) Possuímos sistema de logística reversa. ,,SIM,4,2,,,,,
+,,5) A empresa é certificada pela CRADLE TO CRADLE ou por outras certificação de controle de ciclo de vida de produto.,,SIM,5,2,,,,,
+,8.2,A empresa possui em seus processos produtivos a adoção do design voltado à segurança de seus produtos durante todo o ciclo de vida?,,,,,,,,,
+,,1) Não,,,0,1,,,,,
+,,2) Sim,,,5,1,,RELATÓRIO DE IMPACTO,,,
+,8.3,A empresa possui em seus processos produtivos a adoção do design voltado à circularidade e à redução de resíduos provenientes de seus produtos? ,,,,,,,,,
+,,1) Não,,,0,1,,,,,
+,,2) Sim,,,5,1,,RELATÓRIO DE IMPACTO,,,
+,8.4,Qual o posicionamento da empresa relativo à produtos tóxicos? ,,,,,,,,,
+,,1) Utilizamos produtos tóxicos e ainda não conseguimos pensar em alternativas para reduzir a toxicidade do nosso processo produtivo.,,SIM,1,"0,5",,,,,
+,,2) Utilizamos produtos tóxicos e buscamos reduzir o seu uso.,,SIM,2,"0,5",,,,,
+,,3) Utilizamos apenas o necessário de produtos tóxicos e já conseguimos pensar em alternativas para reduzir a toxicidade do nosso processo produtivo.,,SIM,3,1,,,,,
+,,4) Já possuímos alternativas implementadas e mais de 50% da nossa produção não utiliza produtos tóxicos.,,SIM,4,2,,,,,
+,,5) Não utilizamos produtos tóxicos em nosso processo produtivo. ,,SIM,5,2,,RELATÓRIO DE IMPACTO,,,
+,8.5,Sua empresa adotou alguma tecnologia para minimizar o impacto ambiental relacionado ao transporte em sua cadeia de abastecimento e distribuição?,,,,,,,,,
+,,1) Não,,,0,1,,,,,
+,,2) Sim,,,5,1,,,,,
+,,,,,,,,,,,
+,30,perguntas,,,,,,,,,

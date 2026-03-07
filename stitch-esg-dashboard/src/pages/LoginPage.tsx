@@ -30,7 +30,7 @@ export const LoginPage: React.FC = () => {
     setError(null);
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password);
-      navigate('/');
+      navigate('/dashboard');
     } catch {
       setError('Falha no login. Verifique suas credenciais.');
     } finally {
@@ -72,7 +72,7 @@ export const LoginPage: React.FC = () => {
         });
       }
 
-      navigate('/');
+      navigate('/dashboard');
     } catch (err: unknown) {
       console.error("Google Login Error:", err);
       setError('Falha no login com Google.');

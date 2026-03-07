@@ -59,7 +59,7 @@ export const RegisterPage: React.FC = () => {
         avatarUrl: `https://api.dicebear.com/7.x/avataaars/svg?seed=${data.name}`
       });
 
-      navigate('/');
+      navigate('/dashboard');
     } catch {
       setError('Erro ao criar conta. Tente novamente.');
     } finally {
@@ -101,7 +101,7 @@ export const RegisterPage: React.FC = () => {
         });
       }
 
-      navigate('/');
+      navigate('/dashboard');
     } catch (err: unknown) {
       console.error("Google Login Error:", err);
       setError('Falha no login com Google.');

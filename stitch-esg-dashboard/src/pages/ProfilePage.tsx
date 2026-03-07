@@ -5,35 +5,31 @@ import { Button } from '../components/ui/Button';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../context/useAuth';
-import { Building2, Mail, MapPin, Tag } from 'lucide-react';
-import type { Company } from '../types';
+import { User, Mail, Shield, Award, Briefcase } from 'lucide-react';
+import type { UserProfile } from '../types';
 
 export const ProfilePage: React.FC = () => {
   const { user } = useAuth();
-  const [company, setCompany] = useState<Company | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchCompanyData = async () => {
+    const fetchUserData = async () => {
       if (!user) return;
       
       try {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
         if (userDoc.exists()) {
-          const companyId = userDoc.data().companyId;
-          const companyDoc = await getDoc(doc(db, 'companies', companyId));
-          if (companyDoc.exists()) {
-            setCompany({ id: companyDoc.id, ...companyDoc.data() } as Company);
-          }
+          setProfile({ uid: user.uid, ...userDoc.data() } as UserProfile);
         }
       } catch (err: unknown) {
-        console.error("Error fetching company data:", err);
+        console.error("Error fetching user data:", err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCompanyData();
+    fetchUserData();
   }, [user]);
 
   if (loading) return (
@@ -47,68 +43,70 @@ export const ProfilePage: React.FC = () => {
   return (
     <DashboardLayout>
       <div className="mb-8">
-        <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Perfil da Empresa</h2>
-        <p className="text-slate-500 dark:text-slate-400 mt-1">Gerencie as informações básicas e identidade da sua organização.</p>
+        <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100">Meu Perfil</h2>
+        <p className="text-slate-500 dark:text-slate-400 mt-1">Gerencie suas informações pessoais e sua identidade como líder ESG.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
-          <Card title="Informações Gerais" subtitle="Dados principais da organização">
+          <Card title="Informações Pessoais" subtitle="Seus dados de identificação na plataforma">
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Nome Fantasia</label>
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Nome Completo</label>
                   <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-800">
-                    <Building2 size={18} className="text-slate-400" />
-                    <span className="text-sm font-medium">{company?.name || 'Não informado'}</span>
+                    <User size={18} className="text-slate-400" />
+                    <span className="text-sm font-medium">{user?.displayName || 'Mestre ESG'}</span>
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Setor de Atuação</label>
-                  <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-800">
-                    <Tag size={18} className="text-slate-400" />
-                    <span className="text-sm font-medium">{company?.industry || 'Não informado'}</span>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Região</label>
-                  <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-800">
-                    <MapPin size={18} className="text-slate-400" />
-                    <span className="text-sm font-medium">{company?.region || 'Brasil'}</span>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500">E-mail de Contato</label>
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500">E-mail</label>
                   <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-800">
                     <Mail size={18} className="text-slate-400" />
                     <span className="text-sm font-medium">{user?.email}</span>
                   </div>
                 </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Cargo / Função</label>
+                  <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-800">
+                    <Briefcase size={18} className="text-slate-400" />
+                    <span className="text-sm font-medium">{profile?.role || 'Gerente de Impacto'}</span>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-bold uppercase tracking-wider text-slate-500">Nível de Acesso</label>
+                  <div className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-800">
+                    <Shield size={18} className="text-slate-400" />
+                    <span className="text-sm font-medium text-emerald-500 font-bold">Administrador</span>
+                  </div>
+                </div>
               </div>
               
               <div className="pt-4 flex justify-end">
-                <Button variant="outline">Editar Informações</Button>
+                <Button variant="outline">Editar Perfil</Button>
               </div>
             </div>
           </Card>
 
-          <Card title="Status na Jornada" subtitle="Resumo de progresso atual">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="p-4 bg-primary/5 rounded-2xl border border-primary/10 text-center">
-                <p className="text-xs font-bold text-slate-400 uppercase mb-1">Nível</p>
-                <p className="text-2xl font-black text-primary">{company?.level || 1}</p>
+          <Card title="Minhas Conquistas" subtitle="Reconhecimentos individuais por sua liderança">
+            <div className="flex flex-wrap gap-4">
+              <div className="flex items-center gap-3 p-4 bg-emerald-500/10 rounded-2xl border border-emerald-500/20">
+                <div className="p-2 bg-emerald-500 rounded-lg text-white">
+                  <Award size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-500 uppercase">Selo</p>
+                  <p className="text-sm font-black text-slate-900 dark:text-slate-100 tracking-tight">PIONEIRO ESG</p>
+                </div>
               </div>
-              <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-800 text-center">
-                <p className="text-xs font-bold text-slate-400 uppercase mb-1">XP Atual</p>
-                <p className="text-2xl font-black text-slate-900 dark:text-slate-100">{company?.currentXP || 0}</p>
-              </div>
-              <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-800 text-center">
-                <p className="text-xs font-bold text-slate-400 uppercase mb-1">Missões</p>
-                <p className="text-2xl font-black text-slate-900 dark:text-slate-100">0</p>
-              </div>
-              <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-800 text-center">
-                <p className="text-xs font-bold text-slate-400 uppercase mb-1">Selo</p>
-                <p className="text-sm font-bold text-slate-900 dark:text-slate-100">Iniciante</p>
+              <div className="flex items-center gap-3 p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 opacity-60">
+                <div className="p-2 bg-slate-400 rounded-lg text-white text-center">
+                  <Award size={20} />
+                </div>
+                <div>
+                  <p className="text-xs font-bold text-slate-400 uppercase">Selo</p>
+                  <p className="text-sm font-black text-slate-400 tracking-tight">ECO-ESTRATEGISTA</p>
+                </div>
               </div>
             </div>
           </Card>
@@ -117,26 +115,31 @@ export const ProfilePage: React.FC = () => {
         <div className="space-y-6">
           <Card className="text-center">
             <div className="flex flex-col items-center">
-              <div className="w-32 h-32 rounded-3xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center mb-6 border-4 border-white dark:border-slate-900 shadow-xl overflow-hidden">
-                <img 
-                  src={`https://api.dicebear.com/7.x/identicon/svg?seed=${company?.name || 'default'}`} 
-                  alt="Company Logo" 
-                  className="w-full h-full object-cover"
+              <div className="relative group">
+                <div 
+                  className="w-32 h-32 rounded-full bg-slate-200 bg-cover bg-center border-4 border-primary shadow-xl mb-6 transition-transform group-hover:scale-105 duration-300"
+                  style={{ backgroundImage: `url('${user?.photoURL ?? `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.uid || 'Felix'}`}')` }}
                 />
+                <div className="absolute inset-0 rounded-full bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity cursor-pointer mb-6">
+                  <span className="text-white text-[10px] font-black uppercase">Alterar Foto</span>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">{company?.name || 'Sua Empresa'}</h3>
-              <p className="text-sm text-slate-500 mb-6 italic">Membro desde {new Date().getFullYear()}</p>
-              <Button className="w-full" variant="outline">Alterar Logo</Button>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100">{user?.displayName || 'Mestre ESG'}</h3>
+              <p className="text-sm text-slate-500 mb-6 uppercase tracking-widest font-bold opacity-70">Gerente de Impacto</p>
+              <Button className="w-full" variant="outline">Preferências de Conta</Button>
             </div>
           </Card>
           
-          <div className="p-6 bg-gradient-to-br from-primary to-emerald-500 rounded-2xl text-slate-900 shadow-lg shadow-primary/20">
-            <h4 className="font-black uppercase tracking-tight mb-2">Próxima Conquista</h4>
-            <p className="text-sm font-bold opacity-80 mb-4">Complete o Diagnóstico Inicial para ganhar 500 XP!</p>
-            <div className="w-full h-2 bg-black/10 rounded-full overflow-hidden">
-              <div className="w-1/4 h-full bg-slate-900"></div>
+          <div className="p-6 bg-gradient-to-br from-indigo-600 to-primary rounded-2xl text-white shadow-xl shadow-indigo-500/20">
+            <h4 className="font-black uppercase tracking-tight mb-2">Engajamento Pessoal</h4>
+            <p className="text-sm font-bold opacity-80 mb-4">Você está no Top 5% de usuários mais ativos deste mês!</p>
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-[10px] font-black">NÍVEL 12</span>
+              <span className="text-[10px] font-black">1.250 XP</span>
             </div>
-            <p className="text-[10px] font-black uppercase mt-2 text-right">25% Completo</p>
+            <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden">
+              <div className="w-[75%] h-full bg-white"></div>
+            </div>
           </div>
         </div>
       </div>
