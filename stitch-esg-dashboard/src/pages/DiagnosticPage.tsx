@@ -6,14 +6,14 @@ import { Button } from '../components/ui/Button';
 import { diagnosticQuestions } from '../data/questions';
 import { useAuth } from '../context/useAuth';
 import { db } from '../firebase';
-import { doc, getDoc, updateDoc, collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
 import { Check, Lightbulb, Rocket, ChevronRight, ChevronLeft } from 'lucide-react';
 import { calculateESGScore, calculateESGDelta, calculateGoalsFromScores } from '../utils/scoreCalculator';
 
 export const DiagnosticPage: React.FC = () => {
   const { user, refreshAuth } = useAuth();
   const navigate = useNavigate();
-  
+
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number | string>>({});
   const [loading, setLoading] = useState(true);
@@ -21,7 +21,7 @@ export const DiagnosticPage: React.FC = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [diagnosticId, setDiagnosticId] = useState<string | null>(null);
   const [companyId, setCompanyId] = useState<string | null>(null);
-  
+
   const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lastSavedRef = useRef<string>('');
 
@@ -36,7 +36,7 @@ export const DiagnosticPage: React.FC = () => {
 
   const currentVisibleQuestion = visibleQuestions[currentStep];
   const currentCategory = currentVisibleQuestion?.category || 'form';
-  
+
   const answeredVisible = useMemo(
     () => visibleQuestions.filter(q => answers[q.id] !== undefined).length,
     [visibleQuestions, answers]
@@ -45,10 +45,10 @@ export const DiagnosticPage: React.FC = () => {
 
   const saveProgress = useCallback(async (answersToSave: Record<string, number | string>, force = false) => {
     const answersKey = JSON.stringify(answersToSave);
-    
+
     if (!force && answersKey === lastSavedRef.current) return;
     if (!user || !companyId || !diagnosticId) return;
-    
+
     lastSavedRef.current = answersKey;
 
     try {
@@ -88,16 +88,16 @@ export const DiagnosticPage: React.FC = () => {
       try {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
         if (!userDoc.exists()) return;
-        
+
         const cid = userDoc.data().companyId;
         setCompanyId(cid);
 
         const q = query(
-          collection(db, 'diagnostics'), 
+          collection(db, 'diagnostics'),
           where('companyId', '==', cid),
           where('completed', '==', false)
         );
-        
+
         const querySnapshot = await getDocs(q);
 
         if (!querySnapshot.empty) {
@@ -105,7 +105,7 @@ export const DiagnosticPage: React.FC = () => {
           setDiagnosticId(querySnapshot.docs[0].id);
           setAnswers(diagData.responses || {});
           lastSavedRef.current = JSON.stringify(diagData.responses || {});
-          
+
           const savedAnswers = diagData.responses || {};
           const answeredVisibleCount = visibleQuestions.filter(q => savedAnswers[q.id] !== undefined).length;
           if (answeredVisibleCount < visibleQuestions.length) {
@@ -113,6 +113,19 @@ export const DiagnosticPage: React.FC = () => {
           } else {
             setCurrentStep(visibleQuestions.length - 1);
           }
+        } else {
+          // Create new diagnostic if none exists
+          const newDiagRef = doc(collection(db, 'diagnostics'));
+          await setDoc(newDiagRef, {
+            companyId: cid,
+            responses: {},
+            completed: false,
+            createdAt: Timestamp.now(),
+            lastUpdated: Timestamp.now()
+          });
+          setDiagnosticId(newDiagRef.id);
+          setAnswers({});
+          setCurrentStep(0);
         }
       } catch (err) {
         console.error("Error loading diagnostic:", err);
@@ -122,7 +135,7 @@ export const DiagnosticPage: React.FC = () => {
     };
 
     loadDiagnostic();
-  }, [user, visibleQuestions]);
+  }, [user]);
 
   const handleOptionSelect = (value: number | string) => {
     const newAnswers = { ...answers, [currentVisibleQuestion.id]: value };
@@ -137,34 +150,37 @@ export const DiagnosticPage: React.FC = () => {
   };
 
   const finishDiagnostic = useCallback(async () => {
-    if (!user || !diagnosticId || !companyId) return;
-    
+    if (!user || !diagnosticId || !companyId) {
+      console.error("Dados faltantes para finalizar diagnóstico:", { user, diagnosticId, companyId });
+      return;
+    }
+
     await saveProgress(answers, true);
     setIsFinishing(true);
 
     try {
       await updateDoc(doc(db, 'diagnostics', diagnosticId), {
         completed: true,
-        formData: answers,
+        responses: answers,
         completedAt: Timestamp.now()
       });
 
       const companyRef = doc(db, 'companies', companyId);
       const companyDoc = await getDoc(companyRef);
       const companyOldData = companyDoc.exists() ? companyDoc.data() : {};
-      
+
       const currentXP = companyOldData.currentXP || 0;
       const previousScores = companyOldData.esgScores || { environmental: 0, social: 0, governance: 0 };
-      
+
       const newScores = calculateESGScore(answers);
       const newDelta = calculateESGDelta(newScores, previousScores);
       const newGoals = calculateGoalsFromScores(newScores.environmental, newScores.social, newScores.governance);
-      
+
       // Update evolution data with current month's total average score
       const esgAvg = Math.round((newScores.environmental + newScores.social + newScores.governance) / 3);
       const months = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
       const currentMonth = months[new Date().getMonth()];
-      
+
       const evolutionData = companyOldData.evolutionData || [];
       const monthIndex = evolutionData.findIndex((d: { month: string }) => d.month === currentMonth);
       if (monthIndex >= 0) {
@@ -192,13 +208,14 @@ export const DiagnosticPage: React.FC = () => {
       if (refreshAuth) await refreshAuth();
 
       setShowSuccess(true);
-      
+
       // Brief delay to show success state
       setTimeout(() => {
         navigate('/environmental');
       }, 2000);
     } catch (err) {
       console.error("Error finishing diagnostic:", err);
+      alert("Houve um erro ao salvar seu diagnóstico. Por favor, tente novamente.");
       setIsFinishing(false);
     }
   }, [user, diagnosticId, companyId, answers, saveProgress, refreshAuth, navigate]);
@@ -272,7 +289,7 @@ export const DiagnosticPage: React.FC = () => {
               <span className="text-xs font-black text-primary uppercase tracking-widest">{answeredVisible} / {visibleQuestions.length} Dados</span>
             </div>
             <div className="w-full bg-slate-100 dark:bg-slate-800 h-4 rounded-full overflow-hidden mb-4">
-              <div 
+              <div
                 className="bg-primary h-full rounded-full transition-all duration-1000 ease-out shadow-[0_0_15px_rgba(16,185,129,0.4)]"
                 style={{ width: `${progress}%` }}
               ></div>
@@ -294,9 +311,9 @@ export const DiagnosticPage: React.FC = () => {
                 Continue na seção {currentCategory === 'environmental' ? 'Ambiental' : currentCategory === 'social' ? 'Social' : 'Governança'} e conquiste mais XP.
               </p>
             </div>
-            <Button 
+            <Button
               className="mt-6 bg-white text-primary font-black py-3 px-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-slate-50 transition-all uppercase text-[10px] tracking-[0.2em] shadow-lg relative z-10"
-              onClick={() => {}}
+              onClick={() => { }}
             >
               Retomar Missão
             </Button>
@@ -304,7 +321,7 @@ export const DiagnosticPage: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap border-b-2 border-slate-100 dark:border-slate-800 gap-2 md:gap-8 mb-8">
-          <button 
+          <button
             onClick={() => navigateToCategory('form')}
             className={`pb-4 px-2 border-b-4 font-black uppercase tracking-widest text-[10px] flex items-center gap-2 transition-all
               ${currentCategory === 'form' ? 'border-primary text-primary' : 'border-transparent text-slate-400 hover:text-slate-600'}
@@ -333,7 +350,7 @@ export const DiagnosticPage: React.FC = () => {
 
               <div className="space-y-3">
                 {(!currentVisibleQuestion.inputType || currentVisibleQuestion.inputType === 'radio') && currentVisibleQuestion.options?.map((option, idx) => (
-                  <label 
+                  <label
                     key={idx}
                     className={`flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 group
                       ${answers[currentVisibleQuestion.id] === option.value
@@ -343,15 +360,15 @@ export const DiagnosticPage: React.FC = () => {
                     `}
                   >
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all
-                      ${answers[currentVisibleQuestion.id] === option.value 
-                        ? 'border-primary bg-primary' 
+                      ${answers[currentVisibleQuestion.id] === option.value
+                        ? 'border-primary bg-primary'
                         : 'border-slate-300 dark:border-slate-600 group-hover:border-primary'}
                     `}>
                       {answers[currentVisibleQuestion.id] === option.value && <Check size={14} className="text-white" strokeWidth={4} />}
                     </div>
-                    <input 
-                      type="radio" 
-                      name={currentVisibleQuestion.id} 
+                    <input
+                      type="radio"
+                      name={currentVisibleQuestion.id}
                       className="hidden"
                       checked={answers[currentVisibleQuestion.id] === option.value}
                       onChange={() => handleOptionSelect(option.value)}
@@ -394,7 +411,7 @@ export const DiagnosticPage: React.FC = () => {
               </div>
 
               <div className="mt-10 pt-8 border-t-2 border-slate-100 dark:border-slate-800 flex justify-between">
-                <Button 
+                <Button
                   variant="outline"
                   onClick={handlePrev}
                   disabled={currentStep === 0}
@@ -402,13 +419,13 @@ export const DiagnosticPage: React.FC = () => {
                 >
                   <ChevronLeft size={18} className="mr-2" /> Voltar
                 </Button>
-                <Button 
+                <Button
                   onClick={handleNext}
                   disabled={answers[currentVisibleQuestion.id] === undefined || isFinishing}
                   isLoading={isFinishing && !showSuccess}
                   className={`px-10 py-4 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] shadow-xl transition-all duration-300
-                    ${showSuccess 
-                      ? 'bg-emerald-500 text-white shadow-emerald-500/40' 
+                    ${showSuccess
+                      ? 'bg-emerald-500 text-white shadow-emerald-500/40'
                       : 'shadow-emerald-500/20'}
                   `}
                 >
