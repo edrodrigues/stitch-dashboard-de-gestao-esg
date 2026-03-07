@@ -20,11 +20,20 @@ export const DiagnosticPage: React.FC = () => {
   const [saving, setSaving] = useState(false);
   const [diagnosticId, setDiagnosticId] = useState<string | null>(null);
 
-  const totalQuestions = diagnosticQuestions.length;
-  const currentQuestion = diagnosticQuestions[currentStep];
-  const progress = Math.round(((Object.keys(answers).length) / totalQuestions) * 100);
+  const isQuestionVisible = (question: typeof diagnosticQuestions[0]) => {
+    if (!question.dependsOn) return true;
+    return answers[question.dependsOn.questionId] === question.dependsOn.value;
+  };
 
-  const currentCategory = currentQuestion?.category || 'form';
+  const visibleQuestions = useMemo(() => {
+    return diagnosticQuestions.filter(q => isQuestionVisible(q));
+  }, [diagnosticQuestions, answers]);
+
+  const currentVisibleQuestion = visibleQuestions[currentStep];
+  const currentCategory = currentVisibleQuestion?.category || 'form';
+  
+  const answeredVisible = visibleQuestions.filter(q => answers[q.id] !== undefined).length;
+  const progress = Math.round((answeredVisible / visibleQuestions.length) * 100);
 
   useEffect(() => {
     const loadDiagnostic = async () => {
@@ -49,11 +58,12 @@ export const DiagnosticPage: React.FC = () => {
           setDiagnosticId(querySnapshot.docs[0].id);
           setAnswers(diagData.responses || {});
           
-          const answeredCount = Object.keys(diagData.responses || {}).length;
-          if (answeredCount < totalQuestions) {
-            setCurrentStep(answeredCount);
+          const savedAnswers = diagData.responses || {};
+          const answeredVisibleCount = visibleQuestions.filter(q => savedAnswers[q.id] !== undefined).length;
+          if (answeredVisibleCount < visibleQuestions.length) {
+            setCurrentStep(answeredVisibleCount);
           } else {
-            setCurrentStep(totalQuestions - 1);
+            setCurrentStep(visibleQuestions.length - 1);
           }
         }
       } catch (err) {
@@ -64,19 +74,19 @@ export const DiagnosticPage: React.FC = () => {
     };
 
     loadDiagnostic();
-  }, [user, totalQuestions]);
+  }, [user, visibleQuestions]);
 
   const handleOptionSelect = (value: number | string) => {
     setAnswers(prev => ({
       ...prev,
-      [currentQuestion.id]: value
+      [currentVisibleQuestion.id]: value
     }));
   };
 
   const handleTextChange = (value: string) => {
     setAnswers(prev => ({
       ...prev,
-      [currentQuestion.id]: value
+      [currentVisibleQuestion.id]: value
     }));
   };
 
@@ -111,7 +121,7 @@ export const DiagnosticPage: React.FC = () => {
 
   const handleNext = async () => {
     await saveProgress();
-    if (currentStep < totalQuestions - 1) {
+    if (currentStep < visibleQuestions.length - 1) {
       setCurrentStep(prev => prev + 1);
     } else {
       finishDiagnostic();
@@ -215,7 +225,7 @@ export const DiagnosticPage: React.FC = () => {
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">PROGRESSO DA MISSÃO</p>
                 <h3 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">{progress}% Concluído</h3>
               </div>
-              <span className="text-xs font-black text-primary uppercase tracking-widest">{Object.keys(answers).length} / {totalQuestions} Dados</span>
+              <span className="text-xs font-black text-primary uppercase tracking-widest">{Object.keys(answers).length} / {visibleQuestions.length} Dados</span>
             </div>
             <div className="w-full bg-slate-100 dark:bg-slate-800 h-4 rounded-full overflow-hidden mb-4">
               <div 
@@ -265,69 +275,69 @@ export const DiagnosticPage: React.FC = () => {
             <Card className="border-b-8">
               <div className="mb-8">
                 <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black mb-4 uppercase tracking-widest border border-primary/20">
-                  Dados da Empresa - Passo {currentStep + 1} de {totalQuestions}
+                  Dados da Empresa - Passo {currentStep + 1} de {visibleQuestions.length}
                 </span>
                 <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2 leading-tight uppercase tracking-tight">
-                  {currentQuestion.text}
+                  {currentVisibleQuestion.text}
                 </h3>
-                {currentQuestion.description && (
+                {currentVisibleQuestion.description && (
                   <p className="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-widest opacity-70">
-                    {currentQuestion.description}
+                    {currentVisibleQuestion.description}
                   </p>
                 )}
               </div>
 
               <div className="space-y-3">
-                {(!currentQuestion.inputType || currentQuestion.inputType === 'radio') && currentQuestion.options?.map((option, idx) => (
+                {(!currentVisibleQuestion.inputType || currentVisibleQuestion.inputType === 'radio') && currentVisibleQuestion.options?.map((option, idx) => (
                   <label 
                     key={idx}
                     className={`flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 group
-                      ${answers[currentQuestion.id] === option.value
+                      ${answers[currentVisibleQuestion.id] === option.value
                         ? 'border-primary bg-primary/5 shadow-lg scale-[1.01]'
                         : 'border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-slate-50 dark:hover:bg-slate-800'
                       }
                     `}
                   >
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all
-                      ${answers[currentQuestion.id] === option.value 
+                      ${answers[currentVisibleQuestion.id] === option.value 
                         ? 'border-primary bg-primary' 
                         : 'border-slate-300 dark:border-slate-600 group-hover:border-primary'}
                     `}>
-                      {answers[currentQuestion.id] === option.value && <Check size={14} className="text-white" strokeWidth={4} />}
+                      {answers[currentVisibleQuestion.id] === option.value && <Check size={14} className="text-white" strokeWidth={4} />}
                     </div>
                     <input 
                       type="radio" 
-                      name={currentQuestion.id} 
+                      name={currentVisibleQuestion.id} 
                       className="hidden"
-                      checked={answers[currentQuestion.id] === option.value}
+                      checked={answers[currentVisibleQuestion.id] === option.value}
                       onChange={() => handleOptionSelect(option.value)}
                     />
                     <span className={`ml-4 font-black text-[10px] uppercase tracking-widest transition-colors
-                      ${answers[currentQuestion.id] === option.value ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}
+                      ${answers[currentVisibleQuestion.id] === option.value ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}
                     `}>
                       {option.label}
                     </span>
                   </label>
                 ))}
 
-                {currentQuestion.inputType === 'text' && (
+                {currentVisibleQuestion.inputType === 'text' && (
                   <input
                     type="text"
-                    value={(answers[currentQuestion.id] as string) || ''}
+                    value={(answers[currentVisibleQuestion.id] as string) || ''}
                     onChange={(e) => handleTextChange(e.target.value)}
                     className="w-full p-4 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary text-sm"
                     placeholder="Digite sua resposta..."
                   />
                 )}
 
-                {currentQuestion.inputType === 'select' && currentQuestion.options && (
+                {currentVisibleQuestion.inputType === 'select' && currentVisibleQuestion.options && (
                   <select
-                    value={(answers[currentQuestion.id] as string) || ''}
+                    value={(answers[currentVisibleQuestion.id] as string) || ''}
                     onChange={(e) => handleOptionSelect(e.target.value)}
                     className="w-full p-4 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary text-sm"
                   >
                     <option value="">Selecione uma opção</option>
-                    {currentQuestion.options.map((option, idx) => (
+                    {currentVisibleQuestion.options.map((option, idx) => (
                       <option key={idx} value={option.value as string}>
                         {option.label}
                       </option>
@@ -347,12 +357,12 @@ export const DiagnosticPage: React.FC = () => {
                 </Button>
                 <Button 
                   onClick={handleNext}
-                  disabled={answers[currentQuestion.id] === undefined || saving}
+                  disabled={answers[currentVisibleQuestion.id] === undefined || saving}
                   isLoading={saving}
                   className="px-10 py-4 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] shadow-xl shadow-emerald-500/20"
                 >
-                  {currentStep === totalQuestions - 1 ? 'Finalizar e Continuar' : 'Próximo'}
-                  {currentStep !== totalQuestions - 1 && <ChevronRight size={18} className="ml-2" />}
+                  {currentStep === visibleQuestions.length - 1 ? 'Finalizar e Continuar' : 'Próximo'}
+                  {currentStep !== visibleQuestions.length - 1 && <ChevronRight size={18} className="ml-2" />}
                 </Button>
               </div>
             </Card>

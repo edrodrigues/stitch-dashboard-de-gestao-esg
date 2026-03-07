@@ -11,6 +11,10 @@ export interface Question {
   description?: string;
   options?: QuestionOption[];
   inputType?: 'text' | 'number' | 'date' | 'select' | 'radio' | 'checkbox';
+  dependsOn?: {
+    questionId: string;
+    value: string | number;
+  };
 }
 
 export const diagnosticQuestions: Question[] = [
@@ -51,14 +55,74 @@ export const diagnosticQuestions: Question[] = [
   {
     "id": "form_1.5",
     "category": "form",
-    "subcategory": "CATEGORIA",
-    "text": "Tipo de Produto/Serviço",
+    "subcategory": "CLASSIFICAÇÃO",
+    "text": "A sua empresa oferece produtos ou serviços?",
     "options": [
-      { "label": "Móveis em madeira", "value": "moveis_madeira" },
-      { "label": "Móveis Planejados", "value": "moveis_planejados" },
-      { "label": "Estofados", "value": "estofados" },
-      { "label": "Móveis de metal", "value": "moveis_metal" },
-      { "label": "Outros", "value": "outros" }
+      { "label": "Produto", "value": "produto" },
+      { "label": "Serviço", "value": "servico" }
+    ]
+  },
+  {
+    "id": "form_1.5_classe",
+    "category": "form",
+    "subcategory": "CLASSIFICAÇÃO",
+    "text": "Qual a classe de classificação?",
+    "dependsOn": { "questionId": "form_1.5", "value": "produto" },
+    "options": [
+      { "label": "Classe 1 - Produtos químicos para indústria, ciências e agricultura", "value": 1 },
+      { "label": "Classe 2 - Tintas, vernizes e preparações contra corrosão", "value": 2 },
+      { "label": "Classe 3 - Cosméticos, produtos de higiene e limpeza", "value": 3 },
+      { "label": "Classe 4 - Óleos e graxas industriais; combustíveis e lubrificantes", "value": 4 },
+      { "label": "Classe 5 - Produtos farmacêuticos, médicos e veterinários; suplementos", "value": 5 },
+      { "label": "Classe 6 - Metais comuns e suas ligas; materiais de construção metálicos", "value": 6 },
+      { "label": "Classe 7 - Máquinas, ferramentas mecânicas e motores", "value": 7 },
+      { "label": "Classe 8 - Ferramentas e instrumentos manuais; cutelaria", "value": 8 },
+      { "label": "Classe 9 - Aparelhos científicos, softwares, computadores e eletrônicos", "value": 9 },
+      { "label": "Classe 10 - Aparelhos e instrumentos cirúrgicos, médicos e odontológicos", "value": 10 },
+      { "label": "Classe 11 - Aparelhos de iluminação, aquecimento e refrigeração", "value": 11 },
+      { "label": "Classe 12 - Veículos; aparelhos para locomoção por terra, ar ou água", "value": 12 },
+      { "label": "Classe 13 - Armas de fogo; munições e projéteis; fogos de artifício", "value": 13 },
+      { "label": "Classe 14 - Metais preciosos; joalheria; relojoaria", "value": 14 },
+      { "label": "Classe 15 - Instrumentos musicais", "value": 15 },
+      { "label": "Classe 16 - Papel, papelão e produtos de papelaria; material de escritório", "value": 16 },
+      { "label": "Classe 17 - Borracha, guta-percha, amianto e plásticos semi-processados", "value": 17 },
+      { "label": "Classe 18 - Couro e imitações; malas e bolsas; guarda-chuvas", "value": 18 },
+      { "label": "Classe 19 - Materiais de construção não metálicos; monumentos", "value": 19 },
+      { "label": "Classe 20 - Móveis, espelhos e molduras; produtos de madeira ou plástico", "value": 20 },
+      { "label": "Classe 21 - Utensílios domésticos e de cozinha; vidraria e porcelana", "value": 21 },
+      { "label": "Classe 22 - Cordas, redes, tendas e matérias têxteis fibrosas brutas", "value": 22 },
+      { "label": "Classe 23 - Fios e linhas para uso têxtil", "value": 23 },
+      { "label": "Classe 24 - Tecidos e substitutos de tecidos; roupa de cama e mesa", "value": 24 },
+      { "label": "Classe 25 - Vestuário, calçados e chapelaria", "value": 25 },
+      { "label": "Classe 26 - Rendas, fitas e bordados; flores artificiais; acessórios de cabelo", "value": 26 },
+      { "label": "Classe 27 - Tapetes, capachos e revestimentos de pisos e paredes", "value": 27 },
+      { "label": "Classe 28 - Jogos e brinquedos; artigos de esporte", "value": 28 },
+      { "label": "Classe 29 - Carnes, peixes, laticínios; frutas e legumes conservados", "value": 29 },
+      { "label": "Classe 30 - Café, chá, arroz, pães, massas e confeitos", "value": 30 },
+      { "label": "Classe 31 - Produtos agrícolas, hortícolas e florestais brutos; animais vivos", "value": 31 },
+      { "label": "Classe 32 - Cervejas; águas minerais; sucos e bebidas não alcoólicas", "value": 32 },
+      { "label": "Classe 33 - Bebidas alcoólicas (exceto cervejas)", "value": 33 },
+      { "label": "Classe 34 - Tabaco e artigos para fumantes; fósforos", "value": 34 }
+    ]
+  },
+  {
+    "id": "form_1.5_classe_servico",
+    "category": "form",
+    "subcategory": "CLASSIFICAÇÃO",
+    "text": "Qual a classe de classificação?",
+    "dependsOn": { "questionId": "form_1.5", "value": "servico" },
+    "options": [
+      { "label": "Classe 35 - Propaganda; gestão, organização e administração de negócios", "value": 35 },
+      { "label": "Classe 36 - Serviços financeiros, monetários, bancários e imobiliários", "value": 36 },
+      { "label": "Classe 37 - Serviços de construção, instalação e reparos", "value": 37 },
+      { "label": "Classe 38 - Serviços de telecomunicações", "value": 38 },
+      { "label": "Classe 39 - Transporte; embalagem e armazenamento de mercadorias", "value": 39 },
+      { "label": "Classe 40 - Tratamento de materiais; reciclagem de resíduos", "value": 40 },
+      { "label": "Classe 41 - Educação; provimento de treinamento; entretenimento", "value": 41 },
+      { "label": "Classe 42 - Serviços científicos e tecnológicos; design e desenvolvimento de software", "value": 42 },
+      { "label": "Classe 43 - Serviços de fornecimento de comida e bebida; alojamento temporário", "value": 43 },
+      { "label": "Classe 44 - Serviços médicos, veterinários; cuidados de higiene e beleza", "value": 44 },
+      { "label": "Classe 45 - Serviços jurídicos; serviços de segurança; serviços pessoais e sociais", "value": 45 }
     ]
   },
   {

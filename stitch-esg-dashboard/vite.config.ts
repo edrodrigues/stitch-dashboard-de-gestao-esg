@@ -1,24 +1,20 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(),
-  ],
+  plugins: [react(), tailwindcss()],
   build: {
     rollupOptions: {
       output: {
         manualChunks: {
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
           'vendor-firebase': ['firebase/app', 'firebase/auth', 'firebase/firestore', 'firebase/storage'],
-          'vendor-tremor': ['@tremor/react'],
-          'vendor-utils': ['lucide-react', 'zod', 'react-hook-form'],
+          'vendor-tremor-charts': ['@tremor/react'],
+          'vendor-utils': ['lucide-react', 'zod', 'react-hook-form', '@hookform/resolvers/zod'],
         },
       },
     },
-    chunkSizeWarningLimit: 600,
   },
-})
+});
