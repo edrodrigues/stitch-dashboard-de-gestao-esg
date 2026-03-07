@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { 
-  BarChart, 
+import {
+  BarChart,
   BadgeDelta,
   DonutChart,
   List,
   ListItem
 } from '@tremor/react';
-import { 
-  FileDown, 
-  Database, 
-  Stars, 
-  Leaf, 
-  Zap, 
-  Recycle, 
-  Trophy, 
+import {
+  FileDown,
+  Database,
+  Stars,
+  Leaf,
+  Zap,
+  Recycle,
+  Trophy,
   ArrowRight,
   Droplets,
   Users,
@@ -89,11 +89,10 @@ export const ReportsPage: React.FC = () => {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-6 py-2.5 rounded-xl text-sm font-black transition-all ${
-                activeTab === tab.id
+              className={`px-6 py-2.5 rounded-xl text-sm font-black transition-all ${activeTab === tab.id
                   ? 'bg-primary text-white shadow-lg shadow-primary/20'
                   : 'text-slate-500 dark:text-slate-400 hover:text-primary'
-              }`}
+                }`}
             >
               {tab.label}
             </button>
@@ -156,7 +155,7 @@ export const ReportsPage: React.FC = () => {
                 <option>Últimos 2 Anos</option>
               </select>
             </div>
-            
+
             <div className="h-80 w-full">
               <BarChart
                 className="h-full"
@@ -177,22 +176,19 @@ export const ReportsPage: React.FC = () => {
                 { label: 'Escopo 3', value: '670 tCO2e', color: 'slate' },
                 { label: 'Compensação', value: '-200 tCO2e', color: 'primary' },
               ].map((item, i) => (
-                <div 
-                  key={i} 
-                  className={`p-4 rounded-2xl border-2 transition-all hover:scale-105 ${
-                    item.color === 'primary' 
-                      ? 'bg-primary/5 border-primary/20' 
+                <div
+                  key={i}
+                  className={`p-4 rounded-2xl border-2 transition-all hover:scale-105 ${item.color === 'primary'
+                      ? 'bg-primary/5 border-primary/20'
                       : 'bg-slate-50 dark:bg-slate-800/50 border-slate-100 dark:border-slate-800'
-                  }`}
+                    }`}
                 >
-                  <p className={`text-[10px] uppercase font-black mb-1 ${
-                    item.color === 'primary' ? 'text-primary' : 'text-slate-400'
-                  }`}>
+                  <p className={`text-[10px] uppercase font-black mb-1 ${item.color === 'primary' ? 'text-primary' : 'text-slate-400'
+                    }`}>
                     {item.label}
                   </p>
-                  <p className={`text-sm font-black font-mono ${
-                    item.color === 'primary' ? 'text-primary' : 'text-slate-700 dark:text-slate-200'
-                  }`}>
+                  <p className={`text-sm font-black font-mono ${item.color === 'primary' ? 'text-primary' : 'text-slate-700 dark:text-slate-200'
+                    }`}>
                     {item.value}
                   </p>
                 </div>
@@ -209,8 +205,8 @@ export const ReportsPage: React.FC = () => {
                   { icon: Users, title: 'Inclusão Social', desc: '45% de mulheres em cargos de liderança' },
                   { icon: Scale, title: 'Ética e Conformidade', desc: '100% da equipe treinada contra corrupção' },
                 ].map((item, i) => (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     className="bg-white dark:bg-slate-900 rounded-3xl border-4 border-primary/5 p-6 flex items-center justify-between group cursor-pointer hover:border-primary transition-all hover:translate-x-2 shadow-sm"
                   >
                     <div className="flex items-center gap-4">
@@ -282,7 +278,7 @@ export const ReportsPage: React.FC = () => {
 
         {/* Footer Info */}
         <div className="border-t border-slate-100 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] gap-4 mb-8">
-          <p>© 2023 GUIA ESG BRASIL. Reporting verified by Bureau Veritas.</p>
+          <p>© Manifesto Ambiental, 2026. Reporting verified by Bureau Veritas.</p>
           <div className="flex items-center gap-8">
             <a className="hover:text-primary transition-colors" href="#">Privacy Policy</a>
             <a className="hover:text-primary transition-colors" href="#">Data Transparency</a>

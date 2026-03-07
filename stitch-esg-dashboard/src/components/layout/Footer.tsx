@@ -34,7 +34,7 @@ export const Footer: React.FC = () => {
 
             <div className="text-center md:text-right">
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                © {new Date().getFullYear()} Stitch. All rights reserved.
+                © Manifesto Ambiental, 2026. Desenvolvido por <a href="https://www.futurereadylabs.com.br" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline transition-all">FRL_</a>.
               </p>
               <div className="flex items-center justify-center md:justify-end gap-2 mt-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>

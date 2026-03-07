@@ -26,7 +26,8 @@ export const DiagnosticPage: React.FC = () => {
   const lastSavedRef = useRef<string>('');
   const questionnaireRef = useRef<HTMLDivElement>(null);
 
-  const isQuestionVisible = useCallback((question: typeof diagnosticQuestions[0]) => {    if (!question.dependsOn) return true;
+  const isQuestionVisible = useCallback((question: typeof diagnosticQuestions[0]) => {
+    if (!question.dependsOn) return true;
     return answers[question.dependsOn.questionId] === question.dependsOn.value;
   }, [answers]);
 
@@ -94,15 +95,15 @@ export const DiagnosticPage: React.FC = () => {
 
         const q = query(
           collection(db, 'diagnostics'),
-          where('companyId', '==', cid),
-          where('completed', '==', false)
+          where('companyId', '==', cid)
         );
 
         const querySnapshot = await getDocs(q);
+        const incompleteDoc = querySnapshot.docs.find(doc => doc.data().completed === false);
 
-        if (!querySnapshot.empty) {
-          const diagData = querySnapshot.docs[0].data();
-          setDiagnosticId(querySnapshot.docs[0].id);
+        if (incompleteDoc) {
+          const diagData = incompleteDoc.data();
+          setDiagnosticId(incompleteDoc.id);
           setAnswers(diagData.responses || {});
           lastSavedRef.current = JSON.stringify(diagData.responses || {});
 
@@ -135,7 +136,8 @@ export const DiagnosticPage: React.FC = () => {
     };
 
     loadDiagnostic();
-  }, [user, visibleQuestions]);
+    // Dependências ajustadas para evitar dependência cíclica com visibleQuestions
+  }, [user]);
 
   const handleOptionSelect = (value: number | string) => {
     const newAnswers = { ...answers, [currentVisibleQuestion.id]: value };
@@ -152,6 +154,7 @@ export const DiagnosticPage: React.FC = () => {
   const finishDiagnostic = useCallback(async () => {
     if (!user || !diagnosticId || !companyId) {
       console.error("Dados faltantes para finalizar diagnóstico:", { user, diagnosticId, companyId });
+      alert("Não foi possível finalizar o diagnóstico no momento. Faltam dados de conexão com o banco. Recarregue a página e tente novamente.");
       return;
     }
 
@@ -315,7 +318,7 @@ export const DiagnosticPage: React.FC = () => {
                 Responda o questionário dessa página para ganhar 500 XP e avançar à próxima página.
               </p>
             </div>
-            <Button 
+            <Button
               className="mt-6 bg-white text-primary font-black py-3 px-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-slate-50 transition-all uppercase text-[10px] tracking-[0.2em] shadow-lg relative z-10"
               onClick={scrollToQuestionnaire}
             >

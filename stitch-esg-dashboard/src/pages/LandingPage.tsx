@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { 
-  LeafyGreen, 
-  ArrowRight, 
-  ShieldCheck, 
-  Users, 
+import {
+  LeafyGreen,
+  ArrowRight,
+  ShieldCheck,
+  Users,
   Zap,
   Mail,
   Linkedin,
@@ -25,7 +25,7 @@ export const LandingPage: React.FC = () => {
             </div>
             <span className="text-xl font-black tracking-tighter text-slate-900 dark:text-slate-100 uppercase">GUIA ESG</span>
           </div>
-          
+
           <div className="hidden md:flex items-center gap-8 text-[10px] font-black text-slate-500 dark:text-slate-400 uppercase tracking-[0.2em]">
             <a href="#features" className="hover:text-primary transition-colors">Funcionalidades</a>
             <a href="#impact" className="hover:text-primary transition-colors">Impacto</a>
@@ -86,23 +86,23 @@ export const LandingPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {[
-              { 
-                icon: LeafyGreen, 
-                title: 'Ambiental (E)', 
+              {
+                icon: LeafyGreen,
+                title: 'Ambiental (E)',
                 color: 'emerald',
-                desc: 'Gestão de carbono, eficiência energética e consumo consciente de recursos naturais.' 
+                desc: 'Gestão de carbono, eficiência energética e consumo consciente de recursos naturais.'
               },
-              { 
-                icon: Users, 
-                title: 'Social (S)', 
+              {
+                icon: Users,
+                title: 'Social (S)',
                 color: 'amber',
-                desc: 'Capital humano, diversidade, inclusão e impacto positivo nas comunidades locais.' 
+                desc: 'Capital humano, diversidade, inclusão e impacto positivo nas comunidades locais.'
               },
-              { 
-                icon: ShieldCheck, 
-                title: 'Governança (G)', 
+              {
+                icon: ShieldCheck,
+                title: 'Governança (G)',
                 color: 'blue',
-                desc: 'Transparência, ética e estruturas de decisão que garantem a longevidade do negócio.' 
+                desc: 'Transparência, ética e estruturas de decisão que garantem a longevidade do negócio.'
               },
             ].map((pilar, i) => (
               <div key={i} className="p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800 group hover:border-primary/30 transition-all duration-500 shadow-xl shadow-slate-200/20">
@@ -175,8 +175,8 @@ export const LandingPage: React.FC = () => {
                 Receba insights trimestrais sobre o mercado ESG no Brasil.
               </p>
               <form className="relative group" onSubmit={(e) => e.preventDefault()}>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   placeholder="seu@email.com.br"
                   className="w-full bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-primary transition-all font-mono text-xs"
                 />
@@ -191,7 +191,7 @@ export const LandingPage: React.FC = () => {
           {/* Bottom Bar */}
           <div className="pt-12 border-t border-slate-100 dark:border-slate-900 flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="flex items-center gap-8 text-[8px] font-black text-slate-400 uppercase tracking-[0.2em]">
-              <p>© {new Date().getFullYear()} GUIA ESG BRASIL. Todos os direitos reservados.</p>
+              <p>© Manifesto Ambiental, 2026. Todos os direitos reservados.</p>
               <div className="hidden sm:flex items-center gap-6">
                 <a href="/privacidade" className="hover:text-primary transition-colors">Privacidade</a>
                 <a href="/termos" className="hover:text-primary transition-colors">Termos</a>
@@ -205,7 +205,7 @@ export const LandingPage: React.FC = () => {
             </div>
 
             <div className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
-              Desenvolvido por <a href="https://futurereadylabs.com.br/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Future Ready Labs</a>
+              Desenvolvido por <a href="https://www.futurereadylabs.com.br" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline transition-all">FRL_</a>
             </div>
           </div>
         </div>
