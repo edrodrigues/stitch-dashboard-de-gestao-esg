@@ -8,6 +8,7 @@ import { useAuth } from '../context/useAuth';
 import { db } from '../firebase';
 import { doc, getDoc, updateDoc, collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
 import { Check, Lightbulb, Rocket, ChevronRight, ChevronLeft } from 'lucide-react';
+import { calculateESGScore, calculateESGDelta, calculateGoalsFromScores } from '../utils/scoreCalculator';
 
 export const DiagnosticPage: React.FC = () => {
   const { user, refreshAuth } = useAuth();
@@ -179,14 +180,37 @@ export const DiagnosticPage: React.FC = () => {
       });
 
       const companyRef = doc(db, 'companies', companyId);
-
       const companyDoc = await getDoc(companyRef);
-      const currentXP = companyDoc.exists() ? (companyDoc.data().currentXP || 0) : 0;
+      const companyOldData = companyDoc.exists() ? companyDoc.data() : {};
+      
+      const currentXP = companyOldData.currentXP || 0;
+      const previousScores = companyOldData.esgScores || { environmental: 0, social: 0, governance: 0 };
+      
+      const newScores = calculateESGScore(answers);
+      const newDelta = calculateESGDelta(newScores, previousScores);
+      const newGoals = calculateGoalsFromScores(newScores.environmental, newScores.social, newScores.governance);
+      
+      // Update evolution data with current month's total average score
+      const esgAvg = Math.round((newScores.environmental + newScores.social + newScores.governance) / 3);
+      const months = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
+      const currentMonth = months[new Date().getMonth()];
+      
+      let evolutionData = companyOldData.evolutionData || [];
+      const monthIndex = evolutionData.findIndex((d: { month: string }) => d.month === currentMonth);
+      if (monthIndex >= 0) {
+        evolutionData[monthIndex].score = esgAvg;
+      } else {
+        evolutionData.push({ month: currentMonth, score: esgAvg });
+      }
 
       const companyData: Record<string, unknown> = {
         formData: answers,
         lastDiagnosticDate: Timestamp.now(),
-        currentXP: currentXP + 500
+        currentXP: currentXP + 500,
+        esgScores: newScores,
+        esgDelta: newDelta,
+        goals: newGoals,
+        evolutionData: evolutionData
       };
 
       if (answers['form_1.1']) {

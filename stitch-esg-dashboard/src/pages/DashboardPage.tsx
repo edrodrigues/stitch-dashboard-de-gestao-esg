@@ -11,6 +11,7 @@ import { useAuth } from '../context/useAuth';
 import { doc, getDoc, collection, query, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '../firebase';
 import type { Company, Mission } from '../types';
+import { getGoalsDataForChart, getDeltaType, formatDelta } from '../utils/scoreCalculator';
 
 export const DashboardPage: React.FC = () => {
   const { user } = useAuth();
@@ -55,21 +56,9 @@ export const DashboardPage: React.FC = () => {
     fetchData();
   }, [user]);
 
-  const chartData = company?.evolutionData || [
-    { month: 'JAN', score: 45 },
-    { month: 'FEV', score: 52 },
-    { month: 'MAR', score: 48 },
-    { month: 'ABR', score: 61 },
-    { month: 'MAI', score: 55 },
-    { month: 'JUN', score: 67 },
-  ];
+  const chartData = company?.evolutionData || [];
 
-  const goalsData = [
-    { name: 'Energia', 'Atingido': 85 },
-    { name: 'Resíduos', 'Atingido': 65 },
-    { name: 'Diversid.', 'Atingido': 45 },
-    { name: 'Ética', 'Atingido': 95 },
-  ];
+  const goalsData = getGoalsDataForChart(company?.goals);
 
   const getLevelInfo = (xp: number) => {
     if (xp >= 4000) return { level: 5, name: 'Transformador' };
@@ -157,8 +146,8 @@ export const DashboardPage: React.FC = () => {
             <div>
               <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores?.environmental || 0}</p>
               <div className="mt-2">
-                <BadgeDelta deltaType="moderateIncrease" className="font-black text-[10px] uppercase">
-                  +5.2% XP
+                <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.environmental || 0)} className="font-black text-[10px] uppercase">
+                  {formatDelta(company?.esgDelta?.environmental || 0)} XP
                 </BadgeDelta>
               </div>
             </div>
@@ -177,8 +166,8 @@ export const DashboardPage: React.FC = () => {
             <div>
               <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores?.social || 0}</p>
               <div className="mt-2">
-                <BadgeDelta deltaType="moderateDecrease" className="font-black text-[10px] uppercase">
-                  -1.5% XP
+                <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.social || 0)} className="font-black text-[10px] uppercase">
+                  {formatDelta(company?.esgDelta?.social || 0)} XP
                 </BadgeDelta>
               </div>
             </div>
@@ -197,8 +186,8 @@ export const DashboardPage: React.FC = () => {
             <div>
               <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores?.governance || 0}</p>
               <div className="mt-2">
-                <BadgeDelta deltaType="increase" className="font-black text-[10px] uppercase">
-                  +2.1% XP
+                <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.governance || 0)} className="font-black text-[10px] uppercase">
+                  {formatDelta(company?.esgDelta?.governance || 0)} XP
                 </BadgeDelta>
               </div>
             </div>
