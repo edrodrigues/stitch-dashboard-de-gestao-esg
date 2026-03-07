@@ -68,27 +68,6 @@ export const DashboardPage: React.FC = () => {
     return { level: 1, name: 'Elementar' };
   };
 
-  const handleSimulateXP = () => {
-    if (!company) return;
-    const newXP = company.currentXP + 500;
-    const oldLevel = getLevelInfo(company.currentXP).level;
-    const newLevel = getLevelInfo(newXP);
-    
-    setCompany({ ...company, currentXP: newXP });
-    
-    if (newLevel.level > oldLevel) {
-      const newParticles = [...Array(20)].map((_, i) => ({
-        id: i,
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        delay: `${Math.random() * 2}s`,
-      }));
-      setParticles(newParticles);
-      setNewLevelInfo(newLevel);
-      setShowLevelUp(true);
-    }
-  };
-
   const esgAverage = company ? Math.round(
     (company.esgScores.environmental + company.esgScores.social + company.esgScores.governance) / 3
   ) : 0;
@@ -276,62 +255,6 @@ export const DashboardPage: React.FC = () => {
                   showLabels={false}
                   className="h-2"
                 />
-              </div>
-            </div>
-          </Card>
-
-          <Card title="Ações Rápidas">
-            <div className="space-y-4">
-              <button 
-                onClick={handleSimulateXP}
-                className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group"
-              >
-                <div className="w-12 h-12 rounded-xl bg-yellow-500/10 text-yellow-500 flex items-center justify-center group-hover:bg-yellow-500 group-hover:text-white transition-all shadow-sm">
-                  <Zap size={24} />
-                </div>
-                <div>
-                  <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Simular Progresso</p>
-                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">+500 XP (Teste Level Up)</p>
-                </div>
-              </button>
-
-              <button className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
-                  <PlusCircle size={24} />
-                </div>
-                <div>
-                  <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Novo Lançamento</p>
-                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Métricas de emissão ou sociais</p>
-                </div>
-              </button>
-              <button className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group">
-                <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-all shadow-sm">
-                  <Mail size={24} />
-                </div>
-                <div>
-                  <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Enviar Relatório</p>
-                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Sumário trimestral automático</p>
-                </div>
-              </button>
-              <button className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group">
-                <div className="w-12 h-12 rounded-xl bg-slate-500/10 text-slate-500 flex items-center justify-center group-hover:bg-slate-500 group-hover:text-white transition-all shadow-sm">
-                  <CloudSync size={24} />
-                </div>
-                <div>
-                  <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Sincronizar APIs</p>
-                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">GRI, SASB e TCFD</p>
-                </div>
-              </button>
-              
-              <div className="mt-6 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Status do Sistema</p>
-                <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-[0.2em]">
-                  <span className="flex items-center gap-2 text-emerald-600">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span> 
-                    Connected
-                  </span>
-                  <span className="font-mono text-slate-400">V2.4.0</span>
-                </div>
               </div>
             </div>
           </Card>
