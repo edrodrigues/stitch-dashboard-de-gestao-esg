@@ -1,61 +1,69 @@
-import type { CompanyGoals, ESGDelta, ESGScore } from '../types';
+import type { CompanyGoals, ESGDelta, ESGScore, Question } from '../types';
 
 export const calculateESGScore = (
   formData: Record<string, number | string>,
-  environmentalData?: Record<string, number | string>,
-  socialData?: Record<string, number | string>,
-  governanceData?: Record<string, number | string>
+  questions?: Question[]
 ): ESGScore => {
   let environmentalScore = 0;
   let socialScore = 0;
   let governanceScore = 0;
 
+  let totalWeightE = 0;
+  let totalWeightS = 0;
+  let totalWeightG = 0;
+
   const formKeys = Object.keys(formData);
   
   formKeys.forEach(key => {
     const value = formData[key];
-    if (typeof value === 'number') {
-      const maxScore = 10;
-      const normalizedScore = Math.min((value / maxScore) * 100, 100);
+    const question = questions?.find(q => q.id === key);
+
+    if (question && question.options) {
+      const selectedOption = question.options.find(opt => opt.value === value);
+      if (selectedOption && selectedOption.points !== undefined) {
+        const points = selectedOption.points;
+        const weight = selectedOption.weight || 1;
+
+        if (question.category === 'environmental') {
+          environmentalScore += points * weight;
+          totalWeightE += weight;
+        } else if (question.category === 'social') {
+          socialScore += points * weight;
+          totalWeightS += weight;
+        } else if (question.category === 'governance') {
+          governanceScore += points * weight;
+          totalWeightG += weight;
+        }
+      }
+    } else if (typeof value === 'number') {
+      // Fallback for cases where questions are not provided
+      const maxScore = 5;
+      const normalizedScore = (value / maxScore) * 100;
       
-      if (key.includes('environmental') || key.startsWith('E')) {
+      if (key.includes('environmental') || key.startsWith('environmental')) {
         environmentalScore += normalizedScore;
-      } else if (key.includes('social') || key.startsWith('S')) {
+        totalWeightE += 1;
+      } else if (key.includes('social') || key.startsWith('social')) {
         socialScore += normalizedScore;
-      } else if (key.includes('governance') || key.startsWith('G')) {
+        totalWeightS += 1;
+      } else if (key.includes('governance') || key.startsWith('governance')) {
         governanceScore += normalizedScore;
+        totalWeightG += 1;
       }
     }
   });
 
-  if (environmentalData) {
-    Object.values(environmentalData).forEach(value => {
-      if (typeof value === 'number') {
-        environmentalScore += Math.min(value, 100);
-      }
-    });
-  }
-
-  if (socialData) {
-    Object.values(socialData).forEach(value => {
-      if (typeof value === 'number') {
-        socialScore += Math.min(value, 100);
-      }
-    });
-  }
-
-  if (governanceData) {
-    Object.values(governanceData).forEach(value => {
-      if (typeof value === 'number') {
-        governanceScore += Math.min(value, 100);
-      }
-    });
-  }
+  // Calculate percentages (0-100) based on total weights
+  // Assuming max points is 5 per question as per common ESG diagnostic pattern
+  const normalize = (score: number, totalWeight: number) => {
+    if (totalWeight === 0) return 0;
+    return Math.min(Math.round((score / (totalWeight * 5)) * 100), 100);
+  };
 
   return {
-    environmental: Math.round(environmentalScore || 0),
-    social: Math.round(socialScore || 0),
-    governance: Math.round(governanceScore || 0),
+    environmental: normalize(environmentalScore, totalWeightE),
+    social: normalize(socialScore, totalWeightS),
+    governance: normalize(governanceScore, totalWeightG),
   };
 };
 

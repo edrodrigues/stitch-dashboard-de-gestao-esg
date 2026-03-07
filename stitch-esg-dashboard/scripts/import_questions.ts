@@ -38,13 +38,20 @@ async function importQuestions() {
   for (const file of files) {
     const filePath = path.join(formsDir, file);
     if (!fs.existsSync(filePath)) {
-        console.warn(`Warning: File ${filePath} not found. Skipping.`);
-        continue;
+      console.warn(`Warning: File ${filePath} not found. Skipping.`);
+      continue;
     }
     console.log(`Reading ${file}...`);
     const content = JSON.parse(fs.readFileSync(filePath, 'utf8'));
     allQuestions = [...allQuestions, ...content];
   }
+
+  console.log('Clearing existing questions in Firestore...');
+  const existingDocs = await db.collection('questions').get();
+  const deleteBatch = db.batch();
+  existingDocs.docs.forEach(doc => deleteBatch.delete(doc.ref));
+  await deleteBatch.commit();
+  console.log('Cleared existing questions.');
 
   console.log(`Total questions to upload: ${allQuestions.length}. Uploading to Firestore...`);
 
@@ -52,7 +59,7 @@ async function importQuestions() {
   for (let i = 0; i < allQuestions.length; i += batchSize) {
     const batch = db.batch();
     const chunk = allQuestions.slice(i, i + batchSize);
-    
+
     chunk.forEach(q => {
       const docRef = db.collection('questions').doc(q.id);
       batch.set(docRef, q);
@@ -63,7 +70,7 @@ async function importQuestions() {
   }
 
   console.log('Import completed successfully!');
-  
+
   // Também atualizar o arquivo local para referência
   const localQuestionsPath = path.join(__dirname, '../src/data/questions.ts');
   const fileContent = `import type { Question } from '../types';

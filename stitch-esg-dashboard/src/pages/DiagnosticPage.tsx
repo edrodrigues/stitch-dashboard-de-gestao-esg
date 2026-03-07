@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import type { Question } from '../types';
+import type { Question, QuestionOption } from '../types';
 import { useAuth } from '../context/useAuth';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
 import { Check, Lightbulb, Rocket, ChevronRight, ChevronLeft } from 'lucide-react';
 import { calculateESGScore, calculateESGDelta, calculateGoalsFromScores } from '../utils/scoreCalculator';
+import { diagnosticQuestions } from '../data/questions';
 
 export const DiagnosticPage: React.FC = () => {
   const { user, refreshAuth } = useAuth();
@@ -92,9 +93,14 @@ export const DiagnosticPage: React.FC = () => {
       try {
         const q = query(collection(db, 'questions'));
         const querySnapshot = await getDocs(q);
-        const fetchedQuestions = querySnapshot.docs.map(doc => ({
+        let fetchedQuestions = querySnapshot.docs.map(doc => ({
           ...doc.data()
         } as Question));
+
+        if (fetchedQuestions.length === 0) {
+          console.log("DiagnosticPage: No questions in Firestore, using local fallback.");
+          fetchedQuestions = diagnosticQuestions;
+        }
 
         // Custom sort to maintain category order: form -> environmental -> social -> governance
         const categoryOrder = { 'form': 0, 'environmental': 1, 'social': 2, 'governance': 3 };
@@ -208,9 +214,10 @@ export const DiagnosticPage: React.FC = () => {
 
           console.log("DiagnosticPage: Successfully saved new diagnostic online:", newDiagRef.id);
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         console.error("Error loading diagnostic:", err);
-        if (err.code === 'unavailable' || err.message?.includes('offline')) {
+        const error = err as { code?: string; message?: string };
+        if (error.code === 'unavailable' || error.message?.includes('offline')) {
           console.warn("DiagnosticPage: Firestore is offline, using cached data if available.");
         } else {
           alert("Houve um erro ao conectar com o banco de dados. Verifique sua conexão.");
@@ -223,7 +230,7 @@ export const DiagnosticPage: React.FC = () => {
     if (!loadingQuestions) {
       loadDiagnostic();
     }
-  }, [user, loadingQuestions, questions.length]);
+  }, [user, loadingQuestions, questions]);
 
   const handleOptionSelect = (value: number | string) => {
     const newAnswers = { ...answers, [currentVisibleQuestion.id]: value };
@@ -271,7 +278,7 @@ export const DiagnosticPage: React.FC = () => {
       const currentXP = companyOldData.currentXP || 0;
       const previousScores = companyOldData.esgScores || { environmental: 0, social: 0, governance: 0 };
 
-      const newScores = calculateESGScore(answers);
+      const newScores = calculateESGScore(answers, questions);
       const newDelta = calculateESGDelta(newScores, previousScores);
       const newGoals = calculateGoalsFromScores(newScores.environmental, newScores.social, newScores.governance);
 
@@ -310,12 +317,13 @@ export const DiagnosticPage: React.FC = () => {
       setTimeout(() => {
         navigate('/environmental');
       }, 2000);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error finishing diagnostic:", err);
       setIsFinishing(false);
       alert("Houve um erro ao salvar seu diagnóstico. Por favor, tente novamente.");
     }
-  }, [user, diagnosticId, companyId, answers, saveProgress, refreshAuth, navigate]);
+    }, [user, diagnosticId, companyId, answers, questions, saveProgress, refreshAuth, navigate]);
+
 
   const handleNext = useCallback(async () => {
     if (currentStep < visibleQuestions.length - 1) {
@@ -469,7 +477,8 @@ export const DiagnosticPage: React.FC = () => {
                 <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black mb-4 uppercase tracking-widest border border-primary/20">
                   {currentCategory === 'form' ? 'Dados da Empresa' :
                     currentCategory === 'environmental' ? 'Eixo Ambiental' :
-                      currentCategory === 'social' ? 'Eixo Social' : 'Eixo Governança'} - Passo {currentStep + 1} de {visibleQuestions.length}
+                      currentCategory === 'social' ? 'Eixo Social' : 'Eixo Governança'}
+                  {currentVisibleQuestion.subcategory && ` • ${currentVisibleQuestion.subcategory}`} - Passo {currentStep + 1} de {visibleQuestions.length}
                 </span>
                 <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2 leading-tight uppercase tracking-tight">
                   {currentVisibleQuestion.text}
@@ -482,7 +491,7 @@ export const DiagnosticPage: React.FC = () => {
               </div>
 
               <div className="space-y-3">
-                {(!currentVisibleQuestion.inputType || currentVisibleQuestion.inputType === 'radio') && currentVisibleQuestion.options?.map((option: any, idx: number) => (
+                {(!currentVisibleQuestion.inputType || currentVisibleQuestion.inputType === 'radio') && currentVisibleQuestion.options?.map((option: QuestionOption, idx: number) => (
                   <label
                     key={idx}
                     className={`flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 group
@@ -559,7 +568,7 @@ export const DiagnosticPage: React.FC = () => {
                     className="w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest cursor-pointer appearance-none"
                   >
                     <option value="" className="text-slate-400">Selecione uma opção</option>
-                    {currentVisibleQuestion.options.map((option: any, idx: number) => (
+                    {currentVisibleQuestion.options.map((option: QuestionOption, idx: number) => (
                       <option key={idx} value={option.value as string} className="bg-white dark:bg-slate-900">
                         {option.label}
                       </option>
@@ -614,7 +623,7 @@ export const DiagnosticPage: React.FC = () => {
               </div>
             )}
 
-            {currentVisibleQuestion.options?.find((o: any) => o.value === answers[currentVisibleQuestion.id])?.message && (
+            {currentVisibleQuestion.options?.find((o: QuestionOption) => o.value === answers[currentVisibleQuestion.id])?.message && (
               <div className="bg-primary/5 border-2 border-dashed border-primary/20 p-8 rounded-3xl">
                 <div className="flex gap-6">
                   <div className="bg-primary/10 p-3 rounded-2xl text-primary">
@@ -623,7 +632,7 @@ export const DiagnosticPage: React.FC = () => {
                   <div>
                     <h4 className="font-black text-slate-900 dark:text-white mb-1 uppercase tracking-widest text-xs">Informação Relevante</h4>
                     <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
-                      {currentVisibleQuestion.options.find((o: any) => o.value === answers[currentVisibleQuestion.id])?.message}
+                      {currentVisibleQuestion.options.find((o: QuestionOption) => o.value === answers[currentVisibleQuestion.id])?.message}
                     </p>
                   </div>
                 </div>

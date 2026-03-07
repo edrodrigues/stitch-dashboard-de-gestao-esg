@@ -29,25 +29,25 @@ export const diagnosticQuestions: Question[] = [
     "id": "form_1.4",
     "category": "form",
     "subcategory": "CATEGORIA",
-    "text": "Setor",
+    "text": "Selecione o setor da sua empresa:",
     "inputType": "radio",
     "options": [
       {
         "label": "Atacado/varejo",
-        "value": "Atacado/varejo",
+        "value": "atacado_varejo",
         "points": 0,
         "weight": 1
       },
       {
         "label": "Fabricação",
-        "value": "Fabricação",
+        "value": "fabricacao",
         "points": 0,
         "weight": 1
       },
       {
         "label": "Serviço",
-        "value": "Serviço",
-        "points": 1,
+        "value": "servico",
+        "points": 0,
         "weight": 1
       }
     ]
@@ -68,39 +68,6 @@ export const diagnosticQuestions: Question[] = [
       {
         "label": "Serviços",
         "value": "servicos",
-        "points": 0,
-        "weight": 1
-      }
-    ]
-  },
-  {
-    "id": "form_1.6",
-    "category": "form",
-    "subcategory": "ATIVIDADE",
-    "text": "ATIVIDADE",
-    "inputType": "radio",
-    "options": [
-      {
-        "label": "Design e fabricação",
-        "value": "design_fabricacao",
-        "points": 0,
-        "weight": 1
-      },
-      {
-        "label": "Venda e distribuição",
-        "value": "venda_distribuicao",
-        "points": 0,
-        "weight": 1
-      },
-      {
-        "label": "E-commerce",
-        "value": "ecommerce",
-        "points": 0,
-        "weight": 1
-      },
-      {
-        "label": "Outros.",
-        "value": "outros",
         "points": 0,
         "weight": 1
       }
