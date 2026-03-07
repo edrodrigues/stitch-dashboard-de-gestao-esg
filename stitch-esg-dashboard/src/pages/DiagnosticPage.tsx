@@ -44,7 +44,7 @@ export const DiagnosticPage: React.FC = () => {
     () => visibleQuestions.filter(q => answers[q.id] !== undefined).length,
     [visibleQuestions, answers]
   );
-  const progress = visibleQuestions.length > 0 
+  const progress = visibleQuestions.length > 0
     ? Math.round((answeredVisible / visibleQuestions.length) * 100)
     : 0;
 
@@ -95,7 +95,7 @@ export const DiagnosticPage: React.FC = () => {
         const fetchedQuestions = querySnapshot.docs.map(doc => ({
           ...doc.data()
         } as Question));
-        
+
         // Custom sort to maintain category order: form -> environmental -> social -> governance
         const categoryOrder = { 'form': 0, 'environmental': 1, 'social': 2, 'governance': 3 };
         fetchedQuestions.sort((a, b) => {
@@ -104,7 +104,7 @@ export const DiagnosticPage: React.FC = () => {
           }
           return a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: 'base' });
         });
-        
+
         setQuestions(fetchedQuestions);
       } catch (err) {
         console.error("Error loading questions from Firestore:", err);
@@ -128,12 +128,12 @@ export const DiagnosticPage: React.FC = () => {
 
       try {
         let userDoc = await getDoc(doc(db, 'users', user.uid));
-        
+
         if (!userDoc.exists()) {
           console.warn("DiagnosticPage: User document not found, creating default profile...");
           const newCompanyId = `comp_${Date.now()}`;
           const newCompanyRef = doc(db, 'companies', newCompanyId);
-          
+
           await setDoc(newCompanyRef, {
             name: 'Minha Empresa ESG',
             industry: 'Not specified',
@@ -152,7 +152,7 @@ export const DiagnosticPage: React.FC = () => {
             role: 'admin',
             avatarUrl: user.photoURL || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user.uid}`
           });
-          
+
           userDoc = await getDoc(doc(db, 'users', user.uid));
         }
 
@@ -181,7 +181,7 @@ export const DiagnosticPage: React.FC = () => {
             if (!q.dependsOn) return true;
             return savedAnswers[q.dependsOn.questionId] === q.dependsOn.value;
           });
-          
+
           const answeredVisibleCount = visibleForSaved.filter(q => savedAnswers[q.id] !== undefined).length;
           if (answeredVisibleCount < visibleForSaved.length) {
             setCurrentStep(answeredVisibleCount);
@@ -221,7 +221,7 @@ export const DiagnosticPage: React.FC = () => {
     };
 
     if (!loadingQuestions) {
-        loadDiagnostic();
+      loadDiagnostic();
     }
   }, [user, loadingQuestions, questions.length]);
 
@@ -371,16 +371,16 @@ export const DiagnosticPage: React.FC = () => {
   }
 
   if (visibleQuestions.length === 0) {
-      return (
-          <DashboardLayout>
-              <div className="flex flex-col items-center justify-center h-96 text-center">
-                  <h3 className="text-xl font-black uppercase tracking-tighter mb-2">Nenhuma pergunta encontrada</h3>
-                  <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">
-                      Ocorreu um erro ao carregar as perguntas do banco de dados.
-                  </p>
-              </div>
-          </DashboardLayout>
-      );
+    return (
+      <DashboardLayout>
+        <div className="flex flex-col items-center justify-center h-96 text-center">
+          <h3 className="text-xl font-black uppercase tracking-tighter mb-2">Nenhuma pergunta encontrada</h3>
+          <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">
+            Ocorreu um erro ao carregar as perguntas do banco de dados.
+          </p>
+        </div>
+      </DashboardLayout>
+    );
   }
 
   return (
@@ -445,20 +445,20 @@ export const DiagnosticPage: React.FC = () => {
           >
             <span className="material-symbols-outlined text-lg">description</span> Dados da Empresa
           </button>
-          
+
           {['environmental', 'social', 'governance'].map(cat => (
-              <button
-                key={cat}
-                onClick={() => navigateToCategory(cat)}
-                className={`pb-4 px-2 border-b-4 font-black uppercase tracking-widest text-[10px] flex items-center gap-2 transition-all
+            <button
+              key={cat}
+              onClick={() => navigateToCategory(cat)}
+              className={`pb-4 px-2 border-b-4 font-black uppercase tracking-widest text-[10px] flex items-center gap-2 transition-all
                   ${currentCategory === cat ? 'border-primary text-primary' : 'border-transparent text-slate-400 hover:text-slate-600'}
                 `}
-              >
-                <span className="material-symbols-outlined text-lg">
-                    {cat === 'environmental' ? 'eco' : cat === 'social' ? 'groups' : 'policy'}
-                </span> 
-                {cat === 'environmental' ? 'Ambiental' : cat === 'social' ? 'Social' : 'Governança'}
-              </button>
+            >
+              <span className="material-symbols-outlined text-lg">
+                {cat === 'environmental' ? 'eco' : cat === 'social' ? 'groups' : 'policy'}
+              </span>
+              {cat === 'environmental' ? 'Ambiental' : cat === 'social' ? 'Social' : 'Governança'}
+            </button>
           ))}
         </div>
 
@@ -467,9 +467,9 @@ export const DiagnosticPage: React.FC = () => {
             <Card className="border-b-8">
               <div className="mb-8">
                 <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black mb-4 uppercase tracking-widest border border-primary/20">
-                  {currentCategory === 'form' ? 'Dados da Empresa' : 
-                   currentCategory === 'environmental' ? 'Eixo Ambiental' :
-                   currentCategory === 'social' ? 'Eixo Social' : 'Eixo Governança'} - Passo {currentStep + 1} de {visibleQuestions.length}
+                  {currentCategory === 'form' ? 'Dados da Empresa' :
+                    currentCategory === 'environmental' ? 'Eixo Ambiental' :
+                      currentCategory === 'social' ? 'Eixo Social' : 'Eixo Governança'} - Passo {currentStep + 1} de {visibleQuestions.length}
                 </span>
                 <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2 leading-tight uppercase tracking-tight">
                   {currentVisibleQuestion.text}
@@ -507,26 +507,46 @@ export const DiagnosticPage: React.FC = () => {
                       onChange={() => handleOptionSelect(option.value)}
                     />
                     <div className="ml-4 flex flex-col">
-                        <span className={`font-black text-[10px] uppercase tracking-widest transition-colors
+                      <span className={`font-black text-[10px] uppercase tracking-widest transition-colors
                           ${answers[currentVisibleQuestion.id] === option.value ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}
                         `}>
-                          {option.label}
-                        </span>
-                        {option.points > 0 && answers[currentVisibleQuestion.id] === option.value && (
-                            <span className="text-[8px] font-black text-primary mt-1 uppercase tracking-tighter">+{option.points} Pontos de Impacto</span>
-                        )}
+                        {option.label}
+                      </span>
                     </div>
                   </label>
                 ))}
 
-                {(currentVisibleQuestion.inputType === 'text' || currentVisibleQuestion.inputType === 'number' || currentVisibleQuestion.inputType === 'date') && (
+                {currentVisibleQuestion.inputType === 'text' && (
                   <input
-                    type={currentVisibleQuestion.inputType}
+                    type="text"
                     value={(answers[currentVisibleQuestion.id] as string) || ''}
                     onChange={(e) => handleTextChange(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="w-full p-4 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary text-sm"
-                    placeholder={currentVisibleQuestion.inputType === 'date' ? "" : "Digite sua resposta..."}
+                    className="w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest placeholder:text-slate-300 dark:placeholder:text-slate-700"
+                    placeholder="Digite sua resposta..."
+                    autoFocus
+                  />
+                )}
+
+                {currentVisibleQuestion.inputType === 'number' && (
+                  <input
+                    type="number"
+                    value={(answers[currentVisibleQuestion.id] as number | string) || ''}
+                    onChange={(e) => handleTextChange(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    className="w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest placeholder:text-slate-300 dark:placeholder:text-slate-700 font-mono"
+                    placeholder="0"
+                    autoFocus
+                  />
+                )}
+
+                {currentVisibleQuestion.inputType === 'date' && (
+                  <input
+                    type="date"
+                    value={(answers[currentVisibleQuestion.id] as string) || ''}
+                    onChange={(e) => handleTextChange(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    className="w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest"
                     autoFocus
                   />
                 )}
@@ -536,11 +556,11 @@ export const DiagnosticPage: React.FC = () => {
                     value={(answers[currentVisibleQuestion.id] as string) || ''}
                     onChange={(e) => handleOptionSelect(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="w-full p-4 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary text-sm"
+                    className="w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest cursor-pointer appearance-none"
                   >
-                    <option value="">Selecione uma opção</option>
+                    <option value="" className="text-slate-400">Selecione uma opção</option>
                     {currentVisibleQuestion.options.map((option: any, idx: number) => (
-                      <option key={idx} value={option.value as string}>
+                      <option key={idx} value={option.value as string} className="bg-white dark:bg-slate-900">
                         {option.label}
                       </option>
                     ))}
@@ -595,19 +615,19 @@ export const DiagnosticPage: React.FC = () => {
             )}
 
             {currentVisibleQuestion.options?.find((o: any) => o.value === answers[currentVisibleQuestion.id])?.message && (
-                <div className="bg-primary/5 border-2 border-dashed border-primary/20 p-8 rounded-3xl">
-                  <div className="flex gap-6">
-                    <div className="bg-primary/10 p-3 rounded-2xl text-primary">
-                      <Lightbulb size={28} />
-                    </div>
-                    <div>
-                      <h4 className="font-black text-slate-900 dark:text-white mb-1 uppercase tracking-widest text-xs">Informação Relevante</h4>
-                      <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
-                        {currentVisibleQuestion.options.find((o: any) => o.value === answers[currentVisibleQuestion.id])?.message}
-                      </p>
-                    </div>
+              <div className="bg-primary/5 border-2 border-dashed border-primary/20 p-8 rounded-3xl">
+                <div className="flex gap-6">
+                  <div className="bg-primary/10 p-3 rounded-2xl text-primary">
+                    <Lightbulb size={28} />
+                  </div>
+                  <div>
+                    <h4 className="font-black text-slate-900 dark:text-white mb-1 uppercase tracking-widest text-xs">Informação Relevante</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
+                      {currentVisibleQuestion.options.find((o: any) => o.value === answers[currentVisibleQuestion.id])?.message}
+                    </p>
                   </div>
                 </div>
+              </div>
             )}
           </div>
         </div>
