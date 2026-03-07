@@ -1,0 +1,15 @@
+# Firebase Service Account
+service-account.json
+**/service-account.json
+
+# Environment files
+.env
+.env.local
+.env.*
+
+# Node modules
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,3 +1,6 @@
+# Firebase Service Account
+service-account.json
+
 # Logs
 logs
 *.log
@@ -13,6 +16,7 @@ dist-ssr
 *.local
 
 # Editor directories and files
+.firebase/
 .vscode/*
 !.vscode/extensions.json
 .idea

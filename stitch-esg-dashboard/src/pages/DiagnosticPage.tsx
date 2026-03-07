@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import { diagnosticQuestions } from '../data/questions';
+import { Question } from '../types';
 import { useAuth } from '../context/useAuth';
 import { db } from '../firebase';
-import { doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, Timestamp, orderBy } from 'firebase/firestore';
 import { Check, Lightbulb, Rocket, ChevronRight, ChevronLeft } from 'lucide-react';
 import { calculateESGScore, calculateESGDelta, calculateGoalsFromScores } from '../utils/scoreCalculator';
 
@@ -14,9 +14,11 @@ export const DiagnosticPage: React.FC = () => {
   const { user, refreshAuth } = useAuth();
   const navigate = useNavigate();
 
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number | string>>({});
   const [loading, setLoading] = useState(true);
+  const [loadingQuestions, setLoadingQuestions] = useState(true);
   const [isFinishing, setIsFinishing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [diagnosticId, setDiagnosticId] = useState<string | null>(null);
@@ -26,14 +28,14 @@ export const DiagnosticPage: React.FC = () => {
   const lastSavedRef = useRef<string>('');
   const questionnaireRef = useRef<HTMLDivElement>(null);
 
-  const isQuestionVisible = useCallback((question: typeof diagnosticQuestions[0]) => {
+  const isQuestionVisible = useCallback((question: Question) => {
     if (!question.dependsOn) return true;
     return answers[question.dependsOn.questionId] === question.dependsOn.value;
   }, [answers]);
 
   const visibleQuestions = useMemo(() => {
-    return diagnosticQuestions.filter(q => isQuestionVisible(q));
-  }, [isQuestionVisible]);
+    return questions.filter(q => isQuestionVisible(q));
+  }, [questions, isQuestionVisible]);
 
   const currentVisibleQuestion = visibleQuestions[currentStep];
   const currentCategory = currentVisibleQuestion?.category || 'form';
@@ -42,7 +44,9 @@ export const DiagnosticPage: React.FC = () => {
     () => visibleQuestions.filter(q => answers[q.id] !== undefined).length,
     [visibleQuestions, answers]
   );
-  const progress = Math.round((answeredVisible / visibleQuestions.length) * 100);
+  const progress = visibleQuestions.length > 0 
+    ? Math.round((answeredVisible / visibleQuestions.length) * 100)
+    : 0;
 
   const saveProgress = useCallback(async (answersToSave: Record<string, number | string>, force = false) => {
     const answersKey = JSON.stringify(answersToSave);
@@ -83,9 +87,39 @@ export const DiagnosticPage: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    const loadQuestions = async () => {
+      setLoadingQuestions(true);
+      try {
+        const q = query(collection(db, 'questions'));
+        const querySnapshot = await getDocs(q);
+        const fetchedQuestions = querySnapshot.docs.map(doc => ({
+          ...doc.data()
+        } as Question));
+        
+        // Custom sort to maintain category order: form -> environmental -> social -> governance
+        const categoryOrder = { 'form': 0, 'environmental': 1, 'social': 2, 'governance': 3 };
+        fetchedQuestions.sort((a, b) => {
+          if (categoryOrder[a.category as keyof typeof categoryOrder] !== categoryOrder[b.category as keyof typeof categoryOrder]) {
+            return categoryOrder[a.category as keyof typeof categoryOrder] - categoryOrder[b.category as keyof typeof categoryOrder];
+          }
+          return a.id.localeCompare(b.id, undefined, { numeric: true, sensitivity: 'base' });
+        });
+        
+        setQuestions(fetchedQuestions);
+      } catch (err) {
+        console.error("Error loading questions from Firestore:", err);
+      } finally {
+        setLoadingQuestions(false);
+      }
+    };
+
+    loadQuestions();
+  }, []);
+
+  useEffect(() => {
     const loadDiagnostic = async () => {
-      if (!user) {
-        console.log("DiagnosticPage: No user yet");
+      if (!user || loadingQuestions) {
+        console.log("DiagnosticPage: No user or still loading questions");
         return;
       }
 
@@ -120,18 +154,23 @@ export const DiagnosticPage: React.FC = () => {
           console.log("DiagnosticPage: Found existing diagnostic:", incompleteDoc.id);
 
           const savedAnswers = diagData.responses || {};
-          const answeredVisibleCount = visibleQuestions.filter(q => savedAnswers[q.id] !== undefined).length;
-          if (answeredVisibleCount < visibleQuestions.length) {
+          // Use visibleQuestions from the already loaded questions
+          const visibleForSaved = questions.filter(q => {
+            if (!q.dependsOn) return true;
+            return savedAnswers[q.dependsOn.questionId] === q.dependsOn.value;
+          });
+          
+          const answeredVisibleCount = visibleForSaved.filter(q => savedAnswers[q.id] !== undefined).length;
+          if (answeredVisibleCount < visibleForSaved.length) {
             setCurrentStep(answeredVisibleCount);
           } else {
-            setCurrentStep(visibleQuestions.length - 1);
+            setCurrentStep(Math.max(0, visibleForSaved.length - 1));
           }
         } else {
           // Create new diagnostic if none exists
           console.log("DiagnosticPage: No existing diagnostic found, creating new one...");
           const newDiagRef = doc(collection(db, 'diagnostics'));
 
-          // Set state immediately to unlock UI even if offline write is pending/fails
           setDiagnosticId(newDiagRef.id);
           setAnswers({});
           setCurrentStep(0);
@@ -159,9 +198,10 @@ export const DiagnosticPage: React.FC = () => {
       }
     };
 
-    loadDiagnostic();
-    // Dependências ajustadas para evitar dependência cíclica com visibleQuestions
-  }, [user]);
+    if (!loadingQuestions) {
+        loadDiagnostic();
+    }
+  }, [user, loadingQuestions, questions.length]);
 
   const handleOptionSelect = (value: number | string) => {
     const newAnswers = { ...answers, [currentVisibleQuestion.id]: value };
@@ -188,7 +228,7 @@ export const DiagnosticPage: React.FC = () => {
         diagnosticId,
         companyId
       });
-      alert(`Não foi possível finalizar o diagnóstico no momento. Faltam dados de conexão (${!diagnosticId ? 'DiagID' : !companyId ? 'CompID' : 'User'}). Recarregue a página e tente novamente.`);
+      alert(`Não foi possível finalizar o diagnóstico no momento. Faltam dados de conexão. Recarregue a página e tente novamente.`);
       return;
     }
 
@@ -213,7 +253,6 @@ export const DiagnosticPage: React.FC = () => {
       const newDelta = calculateESGDelta(newScores, previousScores);
       const newGoals = calculateGoalsFromScores(newScores.environmental, newScores.social, newScores.governance);
 
-      // Update evolution data with current month's total average score
       const esgAvg = Math.round((newScores.environmental + newScores.social + newScores.governance) / 3);
       const months = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
       const currentMonth = months[new Date().getMonth()];
@@ -246,18 +285,13 @@ export const DiagnosticPage: React.FC = () => {
 
       setShowSuccess(true);
 
-      // Brief delay to show success state
       setTimeout(() => {
         navigate('/environmental');
       }, 2000);
     } catch (err: any) {
       console.error("Error finishing diagnostic:", err);
       setIsFinishing(false);
-      if (err.code === 'unavailable' || err.message?.includes('offline')) {
-        alert("Parece que você está offline ou a conexão falhou. Seus dados foram salvos localmente e serão sincronizados quando a internet voltar. Por favor, tente novamente em instantes.");
-      } else {
-        alert("Houve um erro ao salvar seu diagnóstico. Por favor, tente novamente.");
-      }
+      alert("Houve um erro ao salvar seu diagnóstico. Por favor, tente novamente.");
     }
   }, [user, diagnosticId, companyId, answers, saveProgress, refreshAuth, navigate]);
 
@@ -277,8 +311,7 @@ export const DiagnosticPage: React.FC = () => {
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent | KeyboardEvent) => {
     if (e.key === 'Enter') {
-      // Prevent default to avoid form submission if any
-      if (answers[currentVisibleQuestion?.id] !== undefined) {
+      if (currentVisibleQuestion && answers[currentVisibleQuestion.id] !== undefined) {
         handleNext();
       }
     }
@@ -295,21 +328,37 @@ export const DiagnosticPage: React.FC = () => {
     questionnaireRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const navigateToCategory = (cat: 'form' | 'environmental' | 'social' | 'governance') => {
+  const navigateToCategory = (cat: string) => {
     const visibleIndex = visibleQuestions.findIndex(q => q.category === cat);
     if (visibleIndex !== -1) {
       setCurrentStep(visibleIndex);
     }
   };
 
-  if (loading) {
+  if (loading || loadingQuestions) {
     return (
       <DashboardLayout>
-        <div className="flex items-center justify-center h-96">
+        <div className="flex flex-col items-center justify-center h-96 gap-4">
           <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin shadow-lg"></div>
+          <p className="text-slate-500 font-black uppercase text-[10px] tracking-widest animate-pulse">
+            Carregando Missão...
+          </p>
         </div>
       </DashboardLayout>
     );
+  }
+
+  if (visibleQuestions.length === 0) {
+      return (
+          <DashboardLayout>
+              <div className="flex flex-col items-center justify-center h-96 text-center">
+                  <h3 className="text-xl font-black uppercase tracking-tighter mb-2">Nenhuma pergunta encontrada</h3>
+                  <p className="text-slate-500 text-xs font-bold uppercase tracking-widest">
+                      Ocorreu um erro ao carregar as perguntas do banco de dados.
+                  </p>
+              </div>
+          </DashboardLayout>
+      );
   }
 
   return (
@@ -374,6 +423,21 @@ export const DiagnosticPage: React.FC = () => {
           >
             <span className="material-symbols-outlined text-lg">description</span> Dados da Empresa
           </button>
+          
+          {['environmental', 'social', 'governance'].map(cat => (
+              <button
+                key={cat}
+                onClick={() => navigateToCategory(cat)}
+                className={`pb-4 px-2 border-b-4 font-black uppercase tracking-widest text-[10px] flex items-center gap-2 transition-all
+                  ${currentCategory === cat ? 'border-primary text-primary' : 'border-transparent text-slate-400 hover:text-slate-600'}
+                `}
+              >
+                <span className="material-symbols-outlined text-lg">
+                    {cat === 'environmental' ? 'eco' : cat === 'social' ? 'groups' : 'policy'}
+                </span> 
+                {cat === 'environmental' ? 'Ambiental' : cat === 'social' ? 'Social' : 'Governança'}
+              </button>
+          ))}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10" ref={questionnaireRef}>
@@ -381,7 +445,9 @@ export const DiagnosticPage: React.FC = () => {
             <Card className="border-b-8">
               <div className="mb-8">
                 <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black mb-4 uppercase tracking-widest border border-primary/20">
-                  Dados da Empresa - Passo {currentStep + 1} de {visibleQuestions.length}
+                  {currentCategory === 'form' ? 'Dados da Empresa' : 
+                   currentCategory === 'environmental' ? 'Eixo Ambiental' :
+                   currentCategory === 'social' ? 'Eixo Social' : 'Eixo Governança'} - Passo {currentStep + 1} de {visibleQuestions.length}
                 </span>
                 <h3 className="text-2xl font-black text-slate-900 dark:text-white mb-2 leading-tight uppercase tracking-tight">
                   {currentVisibleQuestion.text}
@@ -394,7 +460,7 @@ export const DiagnosticPage: React.FC = () => {
               </div>
 
               <div className="space-y-3">
-                {(!currentVisibleQuestion.inputType || currentVisibleQuestion.inputType === 'radio') && currentVisibleQuestion.options?.map((option, idx) => (
+                {(!currentVisibleQuestion.inputType || currentVisibleQuestion.inputType === 'radio') && currentVisibleQuestion.options?.map((option: any, idx: number) => (
                   <label
                     key={idx}
                     className={`flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 group
@@ -418,11 +484,16 @@ export const DiagnosticPage: React.FC = () => {
                       checked={answers[currentVisibleQuestion.id] === option.value}
                       onChange={() => handleOptionSelect(option.value)}
                     />
-                    <span className={`ml-4 font-black text-[10px] uppercase tracking-widest transition-colors
-                      ${answers[currentVisibleQuestion.id] === option.value ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}
-                    `}>
-                      {option.label}
-                    </span>
+                    <div className="ml-4 flex flex-col">
+                        <span className={`font-black text-[10px] uppercase tracking-widest transition-colors
+                          ${answers[currentVisibleQuestion.id] === option.value ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}
+                        `}>
+                          {option.label}
+                        </span>
+                        {option.points > 0 && answers[currentVisibleQuestion.id] === option.value && (
+                            <span className="text-[8px] font-black text-primary mt-1 uppercase tracking-tighter">+{option.points} Pontos de Impacto</span>
+                        )}
+                    </div>
                   </label>
                 ))}
 
@@ -446,7 +517,7 @@ export const DiagnosticPage: React.FC = () => {
                     className="w-full p-4 bg-slate-50 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-primary text-sm"
                   >
                     <option value="">Selecione uma opção</option>
-                    {currentVisibleQuestion.options.map((option, idx) => (
+                    {currentVisibleQuestion.options.map((option: any, idx: number) => (
                       <option key={idx} value={option.value as string}>
                         {option.label}
                       </option>
@@ -501,22 +572,25 @@ export const DiagnosticPage: React.FC = () => {
               </div>
             )}
 
-            <div className="bg-primary/5 border-2 border-dashed border-primary/20 p-8 rounded-3xl">
-              <div className="flex gap-6">
-                <div className="bg-primary/10 p-3 rounded-2xl text-primary">
-                  <Lightbulb size={28} />
+            {currentVisibleQuestion.options?.find((o: any) => o.value === answers[currentVisibleQuestion.id])?.message && (
+                <div className="bg-primary/5 border-2 border-dashed border-primary/20 p-8 rounded-3xl">
+                  <div className="flex gap-6">
+                    <div className="bg-primary/10 p-3 rounded-2xl text-primary">
+                      <Lightbulb size={28} />
+                    </div>
+                    <div>
+                      <h4 className="font-black text-slate-900 dark:text-white mb-1 uppercase tracking-widest text-xs">Informação Relevante</h4>
+                      <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
+                        {currentVisibleQuestion.options.find((o: any) => o.value === answers[currentVisibleQuestion.id])?.message}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-black text-slate-900 dark:text-white mb-1 uppercase tracking-widest text-xs">Dica de Mestre</h4>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
-                    Empresas que monitoram indicadores ESG têm 40% mais chances de atrair investimentos sustentáveis no mercado brasileiro!
-                  </p>
-                </div>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
     </DashboardLayout>
   );
 };
+
