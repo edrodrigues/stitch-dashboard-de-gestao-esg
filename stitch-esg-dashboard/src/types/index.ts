@@ -76,3 +76,4 @@ export interface Mission {
   deadline: string;
   type: 'E' | 'S' | 'G';
 }
+export type DiagnosticResponses = Record<string, number | string | (number | string)[]>;

@@ -1,7 +1,7 @@
-import type { CompanyGoals, ESGDelta, ESGScore, Question } from '../types';
+import type { CompanyGoals, DiagnosticResponses, ESGDelta, ESGScore, Question } from '../types';
 
 export const calculateESGScore = (
-  formData: Record<string, number | string>,
+  formData: DiagnosticResponses,
   questions?: Question[]
 ): ESGScore => {
   let environmentalScore = 0;
@@ -13,7 +13,7 @@ export const calculateESGScore = (
   let totalWeightG = 0;
 
   const formKeys = Object.keys(formData);
-  
+
   formKeys.forEach(key => {
     const value = formData[key];
     const question = questions?.find(q => q.id === key);
@@ -47,7 +47,7 @@ export const calculateESGScore = (
       // Fallback for cases where questions are not provided
       const maxScore = 5;
       const normalizedScore = (value / maxScore) * 100;
-      
+
       if (key.includes('environmental') || key.startsWith('environmental')) {
         environmentalScore += normalizedScore;
         totalWeightE += 1;

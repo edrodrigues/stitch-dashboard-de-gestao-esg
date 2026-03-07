@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
-import type { Question, QuestionOption } from '../types';
+import type { Question, QuestionOption, DiagnosticResponses } from '../types';
 import { useAuth } from '../context/useAuth';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
@@ -17,7 +17,7 @@ export const DiagnosticPage: React.FC = () => {
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, number | string>>({});
+  const [answers, setAnswers] = useState<DiagnosticResponses>({});
   const [loading, setLoading] = useState(true);
   const [loadingQuestions, setLoadingQuestions] = useState(true);
   const [isFinishing, setIsFinishing] = useState(false);
@@ -49,7 +49,7 @@ export const DiagnosticPage: React.FC = () => {
     ? Math.round((answeredVisible / visibleQuestions.length) * 100)
     : 0;
 
-  const saveProgress = useCallback(async (answersToSave: Record<string, number | string>, force = false) => {
+  const saveProgress = useCallback(async (answersToSave: DiagnosticResponses, force = false) => {
     const answersKey = JSON.stringify(answersToSave);
 
     if (!force && answersKey === lastSavedRef.current) return;
@@ -70,7 +70,7 @@ export const DiagnosticPage: React.FC = () => {
     }
   }, [user, companyId, diagnosticId]);
 
-  const debouncedSave = useCallback((answersToSave: Record<string, number | string>) => {
+  const debouncedSave = useCallback((answersToSave: DiagnosticResponses) => {
     if (saveTimeoutRef.current) {
       clearTimeout(saveTimeoutRef.current);
     }
@@ -245,7 +245,8 @@ export const DiagnosticPage: React.FC = () => {
   };
 
   const handleCheckboxToggle = useCallback((value: string | number) => {
-    const currentAnswers = (answers[currentVisibleQuestion.id] as (string | number)[]) || [];
+    const rawAnswers = answers[currentVisibleQuestion.id];
+    const currentAnswers = Array.isArray(rawAnswers) ? rawAnswers : [];
     let newSelection: (string | number)[];
 
     if (currentAnswers.includes(value)) {
@@ -337,12 +338,12 @@ export const DiagnosticPage: React.FC = () => {
       setIsFinishing(false);
       alert("Houve um erro ao salvar seu diagnóstico. Por favor, tente novamente.");
     }
-    }, [user, diagnosticId, companyId, answers, questions, saveProgress, refreshAuth, navigate]);
+  }, [user, diagnosticId, companyId, answers, questions, saveProgress, refreshAuth, navigate]);
 
 
   const isNextDisabled = useMemo(() => {
     if (!currentVisibleQuestion || !diagnosticId || isFinishing) return true;
-    
+
     // For numeric questions with multiple fields (options)
     if (currentVisibleQuestion.inputType === 'number' && currentVisibleQuestion.options && currentVisibleQuestion.options.length > 0) {
       // Check if at least one field is filled (or we could require all, but usually at least one is better for UX)
@@ -354,8 +355,8 @@ export const DiagnosticPage: React.FC = () => {
 
     // For checkboxes (must have at least one selected)
     if (currentVisibleQuestion.inputType === 'checkbox') {
-      const selected = answers[currentVisibleQuestion.id] as (string | number)[];
-      return !selected || selected.length === 0;
+      const selected = answers[currentVisibleQuestion.id];
+      return !selected || !Array.isArray(selected) || selected.length === 0;
     }
 
     // Default for radio, text, select, date
@@ -563,7 +564,8 @@ export const DiagnosticPage: React.FC = () => {
                 ))}
 
                 {currentVisibleQuestion.inputType === 'checkbox' && currentVisibleQuestion.options?.map((option: QuestionOption, idx: number) => {
-                  const currentValues = (answers[currentVisibleQuestion.id] as (string | number)[]) || [];
+                  const rawValues = answers[currentVisibleQuestion.id];
+                  const currentValues = Array.isArray(rawValues) ? rawValues : [];
                   const isChecked = currentValues.includes(option.value);
                   return (
                     <label
