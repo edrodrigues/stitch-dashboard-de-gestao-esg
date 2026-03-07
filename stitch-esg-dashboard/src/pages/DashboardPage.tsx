@@ -5,7 +5,7 @@ import { EvolutionChart } from '../components/dashboard/EvolutionChart';
 import { RecentMissions } from '../components/dashboard/RecentMissions';
 import { HeroJourney } from '../components/dashboard/HeroJourney';
 import { LevelUpModal, type Particle } from '../components/dashboard/LevelUpModal';
-import { Leaf, Users, Gavel, PlusCircle, Mail, CloudSync, Zap, Sparkles } from 'lucide-react';
+import { Leaf, Users, Gavel, PlusCircle, Mail, CloudSync, Zap } from 'lucide-react';
 import { BarChart, BadgeDelta, ProgressCircle, CategoryBar } from '@tremor/react';
 import { useAuth } from '../context/useAuth';
 import { doc, getDoc, collection, query, where, getDocs, limit } from 'firebase/firestore';

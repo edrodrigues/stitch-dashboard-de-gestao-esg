@@ -7,7 +7,7 @@ import { diagnosticQuestions } from '../data/questions';
 import { useAuth } from '../context/useAuth';
 import { db } from '../firebase';
 import { doc, getDoc, updateDoc, collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
-import { Check, Lightbulb, Rocket, ChevronRight, ChevronLeft, AlertCircle } from 'lucide-react';
+import { Check, Lightbulb, Rocket, ChevronRight, ChevronLeft } from 'lucide-react';
 
 export const DiagnosticPage: React.FC = () => {
   const { user, refreshAuth } = useAuth();
@@ -29,7 +29,7 @@ export const DiagnosticPage: React.FC = () => {
 
   const visibleQuestions = useMemo(() => {
     return diagnosticQuestions.filter(q => isQuestionVisible(q));
-  }, [diagnosticQuestions, isQuestionVisible]);
+  }, [isQuestionVisible]);
 
   const currentVisibleQuestion = visibleQuestions[currentStep];
   const currentCategory = currentVisibleQuestion?.category || 'form';
