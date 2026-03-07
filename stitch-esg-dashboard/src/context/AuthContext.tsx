@@ -12,6 +12,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isDiagnosticCompleted, setIsDiagnosticCompleted] = useState(false);
+  const [isIdentificationComplete, setIsIdentificationComplete] = useState(false);
 
   const fetchDiagnosticStatus = useCallback(async (uid: string) => {
     try {
@@ -22,12 +23,43 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const companyDoc = await getDoc(doc(db, 'companies', companyId));
         if (companyDoc.exists()) {
           const data = companyDoc.data();
+          const formData = data.formData || {};
+          
+          // Check for essential identification fields from FORM.json
+          const requiredFields = [
+            'form_1.1', // Nome
+            'form_1.2', // CNPJ
+            'form_1.3', // Escopo
+            'form_1.4', // Setor
+            'form_1.5', // Produtos/Serviços
+            'form_1.7', // Funcionários
+            'form_1.8', // Cidade
+            'form_1.9', // Estado
+            'form_1.10' // Propriedade
+          ];
+          
+          // Check for nice classification (1.6_p or 1.6_s based on 1.5)
+          const isNiceComplete = formData['form_1.5'] === 'produtos' 
+            ? !!formData['form_1.6_p'] 
+            : formData['form_1.5'] === 'servicos' 
+              ? !!formData['form_1.6_s']
+              : false;
+
+          const hasBasicFields = requiredFields.every(field => !!formData[field]);
+          const identificationComplete = hasBasicFields && isNiceComplete;
+          
+          setIsIdentificationComplete(identificationComplete);
+
           const completed = !!data.lastDiagnosticDate || 
             (data.esgScores?.environmental > 0 || 
              data.esgScores?.social > 0 || 
              data.esgScores?.governance > 0);
           setIsDiagnosticCompleted(completed);
-          console.log("AuthContext: Diagnostic status:", completed ? "Completed" : "Incomplete");
+          
+          console.log("AuthContext: Status:", { 
+            identification: identificationComplete ? "Complete" : "Incomplete",
+            diagnostic: completed ? "Complete" : "Incomplete" 
+          });
         }
       }
     } catch (err: any) {
@@ -69,7 +101,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, isDiagnosticCompleted, signOut, refreshAuth }}>
+    <AuthContext.Provider value={{ user, loading, isDiagnosticCompleted, isIdentificationComplete, signOut, refreshAuth }}>
       {loading ? (
         <div className="min-h-screen flex items-center justify-center bg-background-light dark:bg-background-dark">
           <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>

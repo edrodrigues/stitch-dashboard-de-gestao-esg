@@ -412,15 +412,8 @@
     "category": "form",
     "subcategory": "SEDE E FILIAIS",
     "text": "CIDADE",
-    "inputType": "select",
-    "options": [
-      {
-        "label": "[caixa de rolagem]",
-        "value": "[caixa de rolagem]",
-        "points": 0,
-        "weight": 1
-      }
-    ]
+    "inputType": "text",
+    "options": []
   },
   {
     "id": "form_1.9",
@@ -430,8 +423,164 @@
     "inputType": "select",
     "options": [
       {
-        "label": "[caixa de rolagem]",
-        "value": "[caixa de rolagem]",
+        "label": "Acre",
+        "value": "AC",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Alagoas",
+        "value": "AL",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Amapá",
+        "value": "AP",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Amazonas",
+        "value": "AM",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Bahia",
+        "value": "BA",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Ceará",
+        "value": "CE",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Distrito Federal",
+        "value": "DF",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Espírito Santo",
+        "value": "ES",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Goiás",
+        "value": "GO",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Maranhão",
+        "value": "MA",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Mato Grosso",
+        "value": "MT",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Mato Grosso do Sul",
+        "value": "MS",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Minas Gerais",
+        "value": "MG",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Pará",
+        "value": "PA",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Paraíba",
+        "value": "PB",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Paraná",
+        "value": "PR",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Pernambuco",
+        "value": "PE",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Piauí",
+        "value": "PI",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Rio de Janeiro",
+        "value": "RJ",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Rio Grande do Norte",
+        "value": "RN",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Rio Grande do Sul",
+        "value": "RS",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Rondônia",
+        "value": "RO",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Roraima",
+        "value": "RR",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Santa Catarina",
+        "value": "SC",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "São Paulo",
+        "value": "SP",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Sergipe",
+        "value": "SE",
+        "points": 0,
+        "weight": 1
+      },
+      {
+        "label": "Tocantins",
+        "value": "TO",
         "points": 0,
         "weight": 1
       }

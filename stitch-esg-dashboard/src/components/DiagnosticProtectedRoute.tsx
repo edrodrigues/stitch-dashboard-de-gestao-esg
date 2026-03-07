@@ -2,8 +2,16 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../context/useAuth';
 
-export const DiagnosticProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { user, loading, isDiagnosticCompleted } = useAuth();
+export interface DiagnosticProtectedRouteProps {
+  children: React.ReactNode;
+  requireFullDiagnostic?: boolean;
+}
+
+export const DiagnosticProtectedRoute: React.FC<DiagnosticProtectedRouteProps> = ({ 
+  children, 
+  requireFullDiagnostic = false 
+}) => {
+  const { user, loading, isDiagnosticCompleted, isIdentificationComplete } = useAuth();
 
   if (loading) {
     return (
@@ -17,7 +25,13 @@ export const DiagnosticProtectedRoute: React.FC<{ children: React.ReactNode }> =
     return <Navigate to="/login" />;
   }
 
-  if (!isDiagnosticCompleted) {
+  // Se não completou a identificação básica (FORM.json), sempre redireciona
+  if (!isIdentificationComplete) {
+    return <Navigate to="/diagnostic" />;
+  }
+
+  // Se a rota exige o diagnóstico completo (E+S+G)
+  if (requireFullDiagnostic && !isDiagnosticCompleted) {
     return <Navigate to="/diagnostic" />;
   }
 

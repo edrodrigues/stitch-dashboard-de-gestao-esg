@@ -5,6 +5,7 @@ export interface AuthContextType {
   user: User | null;
   loading: boolean;
   isDiagnosticCompleted: boolean;
+  isIdentificationComplete: boolean;
   signOut: () => Promise<void>;
   refreshAuth: () => Promise<void>;
 }
