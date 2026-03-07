@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { Card } from '../components/ui/Card';
@@ -6,9 +6,8 @@ import { Button } from '../components/ui/Button';
 import { diagnosticQuestions } from '../data/questions';
 import { useAuth } from '../context/useAuth';
 import { db } from '../firebase';
-import { doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
-import { Check, Lightbulb, Rocket, ChevronRight, ChevronLeft, Sparkles, AlertCircle } from 'lucide-react';
-import { ProgressCircle, CategoryBar } from '@tremor/react';
+import { doc, getDoc, updateDoc, collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
+import { Check, Lightbulb, Rocket, ChevronRight, ChevronLeft, AlertCircle } from 'lucide-react';
 
 export const DiagnosticPage: React.FC = () => {
   const { user, refreshAuth } = useAuth();
@@ -17,23 +16,67 @@ export const DiagnosticPage: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, number | string>>({});
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
   const [diagnosticId, setDiagnosticId] = useState<string | null>(null);
+  const [companyId, setCompanyId] = useState<string | null>(null);
+  
+  const saveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastSavedRef = useRef<string>('');
 
-  const isQuestionVisible = (question: typeof diagnosticQuestions[0]) => {
+  const isQuestionVisible = useCallback((question: typeof diagnosticQuestions[0]) => {
     if (!question.dependsOn) return true;
     return answers[question.dependsOn.questionId] === question.dependsOn.value;
-  };
+  }, [answers]);
 
   const visibleQuestions = useMemo(() => {
     return diagnosticQuestions.filter(q => isQuestionVisible(q));
-  }, [diagnosticQuestions, answers]);
+  }, [diagnosticQuestions, isQuestionVisible]);
 
   const currentVisibleQuestion = visibleQuestions[currentStep];
   const currentCategory = currentVisibleQuestion?.category || 'form';
   
-  const answeredVisible = visibleQuestions.filter(q => answers[q.id] !== undefined).length;
+  const answeredVisible = useMemo(
+    () => visibleQuestions.filter(q => answers[q.id] !== undefined).length,
+    [visibleQuestions, answers]
+  );
   const progress = Math.round((answeredVisible / visibleQuestions.length) * 100);
+
+  const saveProgress = useCallback(async (answersToSave: Record<string, number | string>, force = false) => {
+    const answersKey = JSON.stringify(answersToSave);
+    
+    if (!force && answersKey === lastSavedRef.current) return;
+    if (!user || !companyId || !diagnosticId) return;
+    
+    lastSavedRef.current = answersKey;
+
+    try {
+      await updateDoc(doc(db, 'diagnostics', diagnosticId), {
+        companyId,
+        responses: answersToSave,
+        completed: false,
+        lastUpdated: Timestamp.now()
+      });
+    } catch (err) {
+      console.error("Error saving progress:", err);
+      lastSavedRef.current = '';
+    }
+  }, [user, companyId, diagnosticId]);
+
+  const debouncedSave = useCallback((answersToSave: Record<string, number | string>) => {
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+    }
+    saveTimeoutRef.current = setTimeout(() => {
+      saveProgress(answersToSave);
+    }, 1500);
+  }, [saveProgress]);
+
+  useEffect(() => {
+    return () => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const loadDiagnostic = async () => {
@@ -43,11 +86,12 @@ export const DiagnosticPage: React.FC = () => {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
         if (!userDoc.exists()) return;
         
-        const companyId = userDoc.data().companyId;
+        const cid = userDoc.data().companyId;
+        setCompanyId(cid);
 
         const q = query(
           collection(db, 'diagnostics'), 
-          where('companyId', '==', companyId),
+          where('companyId', '==', cid),
           where('completed', '==', false)
         );
         
@@ -57,6 +101,7 @@ export const DiagnosticPage: React.FC = () => {
           const diagData = querySnapshot.docs[0].data();
           setDiagnosticId(querySnapshot.docs[0].id);
           setAnswers(diagData.responses || {});
+          lastSavedRef.current = JSON.stringify(diagData.responses || {});
           
           const savedAnswers = diagData.responses || {};
           const answeredVisibleCount = visibleQuestions.filter(q => savedAnswers[q.id] !== undefined).length;
@@ -77,50 +122,18 @@ export const DiagnosticPage: React.FC = () => {
   }, [user, visibleQuestions]);
 
   const handleOptionSelect = (value: number | string) => {
-    setAnswers(prev => ({
-      ...prev,
-      [currentVisibleQuestion.id]: value
-    }));
+    const newAnswers = { ...answers, [currentVisibleQuestion.id]: value };
+    setAnswers(newAnswers);
+    debouncedSave(newAnswers);
   };
 
   const handleTextChange = (value: string) => {
-    setAnswers(prev => ({
-      ...prev,
-      [currentVisibleQuestion.id]: value
-    }));
-  };
-
-  const saveProgress = async () => {
-    if (!user) return;
-    setSaving(true);
-
-    try {
-      const userDoc = await getDoc(doc(db, 'users', user.uid));
-      const companyId = userDoc.data()?.companyId;
-      
-      const diagData = {
-        companyId,
-        responses: answers,
-        completed: false,
-        lastUpdated: Timestamp.now()
-      };
-
-      if (diagnosticId) {
-        await updateDoc(doc(db, 'diagnostics', diagnosticId), diagData);
-      } else {
-        const newDiagRef = doc(collection(db, 'diagnostics'));
-        await setDoc(newDiagRef, diagData);
-        setDiagnosticId(newDiagRef.id);
-      }
-    } catch (err) {
-      console.error("Error saving progress:", err);
-    } finally {
-      setSaving(false);
-    }
+    const newAnswers = { ...answers, [currentVisibleQuestion.id]: value };
+    setAnswers(newAnswers);
+    debouncedSave(newAnswers);
   };
 
   const handleNext = async () => {
-    await saveProgress();
     if (currentStep < visibleQuestions.length - 1) {
       setCurrentStep(prev => prev + 1);
     } else {
@@ -135,7 +148,9 @@ export const DiagnosticPage: React.FC = () => {
   };
 
   const finishDiagnostic = async () => {
-    if (!user || !diagnosticId) return;
+    if (!user || !diagnosticId || !companyId) return;
+    
+    await saveProgress(answers, true);
     setLoading(true);
 
     try {
@@ -145,8 +160,6 @@ export const DiagnosticPage: React.FC = () => {
         completedAt: Timestamp.now()
       });
 
-      const userDoc = await getDoc(doc(db, 'users', user.uid));
-      const companyId = userDoc.data()?.companyId;
       const companyRef = doc(db, 'companies', companyId);
 
       const companyData: Record<string, unknown> = {
@@ -171,29 +184,10 @@ export const DiagnosticPage: React.FC = () => {
   };
 
   const navigateToCategory = (cat: 'form' | 'environmental' | 'social' | 'governance') => {
-    const firstOfCat = diagnosticQuestions.findIndex(q => q.category === cat);
-    if (firstOfCat !== -1) {
-      setCurrentStep(firstOfCat);
+    const visibleIndex = visibleQuestions.findIndex(q => q.category === cat);
+    if (visibleIndex !== -1) {
+      setCurrentStep(visibleIndex);
     }
-  };
-
-  const previewScores = useMemo(() => {
-    return {
-      env: 0,
-      soc: 0,
-      gov: 0,
-      avg: 0
-    };
-  }, [answers]);
-
-  const getLetterScore = (score: number) => {
-    if (score >= 90) return 'A+';
-    if (score >= 80) return 'A';
-    if (score >= 70) return 'B+';
-    if (score >= 60) return 'B';
-    if (score >= 50) return 'C+';
-    if (score >= 40) return 'C';
-    return 'D';
   };
 
   if (loading) {
@@ -225,7 +219,7 @@ export const DiagnosticPage: React.FC = () => {
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">PROGRESSO DA MISSÃO</p>
                 <h3 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">{progress}% Concluído</h3>
               </div>
-              <span className="text-xs font-black text-primary uppercase tracking-widest">{Object.keys(answers).length} / {visibleQuestions.length} Dados</span>
+              <span className="text-xs font-black text-primary uppercase tracking-widest">{answeredVisible} / {visibleQuestions.length} Dados</span>
             </div>
             <div className="w-full bg-slate-100 dark:bg-slate-800 h-4 rounded-full overflow-hidden mb-4">
               <div 
@@ -271,7 +265,7 @@ export const DiagnosticPage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-          <div className="lg:col-span-7 space-y-8">
+          <div className="lg:col-span-12 space-y-8 max-w-4xl mx-auto w-full">
             <Card className="border-b-8">
               <div className="mb-8">
                 <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black mb-4 uppercase tracking-widest border border-primary/20">
@@ -357,8 +351,8 @@ export const DiagnosticPage: React.FC = () => {
                 </Button>
                 <Button 
                   onClick={handleNext}
-                  disabled={answers[currentVisibleQuestion.id] === undefined || saving}
-                  isLoading={saving}
+                  disabled={answers[currentVisibleQuestion.id] === undefined}
+                  isLoading={loading}
                   className="px-10 py-4 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] shadow-xl shadow-emerald-500/20"
                 >
                   {currentStep === visibleQuestions.length - 1 ? 'Finalizar e Continuar' : 'Próximo'}
@@ -380,124 +374,6 @@ export const DiagnosticPage: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
-
-          <div className="lg:col-span-5 space-y-8">
-            <Card className="p-8 border-b-8">
-              <h3 className="text-lg font-black mb-8 flex items-center gap-3 uppercase tracking-tighter">
-                <Sparkles size={20} className="text-primary" /> Sua Jornada
-              </h3>
-              
-              <div className="space-y-8">
-                <div>
-                  <p className="text-[10px] font-black text-primary uppercase mb-4 tracking-[0.2em]">PONTOS FORTES</p>
-                  <div className="space-y-4">
-                    {previewScores.avg > 40 ? (
-                      <div className="flex items-start gap-4">
-                        <div className="mt-1 size-6 rounded-xl bg-primary/10 text-primary flex items-center justify-center border border-primary/20">
-                          <Check size={14} strokeWidth={4} />
-                        </div>
-                        <div>
-                          <p className="text-xs font-black uppercase tracking-tight text-slate-900 dark:text-white">Progresso Iniciado</p>
-                          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1 opacity-70">Sua empresa já deu os primeiros passos.</p>
-                        </div>
-                      </div>
-                    ) : (
-                      <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest italic">Responda mais para ver os pontos fortes...</p>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <p className="text-[10px] font-black text-amber-500 uppercase mb-4 tracking-[0.2em]">DESAFIOS</p>
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-4">
-                      <div className="mt-1 size-6 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center border border-amber-200">
-                        <AlertCircle size={14} strokeWidth={4} />
-                      </div>
-                      <div>
-                        <p className="text-xs font-black uppercase tracking-tight text-slate-900 dark:text-white">Gap de Dados</p>
-                        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1 opacity-70">Algumas áreas ainda precisam de monitoramento.</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-slate-50 dark:bg-slate-800/50 p-6 rounded-3xl border-2 border-slate-100 dark:border-slate-800">
-                  <p className="text-[10px] font-black text-slate-400 uppercase mb-4 tracking-[0.2em]">PRÓXIMAS AÇÕES</p>
-                  <ul className="text-[10px] space-y-3 font-black text-slate-500 uppercase tracking-widest">
-                    <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Digitalizar monitoramento</li>
-                    <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Treinar a liderança</li>
-                    <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-primary rounded-full"></div> Definir metas para 2030</li>
-                  </ul>
-                </div>
-              </div>
-              
-              <Button 
-                variant="outline" 
-                className="w-full mt-8 py-4 border-2 border-slate-200 text-slate-600 font-black uppercase text-[10px] tracking-[0.2em] hover:bg-slate-50 rounded-2xl"
-              >
-                Ver Mapa Detalhado
-              </Button>
-            </Card>
-
-            <Card className="p-8 flex flex-col items-center justify-center border-b-8">
-              <p className="text-[10px] font-black text-slate-400 mb-8 uppercase tracking-[0.2em]">PERFIL DE MATURIDADE ATUAL</p>
-              
-              <ProgressCircle
-                value={previewScores.avg}
-                size="xl"
-                color="emerald"
-                showAnimation={true}
-                className="scale-150 my-8"
-              >
-                <div className="text-center">
-                  <span className="text-4xl font-black text-slate-900 dark:text-white drop-shadow-sm font-mono">
-                    {getLetterScore(previewScores.avg)}
-                  </span>
-                  <p className="text-[8px] text-slate-500 font-black uppercase tracking-widest mt-1">Grade</p>
-                </div>
-              </ProgressCircle>
-
-              <div className="w-full space-y-6 mt-12 pt-8 border-t border-slate-100 dark:border-slate-800">
-                <div className="space-y-2">
-                  <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
-                    <span className="text-teal-500">Ambiental (E)</span>
-                    <span>{previewScores.env}%</span>
-                  </div>
-                  <CategoryBar 
-                    values={[previewScores.env, 100 - previewScores.env]} 
-                    colors={['emerald', 'slate']} 
-                    showLabels={false}
-                    className="h-2"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
-                    <span className="text-orange-500">Social (S)</span>
-                    <span>{previewScores.soc}%</span>
-                  </div>
-                  <CategoryBar 
-                    values={[previewScores.soc, 100 - previewScores.soc]} 
-                    colors={['orange', 'slate']} 
-                    showLabels={false}
-                    className="h-2"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
-                    <span className="text-indigo-500">Governança (G)</span>
-                    <span>{previewScores.gov}%</span>
-                  </div>
-                  <CategoryBar 
-                    values={[previewScores.gov, 100 - previewScores.gov]} 
-                    colors={['indigo', 'slate']} 
-                    showLabels={false}
-                    className="h-2"
-                  />
-                </div>
-              </div>
-            </Card>
           </div>
         </div>
       </div>

@@ -126,18 +126,6 @@ export const diagnosticQuestions: Question[] = [
     ]
   },
   {
-    "id": "form_1.6",
-    "category": "form",
-    "subcategory": "ATIVIDADE",
-    "text": "Atividade Principal",
-    "options": [
-      { "label": "Design e fabricação", "value": "design_fabricacao" },
-      { "label": "Venda e distribuição", "value": "venda_distribuicao" },
-      { "label": "E-commerce", "value": "ecommerce" },
-      { "label": "Outros", "value": "outros" }
-    ]
-  },
-  {
     "id": "form_1.6a",
     "category": "form",
     "subcategory": "ATIVIDADE",

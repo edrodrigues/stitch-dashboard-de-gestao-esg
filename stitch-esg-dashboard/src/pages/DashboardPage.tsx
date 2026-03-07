@@ -5,8 +5,8 @@ import { EvolutionChart } from '../components/dashboard/EvolutionChart';
 import { RecentMissions } from '../components/dashboard/RecentMissions';
 import { HeroJourney } from '../components/dashboard/HeroJourney';
 import { LevelUpModal, type Particle } from '../components/dashboard/LevelUpModal';
-import { Leaf, Users, Gavel, PlusCircle, Mail, CloudSync, Zap } from 'lucide-react';
-import { BarChart, BadgeDelta } from '@tremor/react';
+import { Leaf, Users, Gavel, PlusCircle, Mail, CloudSync, Zap, Sparkles } from 'lucide-react';
+import { BarChart, BadgeDelta, ProgressCircle, CategoryBar } from '@tremor/react';
 import { useAuth } from '../context/useAuth';
 import { doc, getDoc, collection, query, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '../firebase';
@@ -98,6 +98,20 @@ export const DashboardPage: React.FC = () => {
       setNewLevelInfo(newLevel);
       setShowLevelUp(true);
     }
+  };
+
+  const esgAverage = company ? Math.round(
+    (company.esgScores.environmental + company.esgScores.social + company.esgScores.governance) / 3
+  ) : 0;
+
+  const getLetterScore = (score: number) => {
+    if (score >= 90) return 'A+';
+    if (score >= 80) return 'A';
+    if (score >= 70) return 'B+';
+    if (score >= 60) return 'B';
+    if (score >= 50) return 'C+';
+    if (score >= 40) return 'C';
+    return 'D';
   };
 
   if (loading) {
@@ -218,61 +232,121 @@ export const DashboardPage: React.FC = () => {
           <RecentMissions missions={missions} />
         </div>
         
-        <Card title="Ações Rápidas">
-          <div className="space-y-4">
-            <button 
-              onClick={handleSimulateXP}
-              className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group"
-            >
-              <div className="w-12 h-12 rounded-xl bg-yellow-500/10 text-yellow-500 flex items-center justify-center group-hover:bg-yellow-500 group-hover:text-white transition-all shadow-sm">
-                <Zap size={24} />
-              </div>
-              <div>
-                <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Simular Progresso</p>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">+500 XP (Teste Level Up)</p>
-              </div>
-            </button>
-
-            <button className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
-                <PlusCircle size={24} />
-              </div>
-              <div>
-                <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Novo Lançamento</p>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Métricas de emissão ou sociais</p>
-              </div>
-            </button>
-            <button className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group">
-              <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-all shadow-sm">
-                <Mail size={24} />
-              </div>
-              <div>
-                <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Enviar Relatório</p>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Sumário trimestral automático</p>
-              </div>
-            </button>
-            <button className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group">
-              <div className="w-12 h-12 rounded-xl bg-slate-500/10 text-slate-500 flex items-center justify-center group-hover:bg-slate-500 group-hover:text-white transition-all shadow-sm">
-                <CloudSync size={24} />
-              </div>
-              <div>
-                <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Sincronizar APIs</p>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">GRI, SASB e TCFD</p>
-              </div>
-            </button>
+        <div className="space-y-6">
+          <Card className="p-8 flex flex-col items-center justify-center border-b-8">
+            <p className="text-[10px] font-black text-slate-400 mb-8 uppercase tracking-[0.2em]">PERFIL DE MATURIDADE ATUAL</p>
             
-            <div className="mt-6 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Status do Sistema</p>
-              <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-[0.2em]">
-                <span className="flex items-center gap-2 text-emerald-600">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span> 
-                  Connected
+            <ProgressCircle
+              value={esgAverage}
+              size="xl"
+              color="emerald"
+              showAnimation={true}
+              className="scale-150 my-8"
+            >
+              <div className="text-center">
+                <span className="text-4xl font-black text-slate-900 dark:text-white drop-shadow-sm font-mono">
+                  {getLetterScore(esgAverage)}
                 </span>
-                <span className="font-mono text-slate-400">V2.4.0</span>
+                <p className="text-[8px] text-slate-500 font-black uppercase tracking-widest mt-1">Grade</p>
+              </div>
+            </ProgressCircle>
+
+            <div className="w-full space-y-6 mt-12 pt-8 border-t border-slate-100 dark:border-slate-800">
+              <div className="space-y-2">
+                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
+                  <span className="text-teal-500">Ambiental (E)</span>
+                  <span>{company?.esgScores?.environmental || 0}%</span>
+                </div>
+                <CategoryBar 
+                  values={[company?.esgScores?.environmental || 0, 100 - (company?.esgScores?.environmental || 0)]} 
+                  colors={['emerald', 'slate']} 
+                  showLabels={false}
+                  className="h-2"
+                />
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
+                  <span className="text-orange-500">Social (S)</span>
+                  <span>{company?.esgScores?.social || 0}%</span>
+                </div>
+                <CategoryBar 
+                  values={[company?.esgScores?.social || 0, 100 - (company?.esgScores?.social || 0)]} 
+                  colors={['orange', 'slate']} 
+                  showLabels={false}
+                  className="h-2"
+                />
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
+                  <span className="text-indigo-500">Governança (G)</span>
+                  <span>{company?.esgScores?.governance || 0}%</span>
+                </div>
+                <CategoryBar 
+                  values={[company?.esgScores?.governance || 0, 100 - (company?.esgScores?.governance || 0)]} 
+                  colors={['indigo', 'slate']} 
+                  showLabels={false}
+                  className="h-2"
+                />
               </div>
             </div>
-          </div>
-        </Card>
+          </Card>
+
+          <Card title="Ações Rápidas">
+            <div className="space-y-4">
+              <button 
+                onClick={handleSimulateXP}
+                className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group"
+              >
+                <div className="w-12 h-12 rounded-xl bg-yellow-500/10 text-yellow-500 flex items-center justify-center group-hover:bg-yellow-500 group-hover:text-white transition-all shadow-sm">
+                  <Zap size={24} />
+                </div>
+                <div>
+                  <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Simular Progresso</p>
+                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">+500 XP (Teste Level Up)</p>
+                </div>
+              </button>
+
+              <button className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
+                  <PlusCircle size={24} />
+                </div>
+                <div>
+                  <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Novo Lançamento</p>
+                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Métricas de emissão ou sociais</p>
+                </div>
+              </button>
+              <button className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group">
+                <div className="w-12 h-12 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center group-hover:bg-blue-500 group-hover:text-white transition-all shadow-sm">
+                  <Mail size={24} />
+                </div>
+                <div>
+                  <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Enviar Relatório</p>
+                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Sumário trimestral automático</p>
+                </div>
+              </button>
+              <button className="w-full p-4 flex items-center gap-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-primary/5 transition-all text-left group">
+                <div className="w-12 h-12 rounded-xl bg-slate-500/10 text-slate-500 flex items-center justify-center group-hover:bg-slate-500 group-hover:text-white transition-all shadow-sm">
+                  <CloudSync size={24} />
+                </div>
+                <div>
+                  <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">Sincronizar APIs</p>
+                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">GRI, SASB e TCFD</p>
+                </div>
+              </button>
+              
+              <div className="mt-6 p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border-2 border-slate-100 dark:border-slate-800">
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Status do Sistema</p>
+                <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-[0.2em]">
+                  <span className="flex items-center gap-2 text-emerald-600">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span> 
+                    Connected
+                  </span>
+                  <span className="font-mono text-slate-400">V2.4.0</span>
+                </div>
+              </div>
+            </div>
+          </Card>
+        </div>
       </div>
     </DashboardLayout>
   );
