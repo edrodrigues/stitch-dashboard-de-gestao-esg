@@ -368,16 +368,25 @@ export const ReportsPage: React.FC = () => {
             </div>
 
             <div className="h-80 w-full">
-              <BarChart
-                className="h-full"
-                data={reportsData.carbonHistory}
-                index="month"
-                categories={['companyValue', 'sectorAverage', 'regionalAverage']}
-                colors={['emerald', 'amber', 'blue']}
-                valueFormatter={dataFormatter}
-                yAxisWidth={48}
-                showAnimation={true}
-              />
+              {reportsData.carbonHistory.length > 0 ? (
+                <BarChart
+                  className="h-full"
+                  data={reportsData.carbonHistory}
+                  index="month"
+                  categories={['companyValue', 'sectorAverage', 'regionalAverage']}
+                  colors={['emerald', 'amber', 'blue']}
+                  valueFormatter={dataFormatter}
+                  yAxisWidth={48}
+                  showAnimation={true}
+                />
+              ) : (
+                <div className="h-full flex items-center justify-center text-slate-400">
+                  <div className="text-center">
+                    <p className="text-sm font-bold uppercase tracking-widest">Dados insuficientes</p>
+                    <p className="text-xs mt-2">Registre dados de carbono para visualizar o histórico</p>
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="mt-6 flex items-center gap-6 text-[10px] font-black uppercase tracking-widest">
@@ -478,6 +487,8 @@ export const ReportsPage: React.FC = () => {
                 category="value"
                 index="name"
                 colors={['emerald', 'amber', 'blue']}
+                valueFormatter={(value: number) => `${value}%`}
+                label={`${company?.esgScores.environmental || 0}%`}
                 showAnimation={true}
               />
               <List className="flex-1">

@@ -162,17 +162,26 @@ export const DashboardPage: React.FC = () => {
         
         <Card title="Recursos do Nível" subtitle="Metas batidas por categoria">
           <div className="h-72 mt-4">
-            <BarChart
-              className="h-full"
-              data={goalsData}
-              index="name"
-              categories={['Atingido']}
-              colors={['emerald']}
-              valueFormatter={(number: number) => `${number}%`}
-              showAnimation={true}
-              showLegend={false}
-              yAxisWidth={40}
-            />
+            {goalsData.length > 0 && goalsData.some(g => g['Atingido'] > 0) ? (
+              <BarChart
+                className="h-full"
+                data={goalsData}
+                index="name"
+                categories={['Atingido']}
+                colors={['emerald']}
+                valueFormatter={(number: number) => `${number}%`}
+                showAnimation={true}
+                showLegend={false}
+                yAxisWidth={48}
+              />
+            ) : (
+              <div className="h-full flex items-center justify-center text-slate-400">
+                <div className="text-center">
+                  <p className="text-sm font-bold uppercase tracking-widest">Nenhuma meta definida</p>
+                  <p className="text-xs mt-2">Configure suas metas para acompanhar o progresso</p>
+                </div>
+              </div>
+            )}
           </div>
         </Card>
       </div>
@@ -212,6 +221,7 @@ export const DashboardPage: React.FC = () => {
                   colors={['emerald', 'slate']} 
                   showLabels={false}
                   className="h-2"
+                  tooltip={`Ambiental: ${company?.esgScores?.environmental || 0}%`}
                 />
               </div>
               <div className="space-y-2">
@@ -224,6 +234,7 @@ export const DashboardPage: React.FC = () => {
                   colors={['orange', 'slate']} 
                   showLabels={false}
                   className="h-2"
+                  tooltip={`Social: ${company?.esgScores?.social || 0}%`}
                 />
               </div>
               <div className="space-y-2">
@@ -236,6 +247,7 @@ export const DashboardPage: React.FC = () => {
                   colors={['indigo', 'slate']} 
                   showLabels={false}
                   className="h-2"
+                  tooltip={`Governança: ${company?.esgScores?.governance || 0}%`}
                 />
               </div>
             </div>

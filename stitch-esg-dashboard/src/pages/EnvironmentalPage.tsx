@@ -156,17 +156,26 @@ export const EnvironmentalPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           <Card title="Evolução da Pegada" subtitle="Indicadores de performance mensal">
             <div className="h-72 mt-4">
-              <AreaChart
-                className="h-full"
-                data={chartData}
-                index="date"
-                categories={['Eficiência']}
-                colors={['emerald']}
-                valueFormatter={(number: number) => `${number}%`}
-                showAnimation={true}
-                showLegend={false}
-                yAxisWidth={40}
-              />
+              {chartData.length > 0 && chartData.some(d => d['Eficiência'] > 0) ? (
+                <AreaChart
+                  className="h-full"
+                  data={chartData}
+                  index="date"
+                  categories={['Eficiência']}
+                  colors={['emerald']}
+                  valueFormatter={(number: number) => `${number}%`}
+                  showAnimation={true}
+                  showLegend={false}
+                  yAxisWidth={48}
+                />
+              ) : (
+                <div className="h-full flex items-center justify-center text-slate-400">
+                  <div className="text-center">
+                    <p className="text-sm font-bold uppercase tracking-widest">Dados insuficientes</p>
+                    <p className="text-xs mt-2">Complete o diagnóstico para ver a evolução</p>
+                  </div>
+                </div>
+              )}
             </div>
           </Card>
 

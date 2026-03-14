@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { AreaChart } from '@tremor/react';
 import { Card } from '../ui/Card';
 import type { EvolutionDataPoint } from '../../types';
@@ -33,6 +33,16 @@ export const EvolutionChart: React.FC<EvolutionChartProps> = ({
 }) => {
   const [selectedPillar, setSelectedPillar] = useState<Pillar>('all');
   const [timeRange, setTimeRange] = useState<TimeRange>('6months');
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+    
+    const handler = (event: MediaQueryListEvent) => setPrefersReducedMotion(event.matches);
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
 
   // Filter data based on time range
   const filteredData = useMemo(() => {
@@ -143,8 +153,8 @@ export const EvolutionChart: React.FC<EvolutionChartProps> = ({
             categories={categories}
             colors={selectedPillar === 'all' ? PILLAR_COLORS[selectedPillar] : ['emerald']}
             valueFormatter={valueFormatter}
-            yAxisWidth={40}
-            showAnimation={true}
+            yAxisWidth={48}
+            showAnimation={!prefersReducedMotion}
             showLegend={categories.length > 1}
             showGridLines={true}
             curveType="monotone"

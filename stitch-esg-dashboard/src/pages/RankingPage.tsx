@@ -8,7 +8,9 @@ import {
   ChevronLeft, 
   ChevronRight,
   Filter,
-  Info
+  Info,
+  Medal,
+  Award
 } from 'lucide-react';
 import { ProgressCircle } from '@tremor/react';
 import { useAuth } from '../context/useAuth';
@@ -56,9 +58,9 @@ export const RankingPage: React.FC = () => {
   );
 
   const getRankIcon = (index: number) => {
-    if (index === 0) return <span className="text-2xl">🥇</span>;
-    if (index === 1) return <span className="text-2xl">🥈</span>;
-    if (index === 2) return <span className="text-2xl">🥉</span>;
+    if (index === 0) return <Trophy className="w-8 h-8 text-yellow-500" />;
+    if (index === 1) return <Medal className="w-8 h-8 text-slate-400" />;
+    if (index === 2) return <Award className="w-8 h-8 text-amber-600" />;
     return <span className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-bold text-xs text-slate-500">{index + 1}</span>;
   };
 
