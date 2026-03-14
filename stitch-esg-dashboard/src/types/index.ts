@@ -51,6 +51,7 @@ export interface Company {
   esgScores: ESGScore;
   esgDelta?: ESGDelta;
   goals?: CompanyGoals;
+  environmentalSubScores?: Record<string, number>;
   evolutionData?: { month: string; score: number }[];
   lastEnvironmentalUpdate?: Date;
   lastSocialUpdate?: Date;
@@ -75,3 +76,4 @@ export interface Mission {
   deadline: string;
   type: 'E' | 'S' | 'G';
 }
+export type DiagnosticResponses = Record<string, number | string | (number | string)[]>;
