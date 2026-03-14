@@ -24,6 +24,7 @@ export const SocialPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   const [diversityScore, setDiversityScore] = useState(45);
+  const [trainingScore, setTrainingScore] = useState(88);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +37,7 @@ export const SocialPage: React.FC = () => {
           if (companyDoc.exists()) {
             const companyData = { id: companyDoc.id, ...companyDoc.data() } as Company;
             setCompany(companyData);
-            
+
             if (companyData.goals) {
               setDiversityScore(companyData.goals.diversidade);
             }
@@ -116,7 +117,7 @@ export const SocialPage: React.FC = () => {
                 <GraduationCap size={20} />
               </div>
             </div>
-            <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono py-2">88%</p>
+            <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono py-2">{trainingScore}%</p>
             <p className="text-slate-400 text-[8px] font-black uppercase tracking-widest mt-2 italic">Colaboradores Treinados (%)</p>
           </Card>
         </div>
@@ -154,9 +155,8 @@ export const SocialPage: React.FC = () => {
                       <p className="text-[10px] text-primary font-black uppercase tracking-widest mt-1 italic">{mission.points}</p>
                     </div>
                   </div>
-                  <span className={`px-3 py-1 rounded-xl text-[8px] font-black uppercase tracking-widest border-2 ${
-                    mission.status === 'Em Curso' ? 'bg-blue-50 text-blue-600 border-blue-100' : 'bg-slate-50 text-slate-500 border-slate-100'
-                  }`}>
+                  <span className={`px-3 py-1 rounded-xl text-[8px] font-black uppercase tracking-widest border-2 ${mission.status === 'Em Curso' ? 'bg-blue-50 text-blue-600 border-blue-100' : 'bg-slate-50 text-slate-500 border-slate-100'
+                    }`}>
                     {mission.status}
                   </span>
                 </div>

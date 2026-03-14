@@ -5,7 +5,7 @@ import { Button } from '../components/ui/Button';
 import {
   Leaf, Zap, Recycle, Droplets,
   ClipboardCheck, Cloud, Box, RefreshCw, TreeDeciduous,
-  ArrowRight, Target, Star, Award, ShieldCheck, Save, TrendingUp
+  ArrowRight, Target, Star, Award, ShieldCheck
 } from 'lucide-react';
 import { AreaChart, BadgeDelta } from '@tremor/react';
 import { useAuth } from '../context/useAuth';
@@ -91,7 +91,7 @@ export const EnvironmentalPage: React.FC = () => {
   // Lógica de Missões Dinâmicas baseada nos scores baixos
   const quests = useMemo(() => {
     const lowScores = Object.entries(scores)
-      .filter(([_, score]) => score < 70)
+      .filter(([, score]) => score < 70)
       .sort((a, b) => a[1] - b[1]);
 
     const questData = [
@@ -105,7 +105,7 @@ export const EnvironmentalPage: React.FC = () => {
       { id: 'biodiversidade', title: 'Reflorestamento', xp: 1200, icon: TreeDeciduous, desc: 'Plantar 100 árvores nativas' },
     ];
 
-    return lowScores.slice(0, 3).map(([id, _]) => {
+    return lowScores.slice(0, 3).map(([id]) => {
       return questData.find(q => q.id === id) || questData[0];
     });
   }, [scores]);
@@ -153,7 +153,7 @@ export const EnvironmentalPage: React.FC = () => {
         esgDelta: newDelta,
         currentXP: (prev.currentXP || 0) + xpGain,
         goals: newGoals,
-        lastEnvironmentalUpdate: Timestamp.now() as any,
+        lastEnvironmentalUpdate: Timestamp.now().toDate(),
       } : null);
 
       setShowXPToast(true);
