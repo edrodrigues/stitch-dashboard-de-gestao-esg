@@ -3,6 +3,7 @@ import { getFirestore } from 'firebase-admin/firestore';
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import type { Question } from '../src/types/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,7 +34,7 @@ async function importQuestions() {
     '5. SIMB 2024 - GOVERNANÇA.json'
   ];
 
-  let allQuestions: any[] = [];
+  let allQuestions: Question[] = [];
 
   for (const file of files) {
     const filePath = path.join(formsDir, file);

@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { Card } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
-import { Users, TrendingUp, Heart, GraduationCap, ShieldCheck, Save } from 'lucide-react';
+import { Users, TrendingUp, Heart, GraduationCap, ShieldCheck } from 'lucide-react';
 import { AreaChart, BadgeDelta } from '@tremor/react';
 import { useAuth } from '../context/useAuth';
-import { doc, getDoc, updateDoc, Timestamp } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import type { Company } from '../types';
-import { calculateESGDelta } from '../utils/scoreCalculator';
 
 const chartData = [
   { date: 'JAN', 'Engajamento': 65 },
@@ -24,10 +22,8 @@ export const SocialPage: React.FC = () => {
   const { user } = useAuth();
   const [company, setCompany] = useState<Company | null>(null);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
 
   const [diversityScore, setDiversityScore] = useState(45);
-  const [trainingScore, setTrainingScore] = useState(88);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,50 +51,7 @@ export const SocialPage: React.FC = () => {
     fetchData();
   }, [user]);
 
-  const handleSaveScores = async () => {
-    if (!company) return;
-    
-    setSaving(true);
-    try {
-      const previousScores = company.esgScores;
-      const newSocialScore = Math.round((diversityScore + trainingScore) / 2);
-      
-      const newScores = {
-        ...previousScores,
-        social: newSocialScore,
-      };
 
-      const newDelta = calculateESGDelta(newScores, previousScores);
-      
-      const newGoals = {
-        energia: company.goals?.energia || 0,
-        residuos: company.goals?.residuos || 0,
-        diversidade: diversityScore,
-        etica: company.goals?.etica || 0,
-      };
-
-      await updateDoc(doc(db, 'companies', company.id), {
-        'esgScores.social': newSocialScore,
-        esgDelta: newDelta,
-        goals: newGoals,
-        lastSocialUpdate: Timestamp.now(),
-      });
-
-      setCompany(prev => prev ? {
-        ...prev,
-        esgScores: newScores,
-        esgDelta: newDelta,
-        goals: newGoals,
-      } : null);
-
-      alert('Dados salvos com sucesso!');
-    } catch (err) {
-      console.error("Error saving social scores:", err);
-      alert('Erro ao salvar dados');
-    } finally {
-      setSaving(false);
-    }
-  };
 
   if (loading) {
     return (
@@ -128,14 +81,7 @@ export const SocialPage: React.FC = () => {
             </p>
           </div>
           <BadgeDelta deltaType="moderateIncrease" className="font-black uppercase text-[10px]">Crescimento Estável</BadgeDelta>
-          <Button 
-            onClick={handleSaveScores}
-            isLoading={saving}
-            className="flex items-center gap-2"
-          >
-            <Save size={16} />
-            Salvar Scores
-          </Button>
+
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -159,14 +105,7 @@ export const SocialPage: React.FC = () => {
                 <Heart size={20} />
               </div>
             </div>
-            <input
-              type="number"
-              min="0"
-              max="100"
-              value={diversityScore}
-              onChange={(e) => setDiversityScore(Number(e.target.value))}
-              className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono w-full bg-transparent border-b-2 border-slate-200 dark:border-slate-700 focus:border-social outline-none"
-            />
+            <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono py-2">{diversityScore}%</p>
             <p className="text-slate-400 text-[8px] font-black uppercase tracking-widest mt-2 italic">Mulheres na Liderança (%)</p>
           </Card>
 
@@ -177,14 +116,7 @@ export const SocialPage: React.FC = () => {
                 <GraduationCap size={20} />
               </div>
             </div>
-            <input
-              type="number"
-              min="0"
-              max="100"
-              value={trainingScore}
-              onChange={(e) => setTrainingScore(Number(e.target.value))}
-              className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono w-full bg-transparent border-b-2 border-slate-200 dark:border-slate-700 focus:border-blue-500 outline-none"
-            />
+            <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono py-2">88%</p>
             <p className="text-slate-400 text-[8px] font-black uppercase tracking-widest mt-2 italic">Colaboradores Treinados (%)</p>
           </Card>
         </div>

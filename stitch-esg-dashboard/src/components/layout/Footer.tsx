@@ -33,7 +33,7 @@ export const Footer: React.FC = () => {
             </div>
 
             <div className="text-center md:text-right">
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">
                 © Manifesto Ambiental, 2026. Desenvolvido por <a href="https://www.futurereadylabs.com.br" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline transition-all">FRL_</a>.
               </p>
               <div className="flex items-center justify-center md:justify-end gap-2 mt-1">

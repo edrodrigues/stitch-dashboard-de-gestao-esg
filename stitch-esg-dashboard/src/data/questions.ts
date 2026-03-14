@@ -886,7 +886,7 @@ export const diagnosticQuestions: Question[] = [
     "category": "environmental",
     "subcategory": "4. ÁGUA E EFLUENTES",
     "text": "Consumo de água no último ano fiscal?",
-    "inputType": "radio",
+    "inputType": "number",
     "options": [
       {
         "label": "Lts",
@@ -1040,6 +1040,10 @@ export const diagnosticQuestions: Question[] = [
     "subcategory": "4. ÁGUA E EFLUENTES",
     "text": "De que forma a empresa monitora o tratamento e descarte dos efluentes tóxicos?",
     "inputType": "radio",
+    "dependsOn": {
+      "questionId": "environmental_4.6",
+      "value": "Sim"
+    },
     "options": [
       {
         "label": "Não adotamos nenhuma medida.",
@@ -2268,12 +2272,6 @@ export const diagnosticQuestions: Question[] = [
         "label": "Sim",
         "value": 5,
         "points": 5,
-        "weight": 1
-      },
-      {
-        "label": "PERGUNTAS",
-        "value": "PERGUNTAS",
-        "points": 0,
         "weight": 1
       }
     ]

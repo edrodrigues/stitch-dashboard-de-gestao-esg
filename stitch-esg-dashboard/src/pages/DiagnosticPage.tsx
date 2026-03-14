@@ -17,7 +17,7 @@ export const DiagnosticPage: React.FC = () => {
 
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<Record<string, number | string>>({});
+  const [answers, setAnswers] = useState<Record<string, number | string | (string | number)[]>>({});
   const [loading, setLoading] = useState(true);
   const [loadingQuestions, setLoadingQuestions] = useState(true);
   const [isFinishing, setIsFinishing] = useState(false);
@@ -41,6 +41,63 @@ export const DiagnosticPage: React.FC = () => {
   const currentVisibleQuestion = visibleQuestions[currentStep];
   const currentCategory = currentVisibleQuestion?.category || 'form';
 
+  const theme = useMemo(() => {
+    switch (currentCategory) {
+      case 'environmental':
+        return {
+          color: 'emerald-500',
+          bg: 'bg-emerald-500',
+          text: 'text-emerald-500',
+          border: 'border-emerald-500',
+          borderLight: 'border-emerald-500/20',
+          bgLight: 'bg-emerald-500/5',
+          bgSelected: 'bg-emerald-500/10',
+          shadow: 'shadow-emerald-500/20',
+          ring: 'focus:border-emerald-500',
+          hover: 'hover:border-emerald-500/30'
+        };
+      case 'social':
+        return {
+          color: 'rose-500',
+          bg: 'bg-rose-500',
+          text: 'text-rose-500',
+          border: 'border-rose-500',
+          borderLight: 'border-rose-500/20',
+          bgLight: 'bg-rose-500/5',
+          bgSelected: 'bg-rose-500/10',
+          shadow: 'shadow-rose-500/20',
+          ring: 'focus:border-rose-500',
+          hover: 'hover:border-rose-500/30'
+        };
+      case 'governance':
+        return {
+          color: 'blue-500',
+          bg: 'bg-blue-500',
+          text: 'text-blue-500',
+          border: 'border-blue-500',
+          borderLight: 'border-blue-500/20',
+          bgLight: 'bg-blue-500/5',
+          bgSelected: 'bg-blue-500/10',
+          shadow: 'shadow-blue-500/20',
+          ring: 'focus:border-blue-500',
+          hover: 'hover:border-blue-500/30'
+        };
+      default:
+        return {
+          color: 'primary',
+          bg: 'bg-primary',
+          text: 'text-primary',
+          border: 'border-primary',
+          borderLight: 'border-primary/20',
+          bgLight: 'bg-primary/5',
+          bgSelected: 'bg-primary/10',
+          shadow: 'shadow-emerald-500/20',
+          ring: 'focus:border-primary',
+          hover: 'hover:border-primary/30'
+        };
+    }
+  }, [currentCategory]);
+
   const answeredVisible = useMemo(
     () => visibleQuestions.filter(q => answers[q.id] !== undefined).length,
     [visibleQuestions, answers]
@@ -49,7 +106,7 @@ export const DiagnosticPage: React.FC = () => {
     ? Math.round((answeredVisible / visibleQuestions.length) * 100)
     : 0;
 
-  const saveProgress = useCallback(async (answersToSave: Record<string, number | string>, force = false) => {
+  const saveProgress = useCallback(async (answersToSave: Record<string, number | string | (string | number)[]>, force = false) => {
     const answersKey = JSON.stringify(answersToSave);
 
     if (!force && answersKey === lastSavedRef.current) return;
@@ -70,7 +127,7 @@ export const DiagnosticPage: React.FC = () => {
     }
   }, [user, companyId, diagnosticId]);
 
-  const debouncedSave = useCallback((answersToSave: Record<string, number | string>) => {
+  const debouncedSave = useCallback((answersToSave: Record<string, number | string | (string | number)[]>) => {
     if (saveTimeoutRef.current) {
       clearTimeout(saveTimeoutRef.current);
     }
@@ -496,7 +553,11 @@ export const DiagnosticPage: React.FC = () => {
               key={cat}
               onClick={() => navigateToCategory(cat)}
               className={`pb-4 px-2 border-b-4 font-black uppercase tracking-widest text-[10px] flex items-center gap-2 transition-all
-                  ${currentCategory === cat ? 'border-primary text-primary' : 'border-transparent text-slate-400 hover:text-slate-600'}
+                  ${currentCategory === cat 
+                    ? cat === 'environmental' ? 'border-emerald-500 text-emerald-500' : 
+                      cat === 'social' ? 'border-rose-500 text-rose-500' : 
+                      'border-blue-500 text-blue-500'
+                    : 'border-transparent text-slate-400 hover:text-slate-600'}
                 `}
             >
               <span className="material-symbols-outlined text-lg">
@@ -511,7 +572,7 @@ export const DiagnosticPage: React.FC = () => {
           <div className="lg:col-span-12 space-y-8 max-w-4xl mx-auto w-full">
             <Card className="border-b-8">
               <div className="mb-8">
-                <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-black mb-4 uppercase tracking-widest border border-primary/20">
+                <span className={`inline-block px-3 py-1 rounded-full ${theme.bgLight} ${theme.text} text-[10px] font-black mb-4 uppercase tracking-widest border ${theme.borderLight}`}>
                   {currentCategory === 'form' ? 'Dados da Empresa' :
                     currentCategory === 'environmental' ? 'Eixo Ambiental' :
                       currentCategory === 'social' ? 'Eixo Social' : 'Eixo Governança'}
@@ -533,15 +594,15 @@ export const DiagnosticPage: React.FC = () => {
                     key={idx}
                     className={`flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 group
                       ${answers[currentVisibleQuestion.id] === option.value
-                        ? 'border-primary bg-primary/5 shadow-lg scale-[1.01]'
-                        : 'border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-slate-50 dark:hover:bg-slate-800'
+                        ? `${theme.border} ${theme.bgLight} shadow-lg scale-[1.01]`
+                        : `border-slate-100 dark:border-slate-800 ${theme.hover} hover:bg-slate-50 dark:hover:bg-slate-800`
                       }
                     `}
                   >
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all
                       ${answers[currentVisibleQuestion.id] === option.value
-                        ? 'border-primary bg-primary'
-                        : 'border-slate-300 dark:border-slate-600 group-hover:border-primary'}
+                        ? `${theme.border} ${theme.bg}`
+                        : `border-slate-300 dark:border-slate-600 group-hover:${theme.border}`}
                     `}>
                       {answers[currentVisibleQuestion.id] === option.value && <Check size={14} className="text-white" strokeWidth={4} />}
                     </div>
@@ -570,15 +631,15 @@ export const DiagnosticPage: React.FC = () => {
                       key={idx}
                       className={`flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 group
                         ${isChecked
-                          ? 'border-primary bg-primary/5 shadow-lg scale-[1.01]'
-                          : 'border-slate-100 dark:border-slate-800 hover:border-primary/30 hover:bg-slate-50 dark:hover:bg-slate-800'
+                          ? `${theme.border} ${theme.bgLight} shadow-lg scale-[1.01]`
+                          : `border-slate-100 dark:border-slate-800 ${theme.hover} hover:bg-slate-50 dark:hover:bg-slate-800`
                         }
                       `}
                     >
                       <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all
                         ${isChecked
-                          ? 'border-primary bg-primary'
-                          : 'border-slate-300 dark:border-slate-600 group-hover:border-primary'}
+                          ? `${theme.border} ${theme.bg}`
+                          : `border-slate-300 dark:border-slate-600 group-hover:${theme.border}`}
                       `}>
                         {isChecked && <Check size={14} className="text-white" strokeWidth={4} />}
                       </div>
@@ -605,7 +666,7 @@ export const DiagnosticPage: React.FC = () => {
                     value={(answers[currentVisibleQuestion.id] as string) || ''}
                     onChange={(e) => handleTextChange(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest placeholder:text-slate-300 dark:placeholder:text-slate-700"
+                    className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest placeholder:text-slate-300 dark:placeholder:text-slate-700`}
                     placeholder="Digite sua resposta..."
                     autoFocus
                   />
@@ -628,7 +689,7 @@ export const DiagnosticPage: React.FC = () => {
                               debouncedSave(newAnswers);
                             }}
                             onKeyDown={handleKeyDown}
-                            className="w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest placeholder:text-slate-300 dark:placeholder:text-slate-700 font-mono"
+                            className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest placeholder:text-slate-300 dark:placeholder:text-slate-700 font-mono`}
                             placeholder="0"
                             autoFocus={idx === 0}
                           />
@@ -640,7 +701,7 @@ export const DiagnosticPage: React.FC = () => {
                         value={(answers[currentVisibleQuestion.id] as number | string) || ''}
                         onChange={(e) => handleTextChange(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        className="w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest placeholder:text-slate-300 dark:placeholder:text-slate-700 font-mono"
+                        className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest placeholder:text-slate-300 dark:placeholder:text-slate-700 font-mono`}
                         placeholder="0"
                         autoFocus
                       />
@@ -654,7 +715,7 @@ export const DiagnosticPage: React.FC = () => {
                     value={(answers[currentVisibleQuestion.id] as string) || ''}
                     onChange={(e) => handleTextChange(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest"
+                    className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest`}
                     autoFocus
                   />
                 )}
@@ -664,7 +725,7 @@ export const DiagnosticPage: React.FC = () => {
                     value={(answers[currentVisibleQuestion.id] as string) || ''}
                     onChange={(e) => handleOptionSelect(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className="w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl focus:border-primary focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest cursor-pointer appearance-none"
+                    className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest cursor-pointer appearance-none`}
                   >
                     <option value="" className="text-slate-400">Selecione uma opção</option>
                     {currentVisibleQuestion.options.map((option: QuestionOption, idx: number) => (
@@ -691,7 +752,7 @@ export const DiagnosticPage: React.FC = () => {
                   isLoading={isFinishing && !showSuccess} className={`px-10 py-4 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] shadow-xl transition-all duration-300
                     ${showSuccess
                       ? 'bg-emerald-500 text-white shadow-emerald-500/40'
-                      : 'shadow-emerald-500/20'}
+                      : `${theme.bg} text-white ${theme.shadow}`}
                   `}
                 >
                   {showSuccess ? (
@@ -710,8 +771,8 @@ export const DiagnosticPage: React.FC = () => {
 
             {showSuccess && (
               <div className="fixed inset-0 flex items-center justify-center z-[100] animate-in fade-in zoom-in duration-300 bg-slate-900/20 backdrop-blur-sm">
-                <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-2xl border-2 border-primary/20 flex flex-col items-center text-center max-w-sm mx-4">
-                  <div className="w-20 h-20 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-6 animate-bounce">
+                <div className={`bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-2xl border-2 ${theme.borderLight} flex flex-col items-center text-center max-w-sm mx-4`}>
+                  <div className={`w-20 h-20 ${theme.bgSelected} ${theme.text} rounded-full flex items-center justify-center mb-6 animate-bounce`}>
                     <Check size={40} strokeWidth={4} />
                   </div>
                   <h3 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tighter mb-2">Salvo com Sucesso!</h3>
@@ -723,13 +784,13 @@ export const DiagnosticPage: React.FC = () => {
             )}
 
             {currentVisibleQuestion.options?.find((o: QuestionOption) => o.value === answers[currentVisibleQuestion.id])?.message && (
-              <div className="bg-primary/5 border-2 border-dashed border-primary/20 p-8 rounded-3xl">
+              <div className={`${theme.bgLight} border-2 border-dashed ${theme.borderLight} p-8 rounded-3xl`}>
                 <div className="flex gap-6">
-                  <div className="bg-primary/10 p-3 rounded-2xl text-primary">
+                  <div className={`${theme.bgSelected} p-3 rounded-2xl ${theme.text}`}>
                     <Lightbulb size={28} />
                   </div>
                   <div>
-                    <h4 className="font-black text-slate-900 dark:text-white mb-1 uppercase tracking-widest text-xs">Informação Relevante</h4>
+                    <h4 className={`font-black ${theme.text} mb-1 uppercase tracking-widest text-xs`}>Informação Relevante</h4>
                     <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
                       {currentVisibleQuestion.options.find((o: QuestionOption) => o.value === answers[currentVisibleQuestion.id])?.message}
                     </p>

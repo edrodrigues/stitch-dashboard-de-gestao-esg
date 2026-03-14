@@ -1,7 +1,7 @@
 import type { CompanyGoals, ESGDelta, ESGScore, Question } from '../types';
 
 export const calculateESGScore = (
-  formData: Record<string, number | string>,
+  formData: Record<string, number | string | (string | number)[]>,
   questions?: Question[]
 ): ESGScore => {
   let environmentalScore = 0;

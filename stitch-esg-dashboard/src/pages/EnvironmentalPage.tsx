@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { DashboardLayout } from '../components/layout/DashboardLayout';
 import { Card } from '../components/ui/Card';
-import { Button } from '../components/ui/Button';
-import { Leaf, TrendingUp, Zap, Recycle, Droplets, Save } from 'lucide-react';
+import { Leaf, TrendingUp, Zap, Recycle, Droplets } from 'lucide-react';
 import { AreaChart, BadgeDelta } from '@tremor/react';
 import { useAuth } from '../context/useAuth';
-import { doc, getDoc, updateDoc, Timestamp } from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, getDocs, orderBy, limit } from 'firebase/firestore';
 import { db } from '../firebase';
-import type { Company, CompanyGoals } from '../types';
-import { calculateESGDelta } from '../utils/scoreCalculator';
+import type { Company } from '../types';
+import { getRecommendationsForAnswers, type Recommendation } from '../data/environmentalRecommendations';
 
 const chartData = [
   { date: 'JAN', 'Eficiência': 45 },
@@ -24,7 +23,7 @@ export const EnvironmentalPage: React.FC = () => {
   const { user } = useAuth();
   const [company, setCompany] = useState<Company | null>(null);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
 
   const [energyScore, setEnergyScore] = useState(85);
   const [wasteScore, setWasteScore] = useState(92);
@@ -46,6 +45,22 @@ export const EnvironmentalPage: React.FC = () => {
               setWasteScore(companyData.goals.residuos);
             }
           }
+
+          const diagnosticsQuery = query(
+            collection(db, 'diagnostics'),
+            where('companyId', '==', companyId),
+            orderBy('lastUpdated', 'desc'),
+            limit(1)
+          );
+          const diagnosticsSnapshot = await getDocs(diagnosticsQuery);
+          
+          if (!diagnosticsSnapshot.empty) {
+            const diagnosticData = diagnosticsSnapshot.docs[0].data();
+            if (diagnosticData.responses) {
+              const dynamicRecommendations = getRecommendationsForAnswers(diagnosticData.responses, 5);
+              setRecommendations(dynamicRecommendations);
+            }
+          }
         }
       } catch (err) {
         console.error("Error fetching environmental data:", err);
@@ -56,50 +71,37 @@ export const EnvironmentalPage: React.FC = () => {
     fetchData();
   }, [user]);
 
-  const handleSaveScores = async () => {
-    if (!company) return;
-    
-    setSaving(true);
-    try {
-      const previousScores = company.esgScores;
-      const newEnvironmentalScore = Math.round((energyScore + wasteScore) / 2);
-      
-      const newScores = {
-        ...previousScores,
-        environmental: newEnvironmentalScore,
-      };
-
-      const newDelta = calculateESGDelta(newScores, previousScores);
-      
-      const newGoals: CompanyGoals = {
-        energia: energyScore,
-        residuos: wasteScore,
-        diversidade: company.goals?.diversidade || 0,
-        etica: company.goals?.etica || 0,
-      };
-
-      await updateDoc(doc(db, 'companies', company.id), {
-        'esgScores.environmental': newEnvironmentalScore,
-        esgDelta: newDelta,
-        goals: newGoals,
-        lastEnvironmentalUpdate: Timestamp.now(),
-      });
-
-      setCompany(prev => prev ? {
-        ...prev,
-        esgScores: newScores,
-        esgDelta: newDelta,
-        goals: newGoals,
-      } : null);
-
-      alert('Dados salvos com sucesso!');
-    } catch (err) {
-      console.error("Error saving environmental scores:", err);
-      alert('Erro ao salvar dados');
-    } finally {
-      setSaving(false);
+  const defaultRecommendations: Recommendation[] = [
+    { 
+      id: 'default-energy',
+      icon: Zap, 
+      title: 'Migrar para Mercado Livre de Energia', 
+      points: '+500 XP', 
+      impact: 'Alto Impacto', 
+      color: 'text-amber-500',
+      bg: 'bg-amber-500/10' 
+    },
+    { 
+      id: 'default-waste',
+      icon: Recycle, 
+      title: 'Programa de Logística Reversa', 
+      points: '+400 XP', 
+      impact: 'Estratégico', 
+      color: 'text-emerald-500',
+      bg: 'bg-emerald-500/10'
+    },
+    { 
+      id: 'default-water',
+      icon: Droplets, 
+      title: 'Monitoramento de Efluentes em Tempo Real', 
+      points: '+300 XP', 
+      impact: 'Tecnológico', 
+      color: 'text-blue-500',
+      bg: 'bg-blue-500/10'
     }
-  };
+  ];
+
+  const displayRecommendations = recommendations.length > 0 ? recommendations : defaultRecommendations;
 
   if (loading) {
     return (
@@ -129,14 +131,6 @@ export const EnvironmentalPage: React.FC = () => {
             </p>
           </div>
           <div className="flex gap-3">
-            <Button 
-              onClick={handleSaveScores}
-              isLoading={saving}
-              className="flex items-center gap-2"
-            >
-              <Save size={16} />
-              Salvar Scores
-            </Button>
             <BadgeDelta deltaType="increase" className="font-black uppercase text-[10px]">Líder do Setor</BadgeDelta>
           </div>
         </div>
@@ -162,14 +156,7 @@ export const EnvironmentalPage: React.FC = () => {
                 <Zap size={20} />
               </div>
             </div>
-            <input
-              type="number"
-              min="0"
-              max="100"
-              value={energyScore}
-              onChange={(e) => setEnergyScore(Number(e.target.value))}
-              className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono w-full bg-transparent border-b-2 border-slate-200 dark:border-slate-700 focus:border-primary outline-none"
-            />
+            <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono py-2">{energyScore}%</p>
             <p className="text-slate-400 text-[8px] font-black uppercase tracking-widest mt-2 italic">Fontes Renováveis (%)</p>
           </Card>
 
@@ -180,14 +167,7 @@ export const EnvironmentalPage: React.FC = () => {
                 <Recycle size={20} />
               </div>
             </div>
-            <input
-              type="number"
-              min="0"
-              max="100"
-              value={wasteScore}
-              onChange={(e) => setWasteScore(Number(e.target.value))}
-              className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono w-full bg-transparent border-b-2 border-slate-200 dark:border-slate-700 focus:border-primary outline-none"
-            />
+            <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono py-2">{wasteScore}%</p>
             <p className="text-slate-400 text-[8px] font-black uppercase tracking-widest mt-2 italic">Taxa de Reciclagem (%)</p>
           </Card>
         </div>
@@ -209,26 +189,21 @@ export const EnvironmentalPage: React.FC = () => {
             </div>
           </Card>
 
-          <Card title="Próximas Missões Ambientais">
+          <Card title="Sugestões de Melhoria" subtitle="Ações recomendadas baseadas no seu diagnóstico">
             <div className="space-y-4">
-              {[
-                { icon: Droplets, title: 'Redução de Água', points: '+250 XP', status: 'Em Curso', type: 'progress' },
-                { icon: Leaf, title: 'Plantio de Mudas', points: '+500 XP', status: 'Pendente', type: 'new' },
-              ].map((mission, i) => (
-                <div key={i} className="flex items-center justify-between p-5 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 transition-all group cursor-pointer">
+              {displayRecommendations.map((suggestion) => (
+                <div key={suggestion.id} className="flex items-center justify-between p-5 rounded-2xl border-2 border-slate-100 dark:border-slate-800 hover:border-primary/30 transition-all group cursor-pointer">
                   <div className="flex items-center gap-4">
-                    <div className="p-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl group-hover:bg-primary/10 group-hover:text-primary transition-all">
-                      <mission.icon size={24} />
+                    <div className={`p-3 ${suggestion.bg} ${suggestion.color} rounded-xl group-hover:scale-110 transition-transform`}>
+                      <suggestion.icon size={24} />
                     </div>
                     <div>
-                      <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">{mission.title}</p>
-                      <p className="text-[10px] text-primary font-black uppercase tracking-widest mt-1 italic">{mission.points}</p>
+                      <p className="font-black text-xs text-slate-900 dark:text-slate-100 uppercase tracking-tight">{suggestion.title}</p>
+                      <p className="text-[10px] text-primary font-black uppercase tracking-widest mt-1 italic">{suggestion.points}</p>
                     </div>
                   </div>
-                  <span className={`px-3 py-1 rounded-xl text-[8px] font-black uppercase tracking-widest border-2 ${
-                    mission.status === 'Em Curso' ? 'bg-blue-50 text-blue-600 border-blue-100' : 'bg-slate-50 text-slate-500 border-slate-100'
-                  }`}>
-                    {mission.status}
+                  <span className={`px-3 py-1 rounded-xl text-[8px] font-black uppercase tracking-widest border-2 ${suggestion.bg} ${suggestion.color} border-current opacity-80`}>
+                    {suggestion.impact}
                   </span>
                 </div>
               ))}

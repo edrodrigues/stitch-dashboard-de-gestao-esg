@@ -62,9 +62,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           });
         }
       }
-    } catch (err: any) {
-      if (err.code === 'unavailable' || err.message?.includes('offline')) {
-        console.warn("AuthContext: Firestore is offline. Diagnostic status will be re-checked when online.");
+    } catch (err) {
+      if (err instanceof Error) {
+        const firebaseError = err as Error & { code?: string };
+        if (firebaseError.code === 'unavailable' || err.message?.includes('offline')) {
+          console.warn("AuthContext: Firestore is offline. Diagnostic status will be re-checked when online.");
+        } else {
+          console.error("AuthContext: Error fetching diagnostic status:", err);
+        }
       } else {
         console.error("AuthContext: Error fetching diagnostic status:", err);
       }
