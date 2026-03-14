@@ -1,4 +1,4 @@
-import type { CompanyGoals, DiagnosticResponses, ESGDelta, ESGScore, Question } from '../types';
+import type { CompanyGoals, ESGDelta, ESGScore, Question } from '../types';
 
 export const calculateESGScore = (
   formData: Record<string, number | string | (string | number)[]>,

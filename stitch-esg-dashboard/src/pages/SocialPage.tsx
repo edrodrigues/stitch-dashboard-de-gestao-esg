@@ -24,7 +24,7 @@ export const SocialPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   const [diversityScore, setDiversityScore] = useState(45);
-  const [trainingScore, setTrainingScore] = useState(88);
+  const [trainingScore] = useState(88);
 
   useEffect(() => {
     const fetchData = async () => {
