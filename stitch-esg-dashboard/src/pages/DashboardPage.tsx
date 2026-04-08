@@ -6,7 +6,7 @@ import { RecentMissions } from '../components/dashboard/RecentMissions';
 import { HeroJourney } from '../components/dashboard/HeroJourney';
 import { LevelUpModal, type Particle } from '../components/dashboard/LevelUpModal';
 import { OnboardingTour } from '../components/dashboard/OnboardingTour';
-import { Leaf, Users, Gavel } from 'lucide-react';
+import { Leaf, Users, Gavel, Trophy, Rocket } from 'lucide-react';
 import { BarChart, BadgeDelta, ProgressCircle, CategoryBar } from '@tremor/react';
 import { useAuth } from '../context/useAuth';
 import { doc, getDoc } from 'firebase/firestore';
