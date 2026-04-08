@@ -140,7 +140,7 @@ export const RecentMissions: React.FC = () => {
   };
 
   const getPillarButtonClass = (pillar: PillarFilter) => {
-    const baseClass = "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2";
+    const baseClass = "px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2";
     if (selectedPillar === pillar) {
       return `${baseClass} ${PILLAR_CONFIG[pillar].color} shadow-lg`;
     }
@@ -232,7 +232,7 @@ export const RecentMissions: React.FC = () => {
                   >
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-black text-xs ${typeIconStyles[mission.type]}`}>
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs ${typeIconStyles[mission.type]}`}>
                           {mission.type}
                         </div>
                         <span className="text-sm font-bold text-slate-900 dark:text-slate-100">
@@ -241,7 +241,7 @@ export const RecentMissions: React.FC = () => {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tight flex items-center gap-1 w-fit ${status.color}`}>
+                      <span className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-tight flex items-center gap-1 w-fit ${status.color}`}>
                         <status.icon size={12} />
                         {status.label}
                       </span>

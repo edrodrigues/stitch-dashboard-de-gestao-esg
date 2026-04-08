@@ -5,6 +5,7 @@ import { EvolutionChart } from '../components/dashboard/EvolutionChart';
 import { RecentMissions } from '../components/dashboard/RecentMissions';
 import { HeroJourney } from '../components/dashboard/HeroJourney';
 import { LevelUpModal, type Particle } from '../components/dashboard/LevelUpModal';
+import { OnboardingTour } from '../components/dashboard/OnboardingTour';
 import { Leaf, Users, Gavel } from 'lucide-react';
 import { BarChart, BadgeDelta, ProgressCircle, CategoryBar } from '@tremor/react';
 import { useAuth } from '../context/useAuth';
@@ -64,6 +65,26 @@ export const DashboardPage: React.FC = () => {
     return 'D';
   };
 
+  const CustomTooltip = ({ payload, active, label }: any) => {
+    if (!active || !payload) return null;
+    return (
+      <div className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-xl shadow-emerald-900/10 border-b-4">
+        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 border-b border-slate-100 dark:border-slate-800 pb-1">{label}</p>
+        <div className="space-y-1">
+          {payload.map((category: any, idx: number) => (
+            <div key={idx} className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                <span className="text-xs font-bold text-slate-600 dark:text-slate-300">{category.dataKey}</span>
+              </div>
+              <span className="text-xs font-black text-slate-900 dark:text-white font-mono">{category.value}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   if (loading) {
     return (
       <DashboardLayout>
@@ -76,6 +97,7 @@ export const DashboardPage: React.FC = () => {
 
   return (
     <DashboardLayout>
+      <OnboardingTour />
       <LevelUpModal 
         isOpen={showLevelUp} 
         onClose={() => setShowLevelUp(false)} 
@@ -88,17 +110,52 @@ export const DashboardPage: React.FC = () => {
         <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100 uppercase">
           Olá, {user?.displayName || 'Mestre ESG'}! 👋
         </h2>
-        <p className="text-slate-500 dark:text-slate-400 mt-1 font-bold uppercase text-[10px] tracking-widest opacity-70">
-          Panorama atual de impacto da <span className="text-primary font-black">{company?.name}</span>.
+        <p className="text-slate-500 dark:text-slate-400 mt-1 font-bold text-xs tracking-wide opacity-80">
+          Panorama atual de impacto da <span className="text-primary font-black">{company?.name}</span>
         </p>
       </div>
 
       <HeroJourney currentXP={company?.currentXP || 0} />
 
+      {/* Ghost Rankings / Comparative Gamification */}
+      <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-slate-100 dark:bg-slate-800/50 rounded-2xl p-6 border-2 border-dashed border-slate-200 dark:border-slate-700 flex items-center justify-between group hover:border-primary/50 transition-all cursor-help">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center text-slate-300 group-hover:text-primary transition-colors">
+              <Trophy size={24} />
+            </div>
+            <div>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Próximo Marco</p>
+              <h4 className="text-sm font-bold text-slate-600 dark:text-slate-300">Top 10 do Setor</h4>
+            </div>
+          </div>
+          <div className="text-right">
+            <p className="text-xs font-black text-slate-400 group-hover:text-primary transition-colors">+250 XP</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Para desbloquear</p>
+          </div>
+        </div>
+
+        <div className="bg-slate-100 dark:bg-slate-800/50 rounded-2xl p-6 border-2 border-dashed border-slate-200 dark:border-slate-700 flex items-center justify-between group hover:border-teal-500/50 transition-all cursor-help">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center text-slate-300 group-hover:text-teal-500 transition-colors">
+              <Rocket size={24} />
+            </div>
+            <div>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Selo de Elite</p>
+              <h4 className="text-sm font-bold text-slate-600 dark:text-slate-300">Mestre da Água</h4>
+            </div>
+          </div>
+          <div className="text-right">
+            <p className="text-xs font-black text-slate-400 group-hover:text-teal-500 transition-colors">+500 XP</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Para desbloquear</p>
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <Card variant="chunky">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Ambiental</span>
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Ambiental</span>
             <div className="p-2 bg-environmental text-white rounded-xl shadow-lg shadow-emerald-500/20">
               <Leaf size={20} />
             </div>
@@ -107,18 +164,18 @@ export const DashboardPage: React.FC = () => {
             <div>
               <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores?.environmental || 0}</p>
               <div className="mt-2">
-                <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.environmental || 0)} className="font-black text-[10px] uppercase">
+                <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.environmental || 0)} className="font-bold text-xs">
                   {formatDelta(company?.esgDelta?.environmental || 0)} XP
                 </BadgeDelta>
               </div>
             </div>
-            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest opacity-50 italic">E-Score</div>
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest opacity-50 italic">E-Score</div>
           </div>
         </Card>
 
         <Card variant="chunky">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Social</span>
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Social</span>
             <div className="p-2 bg-social text-white rounded-xl shadow-lg shadow-amber-500/20">
               <Users size={20} />
             </div>
@@ -127,18 +184,18 @@ export const DashboardPage: React.FC = () => {
             <div>
               <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores?.social || 0}</p>
               <div className="mt-2">
-                <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.social || 0)} className="font-black text-[10px] uppercase">
+                <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.social || 0)} className="font-bold text-xs">
                   {formatDelta(company?.esgDelta?.social || 0)} XP
                 </BadgeDelta>
               </div>
             </div>
-            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest opacity-50 italic">S-Score</div>
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest opacity-50 italic">S-Score</div>
           </div>
         </Card>
 
         <Card variant="chunky">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Governança</span>
+            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Governança</span>
             <div className="p-2 bg-governance text-white rounded-xl shadow-lg shadow-blue-500/20">
               <Gavel size={20} />
             </div>
@@ -147,12 +204,12 @@ export const DashboardPage: React.FC = () => {
             <div>
               <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores?.governance || 0}</p>
               <div className="mt-2">
-                <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.governance || 0)} className="font-black text-[10px] uppercase">
+                <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.governance || 0)} className="font-bold text-xs">
                   {formatDelta(company?.esgDelta?.governance || 0)} XP
                 </BadgeDelta>
               </div>
             </div>
-            <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest opacity-50 italic">G-Score</div>
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest opacity-50 italic">G-Score</div>
           </div>
         </Card>
       </div>
@@ -173,12 +230,13 @@ export const DashboardPage: React.FC = () => {
                 showAnimation={true}
                 showLegend={false}
                 yAxisWidth={48}
+                customTooltip={CustomTooltip}
               />
             ) : (
               <div className="h-full flex items-center justify-center text-slate-400">
                 <div className="text-center">
-                  <p className="text-sm font-bold uppercase tracking-widest">Nenhuma meta definida</p>
-                  <p className="text-xs mt-2">Configure suas metas para acompanhar o progresso</p>
+                  <p className="text-sm font-bold tracking-tight">Nenhuma meta definida</p>
+                  <p className="text-xs mt-1 opacity-70">Configure suas metas para acompanhar o progresso</p>
                 </div>
               </div>
             )}
@@ -192,8 +250,8 @@ export const DashboardPage: React.FC = () => {
         </div>
         
         <div className="space-y-6">
-          <Card className="p-8 flex flex-col items-center justify-center border-b-8">
-            <p className="text-[10px] font-black text-slate-400 mb-8 uppercase tracking-[0.2em]">PERFIL DE MATURIDADE ATUAL</p>
+          <Card className="p-8 flex flex-col items-center justify-center border-b-4">
+            <p className="text-xs font-bold text-slate-400 mb-8 uppercase tracking-widest">Perfil de maturidade atual</p>
             
             <ProgressCircle
               value={esgAverage}
@@ -206,15 +264,15 @@ export const DashboardPage: React.FC = () => {
                 <span className="text-4xl font-black text-slate-900 dark:text-white drop-shadow-sm font-mono">
                   {getLetterScore(esgAverage)}
                 </span>
-                <p className="text-[8px] text-slate-500 font-black uppercase tracking-widest mt-1">Grade</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Grade</p>
               </div>
             </ProgressCircle>
 
             <div className="w-full space-y-6 mt-12 pt-8 border-t border-slate-100 dark:border-slate-800">
               <div className="space-y-2">
-                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
-                  <span className="text-teal-500">Ambiental (E)</span>
-                  <span>{company?.esgScores?.environmental || 0}%</span>
+                <div className="flex justify-between text-xs font-bold tracking-tight">
+                  <span className="text-teal-600 dark:text-teal-400">Ambiental (E)</span>
+                  <span className="text-slate-900 dark:text-slate-100">{company?.esgScores?.environmental || 0}%</span>
                 </div>
                 <CategoryBar 
                   values={[company?.esgScores?.environmental || 0, 100 - (company?.esgScores?.environmental || 0)]} 
@@ -225,9 +283,9 @@ export const DashboardPage: React.FC = () => {
                 />
               </div>
               <div className="space-y-2">
-                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
-                  <span className="text-orange-500">Social (S)</span>
-                  <span>{company?.esgScores?.social || 0}%</span>
+                <div className="flex justify-between text-xs font-bold tracking-tight">
+                  <span className="text-orange-600 dark:text-orange-400">Social (S)</span>
+                  <span className="text-slate-900 dark:text-slate-100">{company?.esgScores?.social || 0}%</span>
                 </div>
                 <CategoryBar 
                   values={[company?.esgScores?.social || 0, 100 - (company?.esgScores?.social || 0)]} 
@@ -238,9 +296,9 @@ export const DashboardPage: React.FC = () => {
                 />
               </div>
               <div className="space-y-2">
-                <div className="flex justify-between text-[10px] font-black uppercase tracking-widest">
-                  <span className="text-indigo-500">Governança (G)</span>
-                  <span>{company?.esgScores?.governance || 0}%</span>
+                <div className="flex justify-between text-xs font-bold tracking-tight">
+                  <span className="text-indigo-600 dark:text-indigo-400">Governança (G)</span>
+                  <span className="text-slate-900 dark:text-slate-100">{company?.esgScores?.governance || 0}%</span>
                 </div>
                 <CategoryBar 
                   values={[company?.esgScores?.governance || 0, 100 - (company?.esgScores?.governance || 0)]} 

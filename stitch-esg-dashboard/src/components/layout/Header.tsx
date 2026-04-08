@@ -43,8 +43,8 @@ export const Header: React.FC = () => {
         <div className="relative group py-2">
           <div className="flex items-center gap-3 cursor-pointer">
             <div className="text-right hidden sm:block">
-              <p className="text-sm font-black text-slate-900 dark:text-slate-100 tracking-tight">{user?.displayName || 'Mestre ESG'}</p>
-              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest opacity-70">Gerente de Impacto</p>
+              <p className="text-sm font-bold text-slate-900 dark:text-slate-100 tracking-tight">{user?.displayName || 'Mestre ESG'}</p>
+              <p className="text-xs font-medium text-slate-500 opacity-80">Gerente de Impacto</p>
             </div>
             <div className="relative">
               <div 
@@ -61,22 +61,22 @@ export const Header: React.FC = () => {
           <div className="absolute right-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-2 group-hover:translate-y-0 transition-all duration-300 z-50">
             <div className="bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-2 border-slate-100 dark:border-slate-800 rounded-2xl shadow-2xl shadow-emerald-900/10 overflow-hidden p-2">
               <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-800 mb-1">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Sua Conta</p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Sua Conta</p>
               </div>
               
               <Link to="/profile" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-emerald-500/10 text-slate-600 dark:text-slate-400 hover:text-primary transition-all group/item">
                 <User size={18} className="group-hover/item:scale-110 transition-transform" />
-                <span className="text-xs font-black uppercase tracking-widest">Meu Perfil</span>
+                <span className="text-xs font-bold uppercase tracking-wider">Meu Perfil</span>
               </Link>
               
               <Link to="/organization" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-emerald-500/10 text-slate-600 dark:text-slate-400 hover:text-primary transition-all group/item">
                 <Building2 size={18} className="group-hover/item:scale-110 transition-transform" />
-                <span className="text-xs font-black uppercase tracking-widest">Minha Organização</span>
+                <span className="text-xs font-bold uppercase tracking-wider">Minha Organização</span>
               </Link>
               
               <Link to="/settings" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-emerald-500/10 text-slate-600 dark:text-slate-400 hover:text-primary transition-all group/item">
                 <Settings size={18} className="group-hover/item:scale-110 transition-transform" />
-                <span className="text-xs font-black uppercase tracking-widest">Configurações</span>
+                <span className="text-xs font-bold uppercase tracking-wider">Configurações</span>
               </Link>
               
               <div className="h-[1px] bg-slate-100 dark:bg-slate-800 my-1 mx-2"></div>
@@ -86,7 +86,7 @@ export const Header: React.FC = () => {
                 className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-rose-500/10 text-slate-400 hover:text-rose-500 transition-all group/item"
               >
                 <LogOut size={18} className="group-hover/item:scale-110 transition-transform" />
-                <span className="text-xs font-black uppercase tracking-widest">Sair da Conta</span>
+                <span className="text-xs font-bold uppercase tracking-wider">Sair da Conta</span>
               </button>
             </div>
           </div>

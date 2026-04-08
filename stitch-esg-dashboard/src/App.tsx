@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
+import { UIProvider } from './context/UIContext';
 import { useAuth } from './context/useAuth';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { DiagnosticProtectedRoute } from './components/DiagnosticProtectedRoute';
@@ -147,9 +148,11 @@ function AppRoutes() {
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
+      <UIProvider>
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </UIProvider>
     </AuthProvider>
   );
 }

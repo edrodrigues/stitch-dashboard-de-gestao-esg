@@ -32,8 +32,8 @@ export const HeroJourney: React.FC<HeroJourneyProps> = ({ currentXP }) => {
             <currentLevel.icon size={32} />
           </div>
           <div>
-            <p className="text-xs font-black uppercase tracking-widest text-slate-400">Nível Atual</p>
-            <h3 className="text-2xl font-black text-slate-900 dark:text-slate-100">{currentLevel.name}</h3>
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Nível Atual</p>
+            <h3 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">{currentLevel.name}</h3>
             <p className="text-sm font-bold text-primary">{currentXP} XP</p>
           </div>
         </div>
@@ -79,7 +79,7 @@ export const HeroJourney: React.FC<HeroJourneyProps> = ({ currentXP }) => {
 
                   {/* Label - Positioned with margin to avoid overlap and ensure visibility */}
                   <div className={`
-                    absolute top-14 text-[10px] font-black uppercase tracking-tighter text-center w-24 transition-all
+                    absolute top-14 text-[10px] font-bold uppercase tracking-wider text-center w-24 transition-all
                     ${isCurrent ? 'text-slate-900 dark:text-slate-100 opacity-100' : 'text-slate-400 opacity-0 group-hover:opacity-100'}
                   `}>
                     {level.name}
@@ -93,11 +93,11 @@ export const HeroJourney: React.FC<HeroJourneyProps> = ({ currentXP }) => {
 
         {/* Next Goal */}
         <div className="min-w-[120px] text-right hidden md:block">
-          <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Próximo Nível</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Próximo Nível</p>
           {nextLevel ? (
             <>
               <p className="text-sm font-bold text-slate-900 dark:text-slate-100">{nextLevel.name}</p>
-              <p className="text-xs text-slate-500">Faltam {nextLevel.minXP - currentXP} XP</p>
+              <p className="text-xs text-slate-500 font-medium">Faltam {nextLevel.minXP - currentXP} XP</p>
             </>
           ) : (
             <p className="text-sm font-bold text-primary">Nível Máximo!</p>

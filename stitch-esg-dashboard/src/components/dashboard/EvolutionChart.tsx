@@ -100,8 +100,28 @@ export const EvolutionChart: React.FC<EvolutionChartProps> = ({
 
   const valueFormatter = (number: number) => `${number}`;
 
+  const CustomTooltip = ({ payload, active, label }: any) => {
+    if (!active || !payload) return null;
+    return (
+      <div className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 p-3 rounded-xl shadow-xl shadow-emerald-900/10 border-b-4">
+        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 border-b border-slate-100 dark:border-slate-800 pb-1">{label}</p>
+        <div className="space-y-1">
+          {payload.map((category: any, idx: number) => (
+            <div key={idx} className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-2">
+                <div className={`w-2 h-2 rounded-full bg-${category.color}-500`} />
+                <span className="text-xs font-bold text-slate-600 dark:text-slate-300">{category.dataKey}</span>
+              </div>
+              <span className="text-xs font-black text-slate-900 dark:text-white font-mono">{category.value}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   const getPillarButtonClass = (pillar: Pillar) => {
-    const baseClass = "px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all";
+    const baseClass = "px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all";
     if (selectedPillar === pillar) {
       switch (pillar) {
         case 'all':
@@ -124,7 +144,7 @@ export const EvolutionChart: React.FC<EvolutionChartProps> = ({
         <select 
           value={timeRange}
           onChange={(e) => setTimeRange(e.target.value as TimeRange)}
-          className="text-[10px] font-black uppercase tracking-widest bg-slate-50 dark:bg-slate-800 border-none rounded-lg focus:ring-primary focus:ring-2 p-2 cursor-pointer outline-none"
+          className="text-xs font-bold uppercase tracking-widest bg-slate-50 dark:bg-slate-800 border-none rounded-lg focus:ring-primary focus:ring-2 p-2 cursor-pointer outline-none"
         >
           <option value="6months">Últimos 6 Meses</option>
           <option value="all">Desde o Início</option>
@@ -160,6 +180,7 @@ export const EvolutionChart: React.FC<EvolutionChartProps> = ({
             curveType="monotone"
             minValue={0}
             maxValue={100}
+            customTooltip={CustomTooltip}
           />
         ) : (
           <div className="h-full flex items-center justify-center text-slate-400">

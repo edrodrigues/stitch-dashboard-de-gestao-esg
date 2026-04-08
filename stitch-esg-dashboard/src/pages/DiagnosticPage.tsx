@@ -502,10 +502,10 @@ export const DiagnosticPage: React.FC = () => {
           <div className="lg:col-span-2 bg-white dark:bg-slate-900 p-8 rounded-3xl border-2 border-slate-100 dark:border-slate-800 shadow-xl shadow-emerald-900/5">
             <div className="flex justify-between items-end mb-6">
               <div>
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2">PROGRESSO DA MISSÃO</p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Progresso da Missão</p>
                 <h3 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">{progress}% Concluído</h3>
               </div>
-              <span className="text-xs font-black text-primary uppercase tracking-widest">{answeredVisible} / {visibleQuestions.length} Dados</span>
+              <span className="text-xs font-bold text-primary uppercase tracking-wider">{answeredVisible} / {visibleQuestions.length} Dados</span>
             </div>
             <div className="w-full bg-slate-100 dark:bg-slate-800 h-4 rounded-full overflow-hidden mb-4">
               <div
@@ -513,12 +513,12 @@ export const DiagnosticPage: React.FC = () => {
                 style={{ width: `${progress}%` }}
               ></div>
             </div>
-            <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
-              Nível atual da missão: <span className="text-primary italic">Iniciante ESG</span>
+            <p className="text-xs font-medium text-slate-400 tracking-tight">
+              Nível atual da missão: <span className="text-primary font-bold">Iniciante ESG</span>
             </p>
           </div>
 
-          <div className="bg-primary text-slate-900 p-8 rounded-3xl shadow-xl flex flex-col justify-between border-b-8 border-emerald-600 relative overflow-hidden group">
+          <div className="bg-primary text-slate-900 p-8 rounded-3xl shadow-xl flex flex-col justify-between border-b-4 border-emerald-600 relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:rotate-12 transition-transform">
               <Rocket size={120} />
             </div>
@@ -526,12 +526,12 @@ export const DiagnosticPage: React.FC = () => {
               <h4 className="text-xl font-black mb-2 flex items-center gap-2 uppercase tracking-tighter">
                 <Rocket size={20} /> Próximo Passo!
               </h4>
-              <p className="text-slate-900/80 text-xs font-bold uppercase tracking-wide leading-relaxed">
+              <p className="text-slate-900/80 text-sm font-bold tracking-tight leading-relaxed">
                 Responda o questionário dessa página para ganhar 500 XP e avançar à próxima página.
               </p>
             </div>
             <Button
-              className="mt-6 bg-white text-primary font-black py-3 px-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-slate-50 transition-all uppercase text-[10px] tracking-[0.2em] shadow-lg relative z-10"
+              className="mt-6 bg-white text-primary font-bold py-3 px-4 rounded-2xl flex items-center justify-center gap-2 hover:bg-slate-50 transition-all uppercase text-xs tracking-widest shadow-lg relative z-10"
               onClick={scrollToQuestionnaire}
             >
               Iniciar Missão
@@ -542,7 +542,7 @@ export const DiagnosticPage: React.FC = () => {
         <div className="flex flex-wrap border-b-2 border-slate-100 dark:border-slate-800 gap-2 md:gap-8 mb-8">
           <button
             onClick={() => navigateToCategory('form')}
-            className={`pb-4 px-2 border-b-4 font-black uppercase tracking-widest text-[10px] flex items-center gap-2 transition-all
+            className={`pb-4 px-2 border-b-4 font-bold uppercase tracking-wider text-xs flex items-center gap-2 transition-all
               ${currentCategory === 'form' ? 'border-primary text-primary' : 'border-transparent text-slate-400 hover:text-slate-600'}
             `}
           >
@@ -553,7 +553,7 @@ export const DiagnosticPage: React.FC = () => {
             <button
               key={cat}
               onClick={() => navigateToCategory(cat)}
-              className={`pb-4 px-2 border-b-4 font-black uppercase tracking-widest text-[10px] flex items-center gap-2 transition-all
+              className={`pb-4 px-2 border-b-4 font-bold uppercase tracking-wider text-xs flex items-center gap-2 transition-all
                   ${currentCategory === cat 
                     ? cat === 'environmental' ? 'border-emerald-500 text-emerald-500' : 
                       cat === 'social' ? 'border-rose-500 text-rose-500' : 
@@ -571,9 +571,9 @@ export const DiagnosticPage: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10" ref={questionnaireRef}>
           <div className="lg:col-span-12 space-y-8 max-w-4xl mx-auto w-full">
-            <Card className="border-b-8">
+            <Card className="border-b-4">
               <div className="mb-8">
-                <span className={`inline-block px-3 py-1 rounded-full ${theme.bgLight} ${theme.text} text-[10px] font-black mb-4 uppercase tracking-widest border ${theme.borderLight}`}>
+                <span className={`inline-block px-3 py-1 rounded-full ${theme.bgLight} ${theme.text} text-xs font-bold mb-4 uppercase tracking-wider border ${theme.borderLight}`}>
                   {currentCategory === 'form' ? 'Dados da Empresa' :
                     currentCategory === 'environmental' ? 'Eixo Ambiental' :
                       currentCategory === 'social' ? 'Eixo Social' : 'Eixo Governança'}
@@ -583,7 +583,7 @@ export const DiagnosticPage: React.FC = () => {
                   {currentVisibleQuestion.text}
                 </h3>
                 {currentVisibleQuestion.description && (
-                  <p className="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-widest opacity-70">
+                  <p className="text-slate-500 dark:text-slate-400 text-sm font-medium tracking-tight">
                     {currentVisibleQuestion.description}
                   </p>
                 )}
@@ -615,7 +615,7 @@ export const DiagnosticPage: React.FC = () => {
                       onChange={() => handleOptionSelect(option.value)}
                     />
                     <div className="ml-4 flex flex-col">
-                      <span className={`font-black text-[10px] uppercase tracking-widest transition-colors
+                      <span className={`font-bold text-sm tracking-tight transition-colors
                           ${answers[currentVisibleQuestion.id] === option.value ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}
                         `}>
                         {option.label}
@@ -652,7 +652,7 @@ export const DiagnosticPage: React.FC = () => {
                         onChange={() => handleCheckboxToggle(option.value)}
                       />
                       <div className="ml-4 flex flex-col">
-                        <span className={`font-black text-[10px] uppercase tracking-widest transition-colors
+                        <span className={`font-bold text-sm tracking-tight transition-colors
                             ${isChecked ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}
                           `}>
                           {option.label}
@@ -668,7 +668,7 @@ export const DiagnosticPage: React.FC = () => {
                     value={(answers[currentVisibleQuestion.id] as string) || ''}
                     onChange={(e) => handleTextChange(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest placeholder:text-slate-300 dark:placeholder:text-slate-700`}
+                    className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-bold text-sm tracking-tight placeholder:text-slate-300 dark:placeholder:text-slate-700`}
                     placeholder="Digite sua resposta..."
                     autoFocus
                   />
@@ -679,7 +679,7 @@ export const DiagnosticPage: React.FC = () => {
                     {currentVisibleQuestion.options && currentVisibleQuestion.options.length > 0 ? (
                       currentVisibleQuestion.options.map((option, idx) => (
                         <div key={idx} className="space-y-2">
-                          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-2">
+                          <label className="text-xs font-bold text-slate-400 uppercase tracking-wider ml-2">
                             {option.label}
                           </label>
                           <input
@@ -691,7 +691,7 @@ export const DiagnosticPage: React.FC = () => {
                               debouncedSave(newAnswers);
                             }}
                             onKeyDown={handleKeyDown}
-                            className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest placeholder:text-slate-300 dark:placeholder:text-slate-700 font-mono`}
+                            className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-bold text-sm tracking-tight placeholder:text-slate-300 dark:placeholder:text-slate-700 font-mono`}
                             placeholder="0"
                             autoFocus={idx === 0}
                           />
@@ -703,7 +703,7 @@ export const DiagnosticPage: React.FC = () => {
                         value={(answers[currentVisibleQuestion.id] as number | string) || ''}
                         onChange={(e) => handleTextChange(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest placeholder:text-slate-300 dark:placeholder:text-slate-700 font-mono`}
+                        className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-bold text-sm tracking-tight placeholder:text-slate-300 dark:placeholder:text-slate-700 font-mono`}
                         placeholder="0"
                         autoFocus
                       />
@@ -717,7 +717,7 @@ export const DiagnosticPage: React.FC = () => {
                     value={(answers[currentVisibleQuestion.id] as string) || ''}
                     onChange={(e) => handleTextChange(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest`}
+                    className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-bold text-sm tracking-tight`}
                     autoFocus
                   />
                 )}
@@ -727,7 +727,7 @@ export const DiagnosticPage: React.FC = () => {
                     value={(answers[currentVisibleQuestion.id] as string) || ''}
                     onChange={(e) => handleOptionSelect(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-black uppercase text-[10px] tracking-widest cursor-pointer appearance-none`}
+                    className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-bold text-sm tracking-tight cursor-pointer appearance-none`}
                   >
                     <option value="" className="text-slate-400">Selecione uma opção</option>
                     {currentVisibleQuestion.options.map((option: QuestionOption, idx: number) => (
@@ -744,14 +744,14 @@ export const DiagnosticPage: React.FC = () => {
                   variant="outline"
                   onClick={handlePrev}
                   disabled={currentStep === 0}
-                  className="px-8 py-4 border-2 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em]"
+                  className="px-8 py-4 border-2 rounded-2xl font-bold uppercase text-xs tracking-wider"
                 >
                   <ChevronLeft size={18} className="mr-2" /> Voltar
                 </Button>
                 <Button
                   onClick={handleNext}
                   disabled={isNextDisabled}
-                  isLoading={isFinishing && !showSuccess} className={`px-10 py-4 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] shadow-xl transition-all duration-300
+                  isLoading={isFinishing && !showSuccess} className={`px-10 py-4 rounded-2xl font-bold uppercase text-xs tracking-wider shadow-xl transition-all duration-300
                     ${showSuccess
                       ? 'bg-emerald-500 text-white shadow-emerald-500/40'
                       : `${theme.bg} text-white ${theme.shadow}`}
@@ -773,12 +773,12 @@ export const DiagnosticPage: React.FC = () => {
 
             {showSuccess && (
               <div className="fixed inset-0 flex items-center justify-center z-[100] animate-in fade-in zoom-in duration-300 bg-slate-900/20 backdrop-blur-sm">
-                <div className={`bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-2xl border-2 ${theme.borderLight} flex flex-col items-center text-center max-w-sm mx-4`}>
+                <div className={`bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-2xl border-2 ${theme.borderLight} flex flex-col items-center text-center max-w-sm mx-4 success-pulse`}>
                   <div className={`w-20 h-20 ${theme.bgSelected} ${theme.text} rounded-full flex items-center justify-center mb-6 animate-bounce`}>
                     <Check size={40} strokeWidth={4} />
                   </div>
                   <h3 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tighter mb-2">Salvo com Sucesso!</h3>
-                  <p className="text-slate-500 dark:text-slate-400 font-bold uppercase text-[10px] tracking-widest leading-relaxed">
+                  <p className="text-slate-500 dark:text-slate-400 font-bold uppercase text-xs tracking-widest leading-relaxed">
                     Seu diagnóstico foi registrado. Desbloqueando trilha Ambiental...
                   </p>
                 </div>
@@ -792,8 +792,8 @@ export const DiagnosticPage: React.FC = () => {
                     <Lightbulb size={28} />
                   </div>
                   <div>
-                    <h4 className={`font-black ${theme.text} mb-1 uppercase tracking-widest text-xs`}>Informação Relevante</h4>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
+                    <h4 className={`font-bold ${theme.text} mb-1 uppercase tracking-wider text-xs`}>Informação Relevante</h4>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium tracking-tight leading-relaxed">
                       {currentVisibleQuestion.options.find((o: QuestionOption) => o.value === answers[currentVisibleQuestion.id])?.message}
                     </p>
                   </div>
