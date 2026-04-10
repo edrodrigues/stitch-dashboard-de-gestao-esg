@@ -17,25 +17,25 @@ export const Card: React.FC<CardProps> = ({
   headerAction,
   variant = 'default',
 }) => {
-  const baseStyles = 'rounded-xl overflow-hidden transition-all';
+  const baseStyles = 'rounded-3xl overflow-hidden transition-all duration-300';
   const variants = {
-    default: 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm',
+    default: 'bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 shadow-xl shadow-emerald-900/5',
     chunky: 'bg-white dark:bg-slate-900 chunky-card',
-    glass: 'bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-white/20 dark:border-white/10 shadow-xl',
+    glass: 'glass-surface shadow-2xl shadow-emerald-900/10',
   };
 
   return (
     <div className={`${baseStyles} ${variants[variant]} ${className}`}>
       {(title || subtitle || headerAction) && (
-        <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+        <div className="px-8 py-6 border-b-2 border-slate-50 dark:border-slate-800/50 flex items-center justify-between bg-slate-50/30 dark:bg-slate-800/10">
           <div>
-            {title && <h3 className="font-bold text-lg text-slate-900 dark:text-slate-100">{title}</h3>}
-            {subtitle && <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{subtitle}</p>}
+            {title && <h3 className="font-black text-lg text-slate-900 dark:text-white uppercase tracking-tight font-display">{title}</h3>}
+            {subtitle && <p className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-[0.15em] mt-1 font-display">{subtitle}</p>}
           </div>
-          {headerAction && <div>{headerAction}</div>}
+          {headerAction && <div className="flex items-center">{headerAction}</div>}
         </div>
       )}
-      <div className="p-6">
+      <div className="p-8">
         {children}
       </div>
     </div>

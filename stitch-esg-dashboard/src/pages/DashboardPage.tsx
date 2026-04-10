@@ -114,13 +114,16 @@ export const DashboardPage: React.FC = () => {
         particles={particles}
       />
 
-      <div className="mb-8">
-        <h2 className="text-3xl font-black tracking-tight text-slate-900 dark:text-slate-100 uppercase">
+      <div className="mb-10 animate-in fade-in slide-in-from-left-4 duration-700">
+        <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 dark:text-white uppercase font-display leading-tight">
           Olá, {user?.displayName || 'Mestre ESG'}! 👋
         </h2>
-        <p className="text-slate-500 dark:text-slate-400 mt-1 font-bold text-xs tracking-wide opacity-80">
-          Panorama atual de impacto da <span className="text-primary font-black">{company?.name}</span>
-        </p>
+        <div className="flex items-center gap-3 mt-3">
+          <div className="h-1 w-12 bg-primary rounded-full"></div>
+          <p className="text-slate-400 dark:text-slate-500 font-bold text-[10px] uppercase tracking-[0.2em] font-display">
+            Panorama atual de impacto da <span className="text-primary font-black">{company?.name}</span>
+          </p>
+        </div>
       </div>
 
       <HeroJourney currentXP={company?.currentXP || 0} />
