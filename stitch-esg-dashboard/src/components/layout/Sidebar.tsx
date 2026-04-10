@@ -129,5 +129,6 @@ export const Sidebar: React.FC = () => {
         </button>
       </div>
     </aside>
+    </>
   );
 };
