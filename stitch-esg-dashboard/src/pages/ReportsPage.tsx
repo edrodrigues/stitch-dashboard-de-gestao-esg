@@ -4,7 +4,6 @@ import { Card } from '../components/ui/Card';
 import { Button } from '../components/ui/Button';
 import {
   BarChart,
-  BadgeDelta,
   DonutChart,
   List,
   ListItem
@@ -14,20 +13,16 @@ import {
   Database,
   Stars,
   Leaf,
-  Zap,
   Recycle,
-  Trophy,
   ArrowRight,
   Droplets,
   Users,
-  Scale,
-  Globe
+  Scale
 } from 'lucide-react';
 import { useAuth } from '../context/useAuth';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import type { Company } from '../types';
-import { getDeltaType } from '../utils/scoreCalculator';
 import { 
   getRegionalAverages, 
   getSectorComparison, 

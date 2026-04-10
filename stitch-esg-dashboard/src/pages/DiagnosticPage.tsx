@@ -7,7 +7,7 @@ import type { Question, QuestionOption, DiagnosticResponses } from '../types';
 import { useAuth } from '../context/useAuth';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
-import { Check, Lightbulb, Rocket, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Check, Lightbulb, Rocket, ChevronRight, ChevronLeft, Leaf } from 'lucide-react';
 import { calculateESGScore, calculateESGDelta, calculateGoalsFromScores } from '../utils/scoreCalculator';
 import { diagnosticQuestions } from '../data/questions';
 
