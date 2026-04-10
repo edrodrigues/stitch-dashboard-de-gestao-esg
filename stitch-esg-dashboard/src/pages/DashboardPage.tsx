@@ -88,8 +88,16 @@ export const DashboardPage: React.FC = () => {
   if (loading) {
     return (
       <DashboardLayout>
-        <div className="flex items-center justify-center h-64">
-          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        <div className="flex flex-col items-center justify-center h-64 gap-4">
+          <div className="relative">
+            <div className="w-16 h-16 border-4 border-primary/20 rounded-full"></div>
+            <div className="absolute inset-0 flex items-center justify-center text-primary leaf-pulse">
+              <Leaf size={32} fill="currentColor" />
+            </div>
+          </div>
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] animate-pulse">
+            Sincronizando Impacto...
+          </p>
         </div>
       </DashboardLayout>
     );
@@ -160,10 +168,10 @@ export const DashboardPage: React.FC = () => {
             <span>Ambiental</span>
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-7xl font-black text-slate-900 dark:text-white tracking-tighter">
+            <span className="text-7xl font-black text-slate-900 dark:text-white tracking-tighter font-display font-tabular">
               {company?.esgScores?.environmental || 0}
             </span>
-            <span className="text-sm font-medium text-slate-400 uppercase tracking-wider">pts</span>
+            <span className="text-sm font-medium text-slate-400 uppercase tracking-wider font-display">pts</span>
           </div>
           <div className="mt-4 flex items-center gap-2">
             <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.environmental || 0)} className="font-bold text-xs">
@@ -179,10 +187,10 @@ export const DashboardPage: React.FC = () => {
             <span>Social</span>
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-7xl font-black text-slate-900 dark:text-white tracking-tighter">
+            <span className="text-7xl font-black text-slate-900 dark:text-white tracking-tighter font-display font-tabular">
               {company?.esgScores?.social || 0}
             </span>
-            <span className="text-sm font-medium text-slate-400 uppercase tracking-wider">pts</span>
+            <span className="text-sm font-medium text-slate-400 uppercase tracking-wider font-display">pts</span>
           </div>
           <div className="mt-4 flex items-center gap-2">
             <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.social || 0)} className="font-bold text-xs">
@@ -198,10 +206,10 @@ export const DashboardPage: React.FC = () => {
             <span>Governança</span>
           </div>
           <div className="flex items-baseline gap-2">
-            <span className="text-7xl font-black text-slate-900 dark:text-white tracking-tighter">
+            <span className="text-7xl font-black text-slate-900 dark:text-white tracking-tighter font-display font-tabular">
               {company?.esgScores?.governance || 0}
             </span>
-            <span className="text-sm font-medium text-slate-400 uppercase tracking-wider">pts</span>
+            <span className="text-sm font-medium text-slate-400 uppercase tracking-wider font-display">pts</span>
           </div>
           <div className="mt-4 flex items-center gap-2">
             <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.governance || 0)} className="font-bold text-xs">
@@ -259,10 +267,10 @@ export const DashboardPage: React.FC = () => {
               className="scale-150 my-8"
             >
               <div className="text-center">
-                <span className="text-4xl font-black text-slate-900 dark:text-white drop-shadow-sm font-mono">
+                <span className="text-4xl font-black text-slate-900 dark:text-white drop-shadow-sm font-display">
                   {getLetterScore(esgAverage)}
                 </span>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1">Grade</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mt-1 font-display">Grade</p>
               </div>
             </ProgressCircle>
 

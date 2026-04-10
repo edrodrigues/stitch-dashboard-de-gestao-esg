@@ -1,9 +1,9 @@
-﻿{
-    "agents":  {
-                   "overrides":  {
-                                     "browser_agent":  {
-                                                           "enabled":  true
-                                                       }
-                                 }
-               }
+{
+    "agents": {
+        "overrides": {
+            "browser_agent": {
+                "enabled": true
+            }
+        }
+    }
 }

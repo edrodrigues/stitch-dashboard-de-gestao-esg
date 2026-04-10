@@ -32,9 +32,9 @@ export const HeroJourney: React.FC<HeroJourneyProps> = ({ currentXP }) => {
             <currentLevel.icon size={32} />
           </div>
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Nível Atual</p>
-            <h3 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight">{currentLevel.name}</h3>
-            <p className="text-sm font-bold text-primary">{currentXP} XP</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-slate-400 font-display">Nível Atual</p>
+            <h3 className="text-2xl font-black text-slate-900 dark:text-slate-100 tracking-tight font-display">{currentLevel.name}</h3>
+            <p className="text-sm font-bold text-primary font-tabular">{currentXP} XP</p>
           </div>
         </div>
 
@@ -44,7 +44,7 @@ export const HeroJourney: React.FC<HeroJourneyProps> = ({ currentXP }) => {
           <div className="absolute top-[60px] left-0 w-full h-3 bg-slate-100 dark:bg-slate-800 rounded-full -translate-y-1/2 overflow-hidden border border-slate-200 dark:border-slate-700">
             {/* Active Progress */}
             <div
-              className="h-full bg-primary transition-all duration-1000 ease-out relative"
+              className="h-full bg-primary transition-all duration-1000 ease-out relative emerald-glow"
               style={{ width: `${(currentXP / 4000) * 100}%` }}
             >
               <div className="absolute right-0 top-0 bottom-0 w-2 bg-white/30 animate-pulse"></div>
@@ -79,11 +79,11 @@ export const HeroJourney: React.FC<HeroJourneyProps> = ({ currentXP }) => {
 
                   {/* Label - Positioned with margin to avoid overlap and ensure visibility */}
                   <div className={`
-                    absolute top-14 text-[10px] font-bold uppercase tracking-wider text-center w-24 transition-all
+                    absolute top-14 text-[10px] font-bold uppercase tracking-wider text-center w-24 transition-all font-display
                     ${isCurrent ? 'text-slate-900 dark:text-slate-100 opacity-100' : 'text-slate-400 opacity-0 group-hover:opacity-100'}
                   `}>
                     {level.name}
-                    <span className="block text-[9px] opacity-60 normal-case font-bold">{level.minXP} XP</span>
+                    <span className="block text-[9px] opacity-60 normal-case font-bold font-tabular">{level.minXP} XP</span>
                   </div>
                 </div>
               );
@@ -93,14 +93,14 @@ export const HeroJourney: React.FC<HeroJourneyProps> = ({ currentXP }) => {
 
         {/* Next Goal */}
         <div className="min-w-[120px] text-right hidden md:block">
-          <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Próximo Nível</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-slate-400 font-display">Próximo Nível</p>
           {nextLevel ? (
             <>
-              <p className="text-sm font-bold text-slate-900 dark:text-slate-100">{nextLevel.name}</p>
-              <p className="text-xs text-slate-500 font-medium">Faltam {nextLevel.minXP - currentXP} XP</p>
+              <p className="text-sm font-bold text-slate-900 dark:text-slate-100 font-display">{nextLevel.name}</p>
+              <p className="text-xs text-slate-500 font-medium font-tabular">Faltam {nextLevel.minXP - currentXP} XP</p>
             </>
           ) : (
-            <p className="text-sm font-bold text-primary">Nível Máximo!</p>
+            <p className="text-sm font-bold text-primary font-display">Nível Máximo!</p>
           )}
         </div>
 

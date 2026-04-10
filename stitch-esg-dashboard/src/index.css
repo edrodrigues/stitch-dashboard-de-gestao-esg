@@ -15,7 +15,8 @@
   --color-social: #f59e0b;
   --color-governance: #3b82f6;
   
-  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-display: "Outfit", system-ui, -apple-system, sans-serif;
   --font-mono: "Fira Code", ui-monospace, monospace;
   
   --radius-default: 1rem;
@@ -31,6 +32,14 @@
 @layer base {
   body {
     @apply font-sans bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  .font-tabular {
+    font-variant-numeric: tabular-nums;
   }
 }
 
@@ -51,6 +60,23 @@
     @apply transition-all duration-200 hover:scale-[1.02] active:scale-[0.98];
   }
 
+  /* Delightful Interactions */
+  .delight-spring {
+    @apply transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)];
+  }
+  
+  .delight-spring:hover {
+    @apply -translate-y-1 scale-[1.02];
+  }
+
+  .delight-spring:active {
+    @apply translate-y-0 scale-[0.98];
+  }
+
+  .leaf-pulse {
+    animation: leaf-pulse-animation 2s infinite ease-in-out;
+  }
+
   /* Custom Glow for Progress */
   .emerald-glow {
     box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
@@ -69,6 +95,12 @@
 @keyframes fill-scale {
   from { transform: scaleX(0); }
   to { transform: scaleX(1); }
+}
+
+@keyframes leaf-pulse-animation {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.5)); }
+  100% { transform: scale(1); opacity: 0.8; }
 }
 
 @keyframes success-pulse-animation {

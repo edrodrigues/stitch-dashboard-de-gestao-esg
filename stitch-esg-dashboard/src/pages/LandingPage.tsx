@@ -59,11 +59,11 @@ export const LandingPage: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-6">
               <Link to="/register">
-                <Button className="w-full sm:w-auto px-10 py-6 text-xs uppercase font-black tracking-[0.2em] gap-3 shadow-2xl shadow-emerald-500/30 rounded-2xl">
+                <Button className="w-full sm:w-auto px-10 py-6 text-xs uppercase font-black tracking-[0.2em] gap-3 shadow-2xl shadow-emerald-500/30 rounded-2xl delight-spring">
                   Iniciar Jornada <ArrowRight size={18} />
                 </Button>
               </Link>
-              <Button variant="outline" className="w-full sm:w-auto px-10 py-6 text-xs uppercase font-black tracking-[0.2em] border-2 rounded-2xl">
+              <Button variant="outline" className="w-full sm:w-auto px-10 py-6 text-xs uppercase font-black tracking-[0.2em] border-2 rounded-2xl delight-spring">
                 Ver Demonstração
               </Button>
             </div>

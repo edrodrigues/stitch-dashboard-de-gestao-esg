@@ -464,9 +464,14 @@ export const DiagnosticPage: React.FC = () => {
     return (
       <DashboardLayout>
         <div className="flex flex-col items-center justify-center h-96 gap-4">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin shadow-lg"></div>
-          <p className="text-slate-500 font-black uppercase text-[10px] tracking-widest animate-pulse">
-            Carregando Missão...
+          <div className="relative">
+            <div className="w-16 h-16 border-4 border-primary/20 rounded-full"></div>
+            <div className="absolute inset-0 flex items-center justify-center text-primary leaf-pulse">
+              <Leaf size={32} fill="currentColor" />
+            </div>
+          </div>
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] animate-pulse">
+            Preparando Missão...
           </p>
         </div>
       </DashboardLayout>
@@ -502,10 +507,10 @@ export const DiagnosticPage: React.FC = () => {
           <div className="lg:col-span-2 bg-white dark:bg-slate-900 p-8 rounded-3xl border-2 border-slate-100 dark:border-slate-800 shadow-xl shadow-emerald-900/5">
             <div className="flex justify-between items-end mb-6">
               <div>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Progresso da Missão</p>
-                <h3 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tighter">{progress}% Concluído</h3>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 font-display">Progresso da Missão</p>
+                <h3 className="text-3xl font-black text-slate-900 dark:text-white uppercase tracking-tighter font-display font-tabular">{progress}% Concluído</h3>
               </div>
-              <span className="text-xs font-bold text-primary uppercase tracking-wider">{answeredVisible} / {visibleQuestions.length} Dados</span>
+              <span className="text-xs font-bold text-primary uppercase tracking-wider font-display font-tabular">{answeredVisible} / {visibleQuestions.length} Dados</span>
             </div>
             <div className="w-full bg-slate-100 dark:bg-slate-800 h-4 rounded-full overflow-hidden mb-4">
               <div
@@ -594,7 +599,7 @@ export const DiagnosticPage: React.FC = () => {
                   <label
                     key={idx}
                     htmlFor={`${currentVisibleQuestion.id}_${idx}`}
-                    className={`flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 group
+                    className={`flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 group delight-spring
                       ${answers[currentVisibleQuestion.id] === option.value
                         ? `${theme.border} ${theme.bgLight} shadow-lg scale-[1.01]`
                         : `border-slate-100 dark:border-slate-800 ${theme.hover} hover:bg-slate-50 dark:hover:bg-slate-800`
@@ -635,7 +640,7 @@ export const DiagnosticPage: React.FC = () => {
                     <label
                       key={idx}
                       htmlFor={`${currentVisibleQuestion.id}_${idx}`}
-                      className={`flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 group
+                      className={`flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 group delight-spring
                         ${isChecked
                           ? `${theme.border} ${theme.bgLight} shadow-lg scale-[1.01]`
                           : `border-slate-100 dark:border-slate-800 ${theme.hover} hover:bg-slate-50 dark:hover:bg-slate-800`
@@ -697,7 +702,7 @@ export const DiagnosticPage: React.FC = () => {
                               debouncedSave(newAnswers);
                             }}
                             onKeyDown={handleKeyDown}
-                            className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-bold text-sm tracking-tight placeholder:text-slate-300 dark:placeholder:text-slate-700 font-mono`}
+                            className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-bold text-sm tracking-tight placeholder:text-slate-300 dark:placeholder:text-slate-700 font-tabular`}
                             placeholder="0"
                             autoFocus={idx === 0}
                           />
@@ -709,7 +714,7 @@ export const DiagnosticPage: React.FC = () => {
                         value={(answers[currentVisibleQuestion.id] as number | string) || ''}
                         onChange={(e) => handleTextChange(e.target.value)}
                         onKeyDown={handleKeyDown}
-                        className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-bold text-sm tracking-tight placeholder:text-slate-300 dark:placeholder:text-slate-700 font-mono`}
+                        className={`w-full p-4 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-2xl ${theme.ring} focus:ring-0 text-slate-900 dark:text-white font-bold text-sm tracking-tight placeholder:text-slate-300 dark:placeholder:text-slate-700 font-tabular`}
                         placeholder="0"
                         autoFocus
                       />

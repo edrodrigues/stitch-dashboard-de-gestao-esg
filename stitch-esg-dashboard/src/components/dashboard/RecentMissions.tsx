@@ -140,7 +140,7 @@ export const RecentMissions: React.FC = () => {
   };
 
   const getPillarButtonClass = (pillar: PillarFilter) => {
-    const baseClass = "px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2";
+    const baseClass = "px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-2 delight-spring";
     if (selectedPillar === pillar) {
       return `${baseClass} ${PILLAR_CONFIG[pillar].color} shadow-lg`;
     }
@@ -228,14 +228,14 @@ export const RecentMissions: React.FC = () => {
                 return (
                   <tr 
                     key={mission.id} 
-                    className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors cursor-pointer"
+                    className="hover:bg-slate-50/50 dark:hover:bg-slate-800/30 transition-colors cursor-pointer group/row"
                   >
                     <td className="px-6 py-4">
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 transition-transform group-hover/row:translate-x-1 duration-300">
                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-bold text-xs ${typeIconStyles[mission.type]}`}>
                           {mission.type}
                         </div>
-                        <span className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                        <span className="text-sm font-bold text-slate-900 dark:text-slate-100 font-display">
                           {mission.title}
                         </span>
                       </div>

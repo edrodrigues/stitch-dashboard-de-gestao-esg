@@ -60,7 +60,7 @@ export const Header: React.FC = () => {
             </div>
             <div className="relative">
               <div 
-                className="w-10 h-10 rounded-full bg-slate-200 bg-cover bg-center border-2 border-primary/20 shadow-lg shadow-emerald-500/10 group-hover:border-primary group-focus:border-primary transition-all duration-300"
+                className="w-10 h-10 rounded-full bg-slate-200 bg-cover bg-center border-2 border-primary/20 shadow-lg shadow-emerald-500/10 group-hover:border-primary group-focus:border-primary transition-all duration-300 group-hover:scale-110 group-hover:emerald-glow"
                 style={{ backgroundImage: `url('${user?.photoURL ?? `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.uid || 'Felix'}`}')` }}
               />
               <div className="absolute -bottom-1 -right-1 bg-white dark:bg-slate-900 rounded-full p-0.5 border border-slate-200 dark:border-slate-800">

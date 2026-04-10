@@ -62,8 +62,8 @@ export const Sidebar: React.FC = () => {
         </div>
         {!isSidebarCollapsed && (
           <div className="animate-in fade-in slide-in-from-left-2 duration-300">
-            <h1 className="text-xl font-black leading-tight uppercase tracking-tighter text-slate-900 dark:text-white">GUIA ESG</h1>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-primary italic">Enterprise Hub</p>
+            <h1 className="text-xl font-black leading-tight uppercase tracking-tighter text-slate-900 dark:text-white font-display">GUIA ESG</h1>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-primary italic font-display">Enterprise Hub</p>
           </div>
         )}
       </div>
@@ -82,7 +82,7 @@ export const Sidebar: React.FC = () => {
                 }
               }}
               className={({ isActive }) => `
-                flex items-center transition-all font-bold uppercase text-xs tracking-wider rounded-2xl
+                flex items-center transition-all font-bold uppercase text-xs tracking-wider rounded-2xl font-display delight-spring
                 ${isSidebarCollapsed ? 'justify-center p-4' : 'px-5 py-4 gap-4'}
                 ${isActive && !isLocked
                   ? 'bg-primary text-slate-900 shadow-xl shadow-emerald-500/20 translate-x-1' 
@@ -93,9 +93,9 @@ export const Sidebar: React.FC = () => {
               title={isSidebarCollapsed ? item.label : ''}
             >
               {isLocked ? <Lock size={18} /> : <item.icon size={18} />}
-              {!isSidebarCollapsed && <span className="animate-in fade-in slide-in-from-left-2 duration-300">{item.label}</span>}
+              {!isSidebarCollapsed && <span className="animate-in fade-in slide-in-from-left-2 duration-300 font-display">{item.label}</span>}
               {!isSidebarCollapsed && isLocked && (
-                <span className="ml-auto text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-400 px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 font-bold uppercase tracking-widest">
+                <span className="ml-auto text-[10px] bg-slate-100 dark:bg-slate-800 text-slate-400 px-2 py-1 rounded-lg border border-slate-200 dark:border-slate-700 font-bold uppercase tracking-widest font-display">
                   Lock
                 </span>
               )}
@@ -106,7 +106,7 @@ export const Sidebar: React.FC = () => {
 
       <div className={`p-6 border-t border-slate-100 dark:border-slate-800 space-y-3 ${isSidebarCollapsed ? 'items-center p-4' : ''}`}>
         {!isSidebarCollapsed ? (
-          <Button variant="outline" className="w-full gap-3 py-4 rounded-2xl font-bold uppercase text-xs tracking-wider border-2 border-slate-100 dark:border-slate-800">
+          <Button variant="outline" className="w-full gap-3 py-4 rounded-2xl font-bold uppercase text-xs tracking-wider border-2 border-slate-100 dark:border-slate-800 font-display">
             <Download size={18} />
             <span>Exportar</span>
           </Button>
@@ -119,13 +119,13 @@ export const Sidebar: React.FC = () => {
         <button 
           onClick={() => signOut()}
           className={`
-            w-full flex items-center transition-all font-bold uppercase text-xs tracking-wider text-slate-400 hover:bg-rose-500/10 hover:text-rose-500 rounded-2xl
+            w-full flex items-center transition-all font-bold uppercase text-xs tracking-wider text-slate-400 hover:bg-rose-500/10 hover:text-rose-500 rounded-2xl font-display
             ${isSidebarCollapsed ? 'justify-center p-4' : 'justify-center gap-3 py-4'}
           `}
           title={isSidebarCollapsed ? 'Sair' : ''}
         >
           <LogOut size={18} />
-          {!isSidebarCollapsed && <span>Sair</span>}
+          {!isSidebarCollapsed && <span className="font-display">Sair</span>}
         </button>
       </div>
     </aside>
