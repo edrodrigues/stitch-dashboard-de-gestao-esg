@@ -593,11 +593,13 @@ export const DiagnosticPage: React.FC = () => {
                 {(!currentVisibleQuestion.inputType || currentVisibleQuestion.inputType === 'radio') && currentVisibleQuestion.options?.map((option: QuestionOption, idx: number) => (
                   <label
                     key={idx}
+                    htmlFor={`${currentVisibleQuestion.id}_${idx}`}
                     className={`flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 group
                       ${answers[currentVisibleQuestion.id] === option.value
                         ? `${theme.border} ${theme.bgLight} shadow-lg scale-[1.01]`
                         : `border-slate-100 dark:border-slate-800 ${theme.hover} hover:bg-slate-50 dark:hover:bg-slate-800`
                       }
+                      focus-within:ring-2 focus-within:ring-primary/40 focus-within:border-primary
                     `}
                   >
                     <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all
@@ -609,8 +611,9 @@ export const DiagnosticPage: React.FC = () => {
                     </div>
                     <input
                       type="radio"
+                      id={`${currentVisibleQuestion.id}_${idx}`}
                       name={currentVisibleQuestion.id}
-                      className="hidden"
+                      className="sr-only"
                       checked={answers[currentVisibleQuestion.id] === option.value}
                       onChange={() => handleOptionSelect(option.value)}
                     />
@@ -631,11 +634,13 @@ export const DiagnosticPage: React.FC = () => {
                   return (
                     <label
                       key={idx}
+                      htmlFor={`${currentVisibleQuestion.id}_${idx}`}
                       className={`flex items-center p-5 rounded-2xl border-2 cursor-pointer transition-all duration-200 group
                         ${isChecked
                           ? `${theme.border} ${theme.bgLight} shadow-lg scale-[1.01]`
                           : `border-slate-100 dark:border-slate-800 ${theme.hover} hover:bg-slate-50 dark:hover:bg-slate-800`
                         }
+                        focus-within:ring-2 focus-within:ring-primary/40 focus-within:border-primary
                       `}
                     >
                       <div className={`w-6 h-6 rounded-md border-2 flex items-center justify-center transition-all
@@ -647,7 +652,8 @@ export const DiagnosticPage: React.FC = () => {
                       </div>
                       <input
                         type="checkbox"
-                        className="hidden"
+                        id={`${currentVisibleQuestion.id}_${idx}`}
+                        className="sr-only"
                         checked={isChecked}
                         onChange={() => handleCheckboxToggle(option.value)}
                       />

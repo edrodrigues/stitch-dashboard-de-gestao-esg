@@ -34,17 +34,27 @@ export const Sidebar: React.FC = () => {
   ];
 
   return (
-    <aside className={`
-      fixed left-4 top-4 bottom-4 transition-all duration-500 glass-surface rounded-3xl flex flex-col z-50 shadow-2xl shadow-emerald-900/10
-      ${isSidebarCollapsed ? 'w-20' : 'w-72'}
-    `}>
-      {/* Toggle Button */}
-      <button 
-        onClick={toggleSidebar}
-        className="absolute -right-3 top-10 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-full p-1.5 shadow-lg text-slate-400 hover:text-primary transition-all z-[60]"
-      >
-        {isSidebarCollapsed ? <Menu size={14} /> : <ChevronLeft size={14} />}
-      </button>
+    <>
+      {/* Mobile Backdrop */}
+      {!isSidebarCollapsed && (
+        <div 
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300"
+          onClick={toggleSidebar}
+        />
+      )}
+
+      <aside className={`
+        fixed left-4 top-4 bottom-4 transition-transform duration-300 ease-in-out glass-surface rounded-3xl flex flex-col z-50 shadow-2xl shadow-emerald-900/10
+        lg:translate-x-0
+        ${isSidebarCollapsed ? 'w-20 -translate-x-[calc(100%+1rem)] lg:w-20 lg:translate-x-0' : 'w-72 translate-x-0 lg:w-72'}
+      `}>
+        {/* Toggle Button - Only visible on Desktop or for closing on Mobile */}
+        <button 
+          onClick={toggleSidebar}
+          className="absolute -right-3 top-10 bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 rounded-full p-1.5 shadow-lg text-slate-400 hover:text-primary transition-all z-[60]"
+        >
+          {isSidebarCollapsed ? <Menu size={14} /> : <ChevronLeft size={14} />}
+        </button>
 
       <div className={`p-8 flex items-center gap-4 ${isSidebarCollapsed ? 'justify-center p-6' : ''}`}>
         <div className="w-12 h-12 rounded-2xl bg-primary text-slate-900 flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0">

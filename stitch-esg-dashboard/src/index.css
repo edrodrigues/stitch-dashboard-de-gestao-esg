@@ -15,8 +15,8 @@
   --color-social: #f59e0b;
   --color-governance: #3b82f6;
   
-  --font-sans: "Fira Sans", sans-serif;
-  --font-mono: "Fira Code", monospace;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "Fira Code", ui-monospace, monospace;
   
   --radius-default: 1rem;
   --radius-lg: 1.25rem;
@@ -57,7 +57,8 @@
   }
 
   .animate-fill {
-    animation: fill-width 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    transform-origin: left;
+    animation: fill-scale 1.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
   }
 
   .success-pulse {
@@ -65,8 +66,9 @@
   }
 }
 
-@keyframes fill-width {
-  from { width: 0%; }
+@keyframes fill-scale {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
 }
 
 @keyframes success-pulse-animation {

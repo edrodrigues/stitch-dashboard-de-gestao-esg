@@ -15,8 +15,10 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
     <div className="flex min-h-screen bg-background-light dark:bg-background-dark font-sans">
       <Sidebar />
       <div className={`
-        flex-1 flex flex-col transition-all duration-500 min-h-screen
-        ${isSidebarCollapsed ? 'pl-28' : 'pl-80'}
+        flex-1 flex flex-col min-h-screen
+        pl-0
+        ${isSidebarCollapsed ? 'lg:pl-24' : 'lg:pl-80'}
+        transition-[padding] duration-300 ease-in-out
       `}>
         <Header />
         <main className="p-4 md:p-8 max-w-7xl mx-auto flex-1 w-full">

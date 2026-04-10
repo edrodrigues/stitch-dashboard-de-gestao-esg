@@ -40,7 +40,7 @@ O projeto foi desenhado para atender desde **CEOs** que buscam relatórios anal�
 A interface utiliza uma linguagem visual proprietária chamada **Emerald Glass**:
 *   **Base:** Sustentabilidade Emerald (`#10b981`).
 *   **Efeito:** Glassmorphism sutil (Intensidade 3/10) com `backdrop-blur-md`.
-*   **Tipografia:** `Fira Sans` para interface e `Fira Code` para integridade de dados numéricos.
+*   **Tipografia:** `Inter` para interface e `Fira Code` para integridade de dados numéricos.
 *   **Layout:** Sidebar flutuante e cards com elevação ambiente.
 
 ---

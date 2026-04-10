@@ -252,46 +252,45 @@ export const ReportsPage: React.FC = () => {
           ))}
         </div>
 
-        {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <Card className="p-2 border-primary/10 hover:border-primary transition-colors relative overflow-hidden group h-full">
-            <div className="absolute -top-4 -right-4 p-6 opacity-10 group-hover:opacity-20 transition-opacity rotate-12">
-              <Globe size={120} className="text-primary" />
+        {/* Summary Stats - Distilled Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
+          <div>
+            <p className="text-slate-400 font-bold uppercase text-[10px] tracking-widest mb-2">Emissões de Carbono</p>
+            <div className="flex items-baseline gap-1">
+              <span className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter">
+                {reportsData.totalCarbon.toLocaleString('pt-BR')}
+              </span>
+              <span className="text-sm font-medium text-slate-400">tCO2e</span>
             </div>
-            <p className="text-primary font-black uppercase text-[10px] tracking-[0.2em] mb-2">Emissões</p>
-            <p className="text-slate-500 dark:text-slate-400 font-bold mb-1">CO2e Total</p>
-            <h3 className="text-4xl font-black text-slate-900 dark:text-white mb-4">
-              {reportsData.totalCarbon.toLocaleString('pt-BR')} <span className="text-lg font-bold text-slate-400 font-mono text-xs uppercase">t</span>
-            </h3>
-            <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.environmental || 0)} className="font-black uppercase text-[10px]">
-              {company?.esgDelta?.environmental ? `${company.esgDelta.environmental}% vs anterior` : 'Dados Iniciais'}
-            </BadgeDelta>
-          </Card>
+          </div>
 
-          <Card className="p-2 border-primary/10 hover:border-primary transition-colors relative overflow-hidden group h-full">
-            <div className="absolute -top-4 -right-4 p-6 opacity-10 group-hover:opacity-20 transition-opacity -rotate-12">
-              <Zap size={120} className="text-primary" />
+          <div>
+            <p className="text-slate-400 font-bold uppercase text-[10px] tracking-widest mb-2">Energia Renovável</p>
+            <div className="flex items-baseline gap-1">
+              <span className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter">
+                {reportsData.renewableEnergy}
+              </span>
             </div>
-            <p className="text-primary font-black uppercase text-[10px] tracking-[0.2em] mb-2">Energia</p>
-            <p className="text-slate-500 dark:text-slate-400 font-bold mb-1">Fontes Sustentáveis</p>
-            <h3 className="text-4xl font-black text-slate-900 dark:text-white mb-4">{reportsData.renewableEnergy}</h3>
-            <BadgeDelta deltaType="increase" className="font-black uppercase text-[10px]">
-              E-Score: {company?.esgScores.environmental || 0}
-            </BadgeDelta>
-          </Card>
+          </div>
 
-          <Card className="p-2 border-primary/10 hover:border-primary transition-colors relative overflow-hidden group h-full">
-            <div className="absolute -top-4 -right-4 p-6 opacity-10 group-hover:opacity-20 transition-opacity rotate-45">
-              <Recycle size={120} className="text-primary" />
+          <div>
+            <p className="text-slate-400 font-bold uppercase text-[10px] tracking-widest mb-2">Resíduos Desviados</p>
+            <div className="flex items-baseline gap-1">
+              <span className="text-5xl font-black text-slate-900 dark:text-white tracking-tighter">
+                {reportsData.wasteDiverted}
+              </span>
             </div>
-            <p className="text-primary font-black uppercase text-[10px] tracking-[0.2em] mb-2">Resíduos</p>
-            <p className="text-slate-500 dark:text-slate-400 font-bold mb-1">Taxa de Desvio</p>
-            <h3 className="text-4xl font-black text-slate-900 dark:text-white mb-4">{reportsData.wasteDiverted}</h3>
-            <div className="inline-flex items-center gap-2 text-emerald-600 font-black px-3 py-1 bg-emerald-50 rounded-lg text-[10px] uppercase tracking-wider border border-emerald-100">
-              <Trophy size={12} />
-              Status Ambiental
+          </div>
+
+          <div className="lg:border-l lg:border-slate-100 lg:dark:border-slate-800 lg:pl-12">
+            <p className="text-slate-400 font-bold uppercase text-[10px] tracking-widest mb-2">Benchmark Regional</p>
+            <div className="flex flex-col">
+              <span className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-tight">
+                {reportsData.region}
+              </span>
+              <span className="text-xs font-medium text-primary mt-1">Top {100 - (sectorComparison?.percentile || 0)}% do Setor</span>
             </div>
-          </Card>
+          </div>
         </div>
 
         {/* Benchmarking Cards */}

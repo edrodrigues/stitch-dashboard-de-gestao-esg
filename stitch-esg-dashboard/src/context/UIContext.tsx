@@ -10,8 +10,16 @@ const UIContext = createContext<UIContextType | undefined>(undefined);
 
 export const UIProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
+    // Check if on mobile
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 1024;
     const saved = localStorage.getItem('sidebar_collapsed');
-    return saved === 'true';
+    
+    if (saved !== null) {
+      return saved === 'true';
+    }
+    
+    // Default to collapsed on mobile, expanded on desktop
+    return isMobile;
   });
 
   const toggleSidebar = () => {

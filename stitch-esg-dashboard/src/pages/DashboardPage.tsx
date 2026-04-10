@@ -117,101 +117,99 @@ export const DashboardPage: React.FC = () => {
 
       <HeroJourney currentXP={company?.currentXP || 0} />
 
-      {/* Ghost Rankings / Comparative Gamification */}
-      <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-slate-100 dark:bg-slate-800/50 rounded-2xl p-6 border-2 border-dashed border-slate-200 dark:border-slate-700 flex items-center justify-between group hover:border-primary/50 transition-all cursor-help">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center text-slate-300 group-hover:text-primary transition-colors">
-              <Trophy size={24} />
-            </div>
-            <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Próximo Marco</p>
-              <h4 className="text-sm font-bold text-slate-600 dark:text-slate-300">Top 10 do Setor</h4>
-            </div>
+      {/* Ghost Rankings / Comparative Gamification - Simplified */}
+      <div className="mb-12 grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div className="flex items-center gap-6 group cursor-help">
+          <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-300 group-hover:text-primary transition-all shadow-sm group-hover:shadow-md">
+            <Trophy size={28} />
           </div>
-          <div className="text-right">
-            <p className="text-xs font-black text-slate-400 group-hover:text-primary transition-colors">+250 XP</p>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Para desbloquear</p>
+          <div className="flex-1">
+            <div className="flex justify-between items-end mb-1">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Próximo Marco</p>
+              <span className="text-xs font-black text-primary">+250 XP</span>
+            </div>
+            <h4 className="text-sm font-black text-slate-600 dark:text-slate-200 uppercase tracking-tight">Top 10 do Setor</h4>
+            <div className="mt-2 w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div className="bg-primary h-full w-[65%] rounded-full opacity-60"></div>
+            </div>
           </div>
         </div>
 
-        <div className="bg-slate-100 dark:bg-slate-800/50 rounded-2xl p-6 border-2 border-dashed border-slate-200 dark:border-slate-700 flex items-center justify-between group hover:border-teal-500/50 transition-all cursor-help">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-900 flex items-center justify-center text-slate-300 group-hover:text-teal-500 transition-colors">
-              <Rocket size={24} />
-            </div>
-            <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Selo de Elite</p>
-              <h4 className="text-sm font-bold text-slate-600 dark:text-slate-300">Mestre da Água</h4>
-            </div>
+        <div className="flex items-center gap-6 group cursor-help">
+          <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-300 group-hover:text-teal-500 transition-all shadow-sm group-hover:shadow-md">
+            <Rocket size={28} />
           </div>
-          <div className="text-right">
-            <p className="text-xs font-black text-slate-400 group-hover:text-teal-500 transition-colors">+500 XP</p>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Para desbloquear</p>
+          <div className="flex-1">
+            <div className="flex justify-between items-end mb-1">
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Selo de Elite</p>
+              <span className="text-xs font-black text-teal-500">+500 XP</span>
+            </div>
+            <h4 className="text-sm font-black text-slate-600 dark:text-slate-200 uppercase tracking-tight">Mestre da Água</h4>
+            <div className="mt-2 w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div className="bg-teal-500 h-full w-[30%] rounded-full opacity-60"></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <Card variant="chunky">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Ambiental</span>
-            <div className="p-2 bg-environmental text-white rounded-xl shadow-lg shadow-emerald-500/20">
-              <Leaf size={20} />
-            </div>
+      {/* Score Overview - Simplified Hierarchy */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2 mb-4 text-environmental font-bold text-sm">
+            <Leaf size={18} />
+            <span>Ambiental</span>
           </div>
-          <div className="flex items-end justify-between">
-            <div>
-              <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores?.environmental || 0}</p>
-              <div className="mt-2">
-                <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.environmental || 0)} className="font-bold text-xs">
-                  {formatDelta(company?.esgDelta?.environmental || 0)} XP
-                </BadgeDelta>
-              </div>
-            </div>
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest opacity-50 italic">E-Score</div>
+          <div className="flex items-baseline gap-2">
+            <span className="text-7xl font-black text-slate-900 dark:text-white tracking-tighter">
+              {company?.esgScores?.environmental || 0}
+            </span>
+            <span className="text-sm font-medium text-slate-400 uppercase tracking-wider">pts</span>
           </div>
-        </Card>
+          <div className="mt-4 flex items-center gap-2">
+            <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.environmental || 0)} className="font-bold text-xs">
+              {formatDelta(company?.esgDelta?.environmental || 0)}
+            </BadgeDelta>
+            <span className="text-[10px] font-medium text-slate-400 uppercase tracking-widest">E-Score</span>
+          </div>
+        </div>
 
-        <Card variant="chunky">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Social</span>
-            <div className="p-2 bg-social text-white rounded-xl shadow-lg shadow-amber-500/20">
-              <Users size={20} />
-            </div>
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2 mb-4 text-social font-bold text-sm">
+            <Users size={18} />
+            <span>Social</span>
           </div>
-          <div className="flex items-end justify-between">
-            <div>
-              <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores?.social || 0}</p>
-              <div className="mt-2">
-                <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.social || 0)} className="font-bold text-xs">
-                  {formatDelta(company?.esgDelta?.social || 0)} XP
-                </BadgeDelta>
-              </div>
-            </div>
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest opacity-50 italic">S-Score</div>
+          <div className="flex items-baseline gap-2">
+            <span className="text-7xl font-black text-slate-900 dark:text-white tracking-tighter">
+              {company?.esgScores?.social || 0}
+            </span>
+            <span className="text-sm font-medium text-slate-400 uppercase tracking-wider">pts</span>
           </div>
-        </Card>
+          <div className="mt-4 flex items-center gap-2">
+            <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.social || 0)} className="font-bold text-xs">
+              {formatDelta(company?.esgDelta?.social || 0)}
+            </BadgeDelta>
+            <span className="text-[10px] font-medium text-slate-400 uppercase tracking-widest">S-Score</span>
+          </div>
+        </div>
 
-        <Card variant="chunky">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Governança</span>
-            <div className="p-2 bg-governance text-white rounded-xl shadow-lg shadow-blue-500/20">
-              <Gavel size={20} />
-            </div>
+        <div className="flex flex-col">
+          <div className="flex items-center gap-2 mb-4 text-governance font-bold text-sm">
+            <Gavel size={18} />
+            <span>Governança</span>
           </div>
-          <div className="flex items-end justify-between">
-            <div>
-              <p className="text-4xl font-black text-slate-900 dark:text-slate-100 font-mono">{company?.esgScores?.governance || 0}</p>
-              <div className="mt-2">
-                <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.governance || 0)} className="font-bold text-xs">
-                  {formatDelta(company?.esgDelta?.governance || 0)} XP
-                </BadgeDelta>
-              </div>
-            </div>
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest opacity-50 italic">G-Score</div>
+          <div className="flex items-baseline gap-2">
+            <span className="text-7xl font-black text-slate-900 dark:text-white tracking-tighter">
+              {company?.esgScores?.governance || 0}
+            </span>
+            <span className="text-sm font-medium text-slate-400 uppercase tracking-wider">pts</span>
           </div>
-        </Card>
+          <div className="mt-4 flex items-center gap-2">
+            <BadgeDelta deltaType={getDeltaType(company?.esgDelta?.governance || 0)} className="font-bold text-xs">
+              {formatDelta(company?.esgDelta?.governance || 0)}
+            </BadgeDelta>
+            <span className="text-[10px] font-medium text-slate-400 uppercase tracking-widest">G-Score</span>
+          </div>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
