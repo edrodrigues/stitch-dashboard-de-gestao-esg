@@ -58,7 +58,7 @@ export const ReportsPage: React.FC = () => {
             setCompany(companyData);
             
             // Buscar comparações regionais e setoriais
-            const state = (companyData as unknown as { formData?: Record<string, string> }).formData?.['form_1.9'] || '';
+            const state = (companyData as unknown as { formData?: Record<string, string> }).formData?.['form_1.7'] || '';
             const region = getRegionFromState(state);
             
             const [regionalData, sectorData] = await Promise.all([
@@ -86,19 +86,19 @@ export const ReportsPage: React.FC = () => {
 
   // Mapeamento Dinâmico
   const reportsData = useMemo(() => {
-    // Carbono
+    // Carbono (novos IDs 2026)
     // Tenta pegar os campos individuais (0, 1, 2) ou o campo total se for um só
-    const escopo1 = Number(formData['environmental_6.2_0']) || 0;
-    const escopo2 = Number(formData['environmental_6.2_1']) || 0;
-    const escopo3 = Number(formData['environmental_6.2_2']) || 0;
+    const escopo1 = Number(formData['environmental_2.1A_0']) || 0;
+    const escopo2 = Number(formData['environmental_2.1A_1']) || 0;
+    const escopo3 = Number(formData['environmental_2.1A_2']) || 0;
     
     let totalCarbon = escopo1 + escopo2 + escopo3;
-    if (totalCarbon === 0 && formData['environmental_6.2']) {
-      totalCarbon = Number(formData['environmental_6.2']) || 0;
+    if (totalCarbon === 0 && formData['environmental_2.1A']) {
+      totalCarbon = Number(formData['environmental_2.1A']) || 0;
     }
 
-    // Energia Renovável
-    const energyValue = String(formData['environmental_3.4'] || '');
+    // Energia Renovável (novo ID 2026)
+    const energyValue = String(formData['environmental_3.2C'] || '');
     const energyMap: Record<string, string> = {
       '1': '8%',
       '2': '10%',
@@ -108,8 +108,8 @@ export const ReportsPage: React.FC = () => {
     };
     const renewableEnergy = energyMap[energyValue] || '0%';
 
-    // Resíduos
-    const wasteValue = String(formData['environmental_5.3'] || '');
+    // Resíduos (novo ID 2026)
+    const wasteValue = String(formData['environmental_4.1B'] || '');
     const wasteMap: Record<string, string> = {
       '1': '15%',
       '2': '30%',
@@ -120,7 +120,7 @@ export const ReportsPage: React.FC = () => {
     const wasteDiverted = wasteMap[wasteValue] || '0%';
 
     // Regional
-    const state = String(formData['form_1.9'] || '');
+    const state = String(formData['form_1.7'] || '');
     const region = getRegionFromState(state);
 
     // Dados comparativos
@@ -433,7 +433,7 @@ export const ReportsPage: React.FC = () => {
                   { 
                     icon: Droplets, 
                     title: 'Monitoramento de Água', 
-                    desc: formData['environmental_4.1'] === '1' ? 'Ainda não monitorado' : 'Processos monitorados' 
+                    desc: formData['environmental_3.1'] === '1' ? 'Ainda não monitorado' : 'Processos monitorados' 
                   },
                   { 
                     icon: Users, 
@@ -502,7 +502,7 @@ export const ReportsPage: React.FC = () => {
                 icon: Recycle, 
                 label: 'Gestão de Resíduos', 
                 value: reportsData.wasteDiverted, 
-                trend: formData['environmental_5.1'] === '5' ? 'Plano Ativo' : 'Em Planejamento' 
+                trend: formData['environmental_4.2'] === 'sim' ? 'Plano Ativo' : 'Em Planejamento' 
               },
               { 
                 icon: Leaf, 

@@ -1,4 +1,4 @@
-import type { CompanyGoals, ESGDelta, ESGScore, Question } from '../types';
+import type { CompanyGoals, ESGDelta, ESGScore, ESGSubScores, Question } from '../types';
 
 export const calculateESGScore = (
   formData: Record<string, number | string | (string | number)[]>,
@@ -73,6 +73,53 @@ export const calculateESGScore = (
     social: normalize(socialScore, totalWeightS),
     governance: normalize(governanceScore, totalWeightG),
   };
+};
+
+export const calculateESGSubScores = (
+  formData: Record<string, number | string | (string | number)[]>,
+  questions?: Question[]
+): Partial<ESGSubScores> => {
+  const subScores: Partial<ESGSubScores> = {};
+
+  const getQuestionScore = (category: string, questionId: string): number | undefined => {
+    const categoryQuestions = questions?.filter(q => q.category === category);
+    const question = categoryQuestions?.find(q => q.id === questionId);
+    if (question && formData[questionId]) {
+      const value = formData[questionId];
+      const option = question.options?.find(opt => opt.value === value);
+      if (option?.points !== undefined) {
+        return Math.round((option.points / 5) * 100);
+      }
+    }
+    return undefined;
+  };
+
+  // Environmental subscores
+  subScores.emissoesCarbono = getQuestionScore('environmental', 'environmental_2.1');
+  subScores.aguaEfluentes = getQuestionScore('environmental', 'environmental_3.1');
+  subScores.energia = getQuestionScore('environmental', 'environmental_3.2');
+  subScores.residuos = getQuestionScore('environmental', 'environmental_4.1');
+  subScores.pegadaAmbiental = getQuestionScore('environmental', 'environmental_5.1');
+
+  // Social subscores
+  subScores.relacoesComunitarias = getQuestionScore('social', 'social_6.1');
+  subScores.cadeiaFornecimento = getQuestionScore('social', 'social_7.1');
+  subScores.direitosHumanos = getQuestionScore('social', 'social_8.1');
+  subScores.praticasTrabalhistas = getQuestionScore('social', 'social_10.1');
+  subScores.saudeSeguranca = getQuestionScore('social', 'social_11.1');
+  subScores.diversidade = getQuestionScore('social', 'social_9.1');
+
+  // Governance subscores
+  subScores.culturaValores = getQuestionScore('governance', 'governance_14.1');
+  subScores.satisfacaoCliente = getQuestionScore('governance', 'governance_15.1');
+  subScores.qualidadeProduto = getQuestionScore('governance', 'governance_16.1');
+  subScores.rotulagem = getQuestionScore('governance', 'governance_17.1');
+  subScores.gestaoRiscos = getQuestionScore('governance', 'governance_18.1');
+  subScores.requisitosLegais = getQuestionScore('governance', 'governance_19.1');
+  subScores.etica = getQuestionScore('governance', 'governance_20.1');
+  subScores.transparencia = getQuestionScore('governance', 'governance_20.3');
+
+  return subScores;
 };
 
 export const calculateESGDelta = (

@@ -2,51 +2,56 @@ import { useMemo } from 'react';
 import type { ESGSubScores } from '../types';
 
 export const DEFAULT_SUBSCORES: ESGSubScores = {
-  sga: 0,
+  // Environmental
+  emissoesCarbono: 0,
+  aguaEfluentes: 0,
   energia: 0,
-  agua: 0,
   residuos: 0,
-  arClima: 0,
-  materiaPrima: 0,
-  cicloVida: 0,
-  biodiversidade: 0,
+  pegadaAmbiental: 0,
+
+  // Social
+  relacoesComunitarias: 0,
+  cadeiaFornecimento: 0,
   direitosHumanos: 0,
   praticasTrabalhistas: 0,
   saudeSeguranca: 0,
-  treinamento: 0,
   diversidade: 0,
-  comunidade: 0,
+
+  // Governance
   culturaValores: 0,
+  satisfacaoCliente: 0,
+  qualidadeProduto: 0,
+  rotulagem: 0,
   gestaoRiscos: 0,
-  conformidade: 0,
+  requisitosLegais: 0,
   etica: 0,
   transparencia: 0,
 };
 
 export const ENVIRONMENTAL_SUBSCORES = [
-  { key: 'sga', label: 'Sistema de Gestão Ambiental', shortLabel: 'SGA' },
+  { key: 'emissoesCarbono', label: 'Emissões de Carbono', shortLabel: 'Carbono' },
+  { key: 'aguaEfluentes', label: 'Água e Efluentes', shortLabel: 'Água' },
   { key: 'energia', label: 'Energia', shortLabel: 'Energia' },
-  { key: 'agua', label: 'Água e Efluentes', shortLabel: 'Água' },
   { key: 'residuos', label: 'Gestão de Resíduos', shortLabel: 'Resíduos' },
-  { key: 'arClima', label: 'Ar e Clima (GEE)', shortLabel: 'GEE' },
-  { key: 'materiaPrima', label: 'Matéria-Prima', shortLabel: 'Mat. Prima' },
-  { key: 'cicloVida', label: 'Ciclo de Vida', shortLabel: 'Ciclo Vida' },
-  { key: 'biodiversidade', label: 'Biodiversidade', shortLabel: 'Biodiversid.' },
+  { key: 'pegadaAmbiental', label: 'Pegada Ambiental', shortLabel: 'Pegada' },
 ];
 
 export const SOCIAL_SUBSCORES = [
+  { key: 'relacoesComunitarias', label: 'Relações Comunitárias', shortLabel: 'Comunidade' },
+  { key: 'cadeiaFornecimento', label: 'Cadeia de Fornecimento', shortLabel: 'Fornecedores' },
   { key: 'direitosHumanos', label: 'Direitos Humanos', shortLabel: 'DH' },
   { key: 'praticasTrabalhistas', label: 'Práticas Trabalhistas', shortLabel: 'Trabalho' },
   { key: 'saudeSeguranca', label: 'Saúde e Segurança', shortLabel: 'Saúde' },
-  { key: 'treinamento', label: 'Treinamento', shortLabel: 'Treinamento' },
   { key: 'diversidade', label: 'Diversidade e Inclusão', shortLabel: 'Diversidade' },
-  { key: 'comunidade', label: 'Comunidade', shortLabel: 'Comunidade' },
 ];
 
 export const GOVERNANCE_SUBSCORES = [
   { key: 'culturaValores', label: 'Cultura e Valores', shortLabel: 'Cultura' },
+  { key: 'satisfacaoCliente', label: 'Satisfação do Cliente', shortLabel: 'Clientes' },
+  { key: 'qualidadeProduto', label: 'Qualidade do Produto', shortLabel: 'Qualidade' },
+  { key: 'rotulagem', label: 'Rotulagem', shortLabel: 'Rotulagem' },
   { key: 'gestaoRiscos', label: 'Gestão de Riscos', shortLabel: 'Riscos' },
-  { key: 'conformidade', label: 'Conformidade', shortLabel: 'Compliance' },
+  { key: 'requisitosLegais', label: 'Requisitos Legais', shortLabel: 'Compliance' },
   { key: 'etica', label: 'Ética', shortLabel: 'Ética' },
   { key: 'transparencia', label: 'Transparência', shortLabel: 'Transparência' },
 ];

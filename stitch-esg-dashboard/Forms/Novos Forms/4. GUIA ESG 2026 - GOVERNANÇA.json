@@ -1,0 +1,152 @@
+{
+  "sections": [
+    {
+      "dimension": "GOVERNANÇA",
+      "theme": "Cultura e Valores",
+      "code": "14.1",
+      "question": "A empresa tem definida sua declaração de missão, visão e valores?",
+      "options": [
+        {"code": "a", "text": "A empresa não tem definida sua declaração de missão, visão e valores", "score": 1, "weight": 1},
+        {"code": "b", "text": "A empresa possui definição de missão, visão e valores, porém sem metas associadas", "score": 2, "weight": 1},
+        {"code": "c", "text": "A declaração de missão, visão e valores possui metas e objetivos relacionados", "score": 3, "weight": 1},
+        {"code": "d", "text": "A empresa tem a sustentabilidade incluida em sua missão e estratégia", "score": 4, "weight": 1},
+        {"code": "e", "text": "A empresa tem a sustentabilidade incluída em sua missão e estratégia e faz o monitoramento dos indicadores ESG", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "dimension": "GOVERNANÇA",
+      "theme": "Gestão da Satisfação do Cliente",
+      "code": "15.1",
+      "question": "A empresa realiza periodicamente pesquisas para saber a opinião de seus clientes, fornecedores e comunidade do entorno (stakeholders) para entender suas expectativas e necessidades?",
+      "options": [
+        {"code": "a", "text": "A empresa não realiza pesquisas nem possui canal de atendimento ao consumidor", "score": 1, "weight": 1},
+        {"code": "b", "text": "A empresa não realiza pesquisas e possui canal de atendimento ao consumidor", "score": 2, "weight": 1},
+        {"code": "c", "text": "A empresa realiza pesquisas em diversos canais para conhecer a opinião de seus clientes, fornecedores e da comunidade", "score": 3, "weight": 1},
+        {"code": "d", "text": "A empresa realiza pesquisas com todas as suas partes interessadas, possui canal de atendimento ao fornecedor e canal de denúncias", "score": 4, "weight": 1},
+        {"code": "e", "text": "A empresa possui seus stakeholders em esferas decisórias da empresa, conselho de diretores por exemplo", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "dimension": "GOVERNANÇA",
+      "theme": "Gestão da Satisfação do Cliente",
+      "code": "15.2",
+      "question": "A empresa monitora o grau de satisfação dos seus clientes?",
+      "options": [
+        {"code": "1", "text": "Não", "score": 1, "weight": 1},
+        {"code": "2", "text": "Sim", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "dimension": "GOVERNANÇA",
+      "theme": "Gestão da Satisfação do Cliente",
+      "code": "15.3",
+      "question": "A empresa possui procedimentos para acompanhamento e tratamento das reclamações/sugestões recebidas em diferentes plataformas, inclusive redes sociais?",
+      "options": [
+        {"code": "1", "text": "Não", "score": 1, "weight": 1},
+        {"code": "2", "text": "Sim", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "dimension": "GOVERNANÇA",
+      "theme": "Qualidade e Segurança do Produto",
+      "code": "16.1",
+      "question": "São oferecidas garantias extraordinárias além das estabelecidas em lei?",
+      "options": [
+        {"code": "1", "text": "Não", "score": 1, "weight": 1, "requiresUpload": true},
+        {"code": "2", "text": "Sim", "score": 5, "weight": 1, "requiresUpload": true}
+      ]
+    },
+    {
+      "dimension": "GOVERNANÇA",
+      "theme": "Rotulagem e Práticas de Venda",
+      "code": "17.1",
+      "question": "A empresa possui em suas embalagens alguma certificação ou atributo identificado em suas embalagens?",
+      "options": [
+        {"code": "1", "text": "Não", "score": 1, "weight": 1},
+        {"code": "2", "text": "Sim", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "dimension": "GOVERNANÇA",
+      "theme": "Gerenciamento de Riscos",
+      "code": "18.1",
+      "question": "A empresa realizou o estudo e formou a sua matriz de materialidade para entender quais os principais riscos ESG para o negócio?",
+      "options": [
+        {"code": "a", "text": "A empresa não realizou ainda o estudo da sua matriz de materialidade", "score": 1, "weight": 1},
+        {"code": "b", "text": "Conhecemos nossos riscos, mas em nível gerencial, sem a devida divulgação e gestão", "score": 2, "weight": 1},
+        {"code": "c", "text": "Realizamos a matriz de materialidade de forma interna, consultando a alta direção", "score": 3, "weight": 1},
+        {"code": "d", "text": "Realizamos a matriz de materialidade de dupla materialidade, consultando a alta direção e as partes interessadas (stakeholders)", "score": 4, "weight": 1},
+        {"code": "e", "text": "A matriz de materialidade está publicada em nosso último relatorio de sustentabilidade", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "dimension": "GOVERNANÇA",
+      "theme": "Gerenciamento de Riscos",
+      "code": "18.2",
+      "question": "A empresa adota procedimentos para a gestão dos seus riscos ESG?",
+      "options": [
+        {"code": "1", "text": "Não", "score": 1, "weight": 1},
+        {"code": "2", "text": "Sim", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "dimension": "GOVERNANÇA",
+      "theme": "Gestão de Requisitos Legais",
+      "code": "19.1",
+      "question": "A empresa possui todas as autorizações necessárias para a sua atuação?",
+      "options": [
+        {"code": "1", "text": "Não", "score": 1, "weight": 1},
+        {"code": "2", "text": "Sim", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "dimension": "GOVERNANÇA",
+      "theme": "Gestão de Requisitos Legais",
+      "code": "19.2",
+      "question": "A empresa atualiza periodicamente a sua análise de requisitos legais?",
+      "options": [
+        {"code": "1", "text": "Não", "score": 1, "weight": 1},
+        {"code": "2", "text": "Sim", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "dimension": "GOVERNANÇA",
+      "theme": "Ética e Transparência",
+      "code": "20.1",
+      "question": "A empresa possui uma cultura de conduta clara sobre práticas de relacionamento ético com o poder público, fornecedores e clientes?",
+      "options": [
+        {"code": "a", "text": "A empresa não define as práticas de relacionamento", "score": 1, "weight": 1},
+        {"code": "b", "text": "Na empresa, os funcionários não conhecem bem a formalização das condutas", "score": 2, "weight": 1},
+        {"code": "c", "text": "SIM, mas ainda não estão definidas em normas internas da empresa", "score": 3, "weight": 1},
+        {"code": "d", "text": "SIM, as condutas estão definidas em normas e práticas éticas divulgadas na empresa", "score": 4, "weight": 1},
+        {"code": "e", "text": "As normas estão definidas, formalizadas, divulgadas e os funcionários sáo treinados pelo menos anualmente", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "dimension": "GOVERNANÇA",
+      "theme": "Ética e Transparência",
+      "code": "20.2",
+      "question": "O relatório financeiro da sua empresa atende:",
+      "options": [
+        {"code": "a", "text": "Não possuímos relatório financeiro divulgado", "score": 1, "weight": 1},
+        {"code": "b", "text": "Possuímos relatório financeiro o qual divulgamos internamente", "score": 2, "weight": 1},
+        {"code": "c", "text": "Nosso relatório financeiro atende às normas de contabilidade locais", "score": 3, "weight": 1},
+        {"code": "d", "text": "Nosso relatório financeiro atende às normas de contabilidade internacionais", "score": 4, "weight": 1},
+        {"code": "e", "text": "Nosso relatório financeiro é auditado por entidade externa", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "dimension": "GOVERNANÇA",
+      "theme": "Ética e Transparência",
+      "code": "20.3",
+      "question": "Relatórios de Sustentabilidade",
+      "options": [
+        {"code": "a", "text": "Não possuímos relatório de sustentabilidade divulgado", "score": 1, "weight": 1},
+        {"code": "b", "text": "Possuímos relatório de sustentabilidade o qual divulgamos internamente", "score": 2, "weight": 1},
+        {"code": "c", "text": "Divulgamos nossos indicadores de sustentabilidade em nosso site", "score": 3, "weight": 1},
+        {"code": "d", "text": "Nosso relatório de sustentabilidade é realizado segundo as normas GRI", "score": 4, "weight": 1},
+        {"code": "e", "text": "Nosso relatório de sustentabilidade pelas normas GRI já estão no segundo ano ou mais de reporte", "score": 5, "weight": 1}
+      ]
+    }
+  ]
+}

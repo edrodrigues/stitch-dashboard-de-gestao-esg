@@ -25,28 +25,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           const data = companyDoc.data();
           const formData = data.formData || {};
           
-          // Check for essential identification fields from FORM.json
+          // Check for essential identification fields from FORM.json (2026 version)
           const requiredFields = [
             'form_1.1', // Nome
             'form_1.2', // CNPJ
-            'form_1.3', // Escopo
-            'form_1.4', // Setor
-            'form_1.5', // Produtos/Serviços
-            'form_1.7', // Funcionários
-            'form_1.8', // Cidade
-            'form_1.9', // Estado
-            'form_1.10' // Propriedade
+            'form_1.3', // Porte
+            'form_1.4', // Escopo/período
+            'form_1.5', // Setor
+            'form_1.6', // Cidade
+            'form_1.7', // Estado
+            'form_1.8', // Propriedade/diversidade
           ];
-          
-          // Check for nice classification (1.6_p or 1.6_s based on 1.5)
-          const isNiceComplete = formData['form_1.5'] === 'produtos' 
-            ? !!formData['form_1.6_p'] 
-            : formData['form_1.5'] === 'servicos' 
-              ? !!formData['form_1.6_s']
-              : false;
 
           const hasBasicFields = requiredFields.every(field => !!formData[field]);
-          const identificationComplete = hasBasicFields && isNiceComplete;
+          const identificationComplete = hasBasicFields;
           
           setIsIdentificationComplete(identificationComplete);
 

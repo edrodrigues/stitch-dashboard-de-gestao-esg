@@ -1,0 +1,86 @@
+"Disclaimer
+",,,,,,,,,,,
+"
+Declaração de Responsabilidade e Integridade das Informações
+
+Esta ferramenta de diagnóstico ESG foi desenvolvida com base em metodologias, diretrizes e padrões reconhecidos nacional e internacionalmente para a gestão da sustentabilidade corporativa, incluindo referências aos princípios e orientações da ABNT PR 2030, que estabelece diretrizes para a incorporação de práticas ESG nas organizações brasileiras.
+
+Trata-se de um instrumento de autodiagnóstico, no qual a organização responde às perguntas com base em dados, processos e informações que monitora e possui, permitindo avaliar seu nível de maturidade em relação às práticas Ambientais, Sociais e de Governança (ESG).
+
+O questionário de diagnóstico pode conter até 72 perguntas, moduladas de acordo com o porte da organização e outras variáveis relevantes, organizadas em diferentes temas distribuídos nos três eixos principais do ESG: Ambiental, Social e Governança.
+
+A mensuração de indicadores ESG atende à crescente demanda global por padrões elevados de sustentabilidade, transparência e responsabilidade corporativa, contribuindo para decisões mais informadas por parte de empresas, investidores, clientes, instituições públicas e da sociedade.
+
+Ao utilizar esta plataforma de diagnóstico ESG, declaro que todas as informações fornecidas são verdadeiras, precisas e completas, de acordo com o melhor do meu conhecimento. Comprometo-me a manter a rastreabilidade das evidências que sustentam as respostas apresentadas, podendo disponibilizar documentos, registros ou informações complementares que permitam validar os dados fornecidos.
+
+Reconheço que a integridade e a confiabilidade das informações são essenciais para a promoção de práticas responsáveis e para o avanço da agenda de sustentabilidade. Declaro ainda que qualquer tentativa de fornecer informações falsas ou enganosas poderá resultar na revisão, suspensão ou invalidação dos resultados obtidos na plataforma.
+
+[ ] Declaro que li e concordo com os termos acima e confirmo que os dados fornecidos são verdadeiros e passíveis de verificação.
+
+
+",,,,,,,,,,,
+DIMENSÃO,TEMA,,PERGUNTA,MENSAGEM,CONDICIONANTE,TEMA MATERIAL,PONTUAÇÃO,RELATÓRIO DE IMPACTO,DESTAQUES,,
+TRIAGEM,Perfil,1.1,Nome da Empresa ou Projeto,,,,,,PONTOS FORTES,PONTOS FRACOS,RECOMENDAÇÕES
+,,,[resposta curta],,,,1,[resposta curta],,,
+,,1.2,CNPJ ou CPF do responsável,,,,,,,,
+,,,[números],,,,1,[números],,,
+,TAMANHO E PORTE,1.3,Tamanho e porte,,,,,,,,
+,,a,Microempresa,,,,,Microempresa,,,
+,,b,Empresa de pequeno porte,,,,,Empresa de pequeno porte,,,
+,,c,Empresa de médio porte,,,,,Empresa de médio porte,,,
+,,d,Empresa de grande porte,,,,,Empresa de grande porte,,,
+,,e,Multinacional,,,,,Multinacional,,,
+,,f,ONG - Terceiro setor ,,,,,ONG - Terceiro setor ,,,
+,,g,Outros.,,,,,,,,
+,ESCOPO,1.4,Qual o periodo desta avaliação? A nossa sugestão é que os dados informados correspondam ao último ano fiscal. Exemplo: Janeiro/2022 a Dezembro/2022.,,,,,,,,
+,,,[DATA] - [DATA],,,,,[DATA] - [DATA],,,
+,SETOR,1.5,Setor,,,,,,,,
+,,a,Fornecimento de matérias-primas,,,,,,,,
+,,b,Agropecuária,,,,,,,,
+,,c,Mineração,,,,,,,,
+,,d,Industria,,,,,,,,
+,,e,Informática,,,,,,,,
+,,f,Construção civil,,,,,,,,
+,,g,Comércio,,,,,,,,
+,,h,Educação,,,,,,,,
+,,i,Saúde,,,,,,,,
+,,f,Transporte,,,,,,,,
+,,j,Finanças,,,,,,,,
+,,k,E-commerce*,,,,,,,,
+,,l,Serviços,,,,,,,,
+,,m,Outro,,,,,,,,
+,,1.5 a,Sobre a segurança dos dados em seu ambiente digital.,,,,,,,,
+,,a,"Não possuímos qualquer política, ferramenta ou procedimento formal para proteção de dados digitais. A segurança da informação não é tratada de forma estruturada.",,,,,,,,
+,,b,"Adotamos algumas medidas básicas de segurança digital (ex.: antivírus, senhas ou backups), porém não existem políticas formais ou procedimentos documentados para proteção de dados.",,,,,,,,
+,,c,A empresa possui práticas de proteção de dados e políticas internas básicas de segurança da informação. Há preocupação com privacidade do usuário e início de adequação à Lei Geral de Proteção de Dados (LGPD).,,,,,,,,
+,,d,"Existem políticas formais de segurança da informação e privacidade implementadas, com controles de acesso, gestão de riscos e procedimentos alinhados à LGPD. A empresa também descreve suas práticas de tratamento de dados e publicidade direcionada.",,,,,,,,
+,,e,"A organização possui programa estruturado de governança e proteção de dados, com políticas auditáveis, gestão de riscos cibernéticos, treinamento interno e plena conformidade com a LGPD. As práticas de privacidade e uso de dados são transparentes, monitoradas e revisadas periodicamente.",,,,,,,,
+,,1.5 b,Embalagem.,,,,,,,,
+,,a,A empresa não possui diretrizes ou critérios ambientais para embalagens. A escolha dos materiais ocorre apenas com base em custo ou disponibilidade.,,,,,,,,
+,,b,"A empresa começa a considerar a redução de embalagens ou o uso de materiais recicláveis, porém sem metas, políticas ou monitoramento estruturado.",,,,,,,,
+,,c,A empresa adota práticas para reduzir o volume de embalagens e prioriza materiais recicláveis ou reutilizáveis. Existem orientações internas ou critérios básicos para escolha de embalagens mais sustentáveis.,,,,,,,,
+,,d,"A empresa possui política ou diretrizes formais para embalagens sustentáveis, priorizando materiais reciclados, recicláveis ou biodegradáveis, além de iniciativas para redução de resíduos e otimização logística.",,,,,,,,
+,,e,"A empresa adota estratégias de economia circular para embalagens, incluindo design sustentável, redução significativa de materiais, uso de conteúdo reciclado, logística reversa ou sistemas de reutilização, com metas e monitoramento contínuo.",,,,,,,,
+,,1.5 c,Distribuição.,,,,,,,,
+,,a,A empresa não possui qualquer estratégia para otimização logística ou redução de impactos ambientais na distribuição de seus produtos.,,,,,,,,
+,,b,"A empresa adota algumas práticas básicas de organização logística (ex.: planejamento de rotas ou consolidação de cargas), porém sem critérios ambientais ou monitoramento de impactos.",,,,,,,,
+,,c,"A empresa busca otimizar a distribuição de produtos por meio de planejamento logístico, redução de viagens desnecessárias e melhoria da eficiência no transporte.",,,,,,,,
+,,d,"A empresa implementa práticas estruturadas para tornar a distribuição mais eficiente e sustentável, incluindo otimização de rotas, escolha de transportadoras mais eficientes e iniciativas para redução de emissões no transporte.",,,,,,,,
+,,e,"A empresa possui estratégia de logística sustentável com metas de redução de emissões, monitoramento da pegada de carbono da distribuição, uso de modais mais eficientes ou de menor impacto ambiental e integração com fornecedores e parceiros logísticos.",,,,,,,,
+,,1.6,CIDADE,,,,,,,,
+,,,[caixa de rolagem],,,,,,,,
+,,1.7,ESTADO,,,,,,,,
+,,,[caixa de rolagem],,,,,,,,
+,,1.8,A empresa pertence a:,,,,,,,,
+,,a,"
+A empresa possui controle societário concentrado e não apresenta diversidade significativa entre seus acionistas ou sócios.
+
+
+
+
+",,,,,,,,
+,,b,"
+A empresa possui alguma diversidade entre sócios ou acionistas, porém sem participação relevante de grupos historicamente sub-representados.",,,,,,,,
+,,c,"A empresa possui diversidade significativa no quadro societário, incluindo participação expressiva de mulheres ou representantes de grupos historicamente sub-representados.",,,,,,,,
+,,d,"A empresa é majoritariamente controlada ou fundada por mulheres ou por pessoas pertencentes a grupos historicamente sub-representados, ou possui compromisso formal com diversidade na estrutura societária e governança.",,,,,,,,
+,,e,"A empresa é majoritariamente controlada ou fundada por mulheres ou por pessoas pertencentes a grupos historicamente sub-representados, ou possui compromisso formal com diversidade na estrutura societária e governança.",,,,,,,,

@@ -25,7 +25,7 @@ export const SocialPage: React.FC = () => {
   const [missions, setMissions] = useState<Mission[]>([]);
 
   const [diversityScore, setDiversityScore] = useState(45);
-  const trainingScore = company?.socialSubScores?.treinamento || 88;
+  const trainingScore = company?.socialSubScores?.diversidade || 88;
 
   // Chart data dinâmico baseado em dados reais
   const chartData = useMemo(() => {

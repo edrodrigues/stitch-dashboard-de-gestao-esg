@@ -34,25 +34,30 @@ export interface ESGDelta {
 }
 
 export interface ESGSubScores {
-  sga: number;
-  energia: number;
-  agua: number;
-  residuos: number;
-  arClima: number;
-  materiaPrima: number;
-  cicloVida: number;
-  biodiversidade: number;
-  direitosHumanos: number;
-  praticasTrabalhistas: number;
-  saudeSeguranca: number;
-  treinamento: number;
-  diversidade: number;
-  comunidade: number;
-  culturaValores: number;
-  gestaoRiscos: number;
-  conformidade: number;
-  etica: number;
-  transparencia: number;
+  // Environmental
+  emissoesCarbono: number;     // Carbon emissions (new)
+  aguaEfluentes: number;       // Water & effluents
+  energia: number;             // Energy management
+  residuos: number;            // Waste management
+  pegadaAmbiental: number;     // Product/service environmental footprint (new)
+
+  // Social
+  relacoesComunitarias: number;    // Community relations (new)
+  cadeiaFornecimento: number;      // Supply chain management (new)
+  direitosHumanos: number;         // Human rights
+  praticasTrabalhistas: number;    // Labor practices
+  saudeSeguranca: number;          // Health & safety
+  diversidade: number;             // Diversity & inclusion
+
+  // Governance
+  culturaValores: number;          // Culture & values
+  satisfacaoCliente: number;       // Customer satisfaction (new)
+  qualidadeProduto: number;        // Product quality (new)
+  rotulagem: number;               // Labeling & practices (new)
+  gestaoRiscos: number;            // Risk management
+  requisitosLegais: number;        // Legal requirements (new)
+  etica: number;                   // Ethics
+  transparencia: number;           // Transparency
 }
 
 export interface EvolutionDataPoint {

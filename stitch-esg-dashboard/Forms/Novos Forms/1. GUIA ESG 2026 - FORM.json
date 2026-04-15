@@ -1,0 +1,134 @@
+{
+  "disclaimer": "Declaração de Responsabilidade e Integridade das Informações\n\nEsta ferramenta de diagnóstico ESG foi desenvolvida com base em metodologias, diretrizes e padrões reconhecidos nacional e internacionalmente para a gestão da sustentabilidade corporativa, incluindo referências aos princípios e orientações da ABNT PR 2030, que estabelece diretrizes para a incorporação de práticas ESG nas organizações brasileiras.\n\nTrata-se de um instrumento de autodiagnóstico, no qual a organização responde às perguntas com base em dados, processos e informações que monitora e possui, permitindo avaliar seu nível de maturidade em relação às práticas Ambientais, Sociais e de Governança (ESG).\n\nO questionário de diagnóstico pode conter até 72 perguntas, moduladas de acordo com o porte da organização e outras variáveis relevantes, organizadas em diferentes temas distribuídos nos três eixos principais do ESG: Ambiental, Social e Governança.\n\nA mensuração de indicadores ESG atende à crescente demanda global por padrões elevados de sustentabilidade, transparência e responsabilidade corporativa, contribuindo para decisões mais informadas por parte de empresas, investidores, clientes, instituições públicas e da sociedade.\n\nAo utilizar esta plataforma de diagnóstico ESG, declaro que todas as informações fornecidas são verdadeiras, precisas e completas, de acordo com o melhor do meu conhecimento. Comprometo-me a manter a rastreabilidade das evidências que sustentam as respostas apresentadas, podendo disponibilizar documentos, registros ou informações complementares que permitam validar os dados fornecidos.\n\nReconheço que a integridade e a confiabilidade das informações são essenciais para a promoção de práticas responsáveis e para o avanço da agenda de sustentabilidade. Declaro ainda que qualquer tentativa de fornecer informações falsas ou enganosas poderá resultar na revisão, suspensão ou invalidação dos resultados obtidos na plataforma.",
+  "sections": [
+    {
+      "dimension": "TRIAGEM",
+      "theme": "Perfil",
+      "code": "1.1",
+      "question": "Nome da Empresa ou Projeto",
+      "inputType": "resposta curta",
+      "score": 1
+    },
+    {
+      "dimension": "TRIAGEM",
+      "theme": "Perfil",
+      "code": "1.2",
+      "question": "CNPJ ou CPF do responsável",
+      "inputType": "números",
+      "score": 1
+    },
+    {
+      "dimension": "TRIAGEM",
+      "theme": "TAMANHO E PORTE",
+      "code": "1.3",
+      "question": "Tamanho e porte",
+      "options": [
+        {"code": "a", "text": "Microempresa", "score": null},
+        {"code": "b", "text": "Empresa de pequeno porte", "score": null},
+        {"code": "c", "text": "Empresa de médio porte", "score": null},
+        {"code": "d", "text": "Empresa de grande porte", "score": null},
+        {"code": "e", "text": "Multinacional", "score": null},
+        {"code": "f", "text": "ONG - Terceiro setor", "score": null},
+        {"code": "g", "text": "Outros", "score": null}
+      ]
+    },
+    {
+      "dimension": "TRIAGEM",
+      "theme": "ESCOPO",
+      "code": "1.4",
+      "question": "Qual o periodo desta avaliação? A nossa sugestão é que os dados informados correspondam ao último ano fiscal. Exemplo: Janeiro/2022 a Dezembro/2022.",
+      "inputType": "DATA - DATA",
+      "score": null
+    },
+    {
+      "dimension": "TRIAGEM",
+      "theme": "SETOR",
+      "code": "1.5",
+      "question": "Setor",
+      "options": [
+        {"code": "a", "text": "Fornecimento de matérias-primas", "score": null},
+        {"code": "b", "text": "Agropecuária", "score": null},
+        {"code": "c", "text": "Mineração", "score": null},
+        {"code": "d", "text": "Industria", "score": null},
+        {"code": "e", "text": "Informática", "score": null},
+        {"code": "f", "text": "Construção civil", "score": null},
+        {"code": "g", "text": "Comércio", "score": null},
+        {"code": "h", "text": "Educação", "score": null},
+        {"code": "i", "text": "Saúde", "score": null},
+        {"code": "j", "text": "Transporte", "score": null},
+        {"code": "k", "text": "Finanças", "score": null},
+        {"code": "l", "text": "E-commerce*", "score": null},
+        {"code": "m", "text": "Serviços", "score": null},
+        {"code": "n", "text": "Outro", "score": null}
+      ]
+    },
+    {
+      "dimension": "TRIAGEM",
+      "theme": "SETOR",
+      "code": "1.5a",
+      "question": "Sobre a segurança dos dados em seu ambiente digital.",
+      "options": [
+        {"code": "a", "text": "Não possuímos qualquer política, ferramenta ou procedimento formal para proteção de dados digitais. A segurança da informação não é tratada de forma estruturada.", "score": null},
+        {"code": "b", "text": "Adotamos algumas medidas básicas de segurança digital (ex.: antivírus, senhas ou backups), porém não existem políticas formais ou procedimentos documentados para proteção de dados.", "score": null},
+        {"code": "c", "text": "A empresa possui práticas de proteção de dados e políticas internas básicas de segurança da informação. Há preocupação com privacidade do usuário e início de adequação à Lei Geral de Proteção de Dados (LGPD).", "score": null},
+        {"code": "d", "text": "Existem políticas formais de segurança da informação e privacidade implementadas, com controles de acesso, gestão de riscos e procedimentos alinhados à LGPD. A empresa também descreve suas práticas de tratamento de dados e publicidade direcionada.", "score": null},
+        {"code": "e", "text": "A organização possui programa estruturado de governança e proteção de dados, com políticas auditáveis, gestão de riscos cibernéticos, treinamento interno e plena conformidade com a LGPD. As práticas de privacidade e uso de dados são transparentes, monitoradas e revisadas periodicamente.", "score": null}
+      ]
+    },
+    {
+      "dimension": "TRIAGEM",
+      "theme": "SETOR",
+      "code": "1.5b",
+      "question": "Embalagem.",
+      "options": [
+        {"code": "a", "text": "A empresa não possui diretrizes ou critérios ambientais para embalagens. A escolha dos materiais ocorre apenas com base em custo ou disponibilidade.", "score": null},
+        {"code": "b", "text": "A empresa começa a considerar a redução de embalagens ou o uso de materiais recicláveis, porém sem metas, políticas ou monitoramento estruturado.", "score": null},
+        {"code": "c", "text": "A empresa adota práticas para reduzir o volume de embalagens e prioriza materiais recicláveis ou reutilizáveis. Existem orientações internas ou critérios básicos para escolha de embalagens mais sustentáveis.", "score": null},
+        {"code": "d", "text": "A empresa possui política ou diretrizes formais para embalagens sustentáveis, priorizando materiais reciclados, recicláveis ou biodegradáveis, além de iniciativas para redução de resíduos e otimização logística.", "score": null},
+        {"code": "e", "text": "A empresa adota estratégias de economia circular para embalagens, incluindo design sustentável, redução significativa de materiais, uso de conteúdo reciclado, logística reversa ou sistemas de reutilização, com metas e monitoramento contínuo.", "score": null}
+      ]
+    },
+    {
+      "dimension": "TRIAGEM",
+      "theme": "SETOR",
+      "code": "1.5c",
+      "question": "Distribuição.",
+      "options": [
+        {"code": "a", "text": "A empresa não possui qualquer estratégia para otimização logística ou redução de impactos ambientais na distribuição de seus produtos.", "score": null},
+        {"code": "b", "text": "A empresa adota algumas práticas básicas de organização logística (ex.: planejamento de rotas ou consolidação de cargas), porém sem critérios ambientais ou monitoramento de impactos.", "score": null},
+        {"code": "c", "text": "A empresa busca otimizar a distribuição de produtos por meio de planejamento logístico, redução de viagens desnecessárias e melhoria da eficiência no transporte.", "score": null},
+        {"code": "d", "text": "A empresa implementa práticas estruturadas para tornar a distribuição mais eficiente e sustentável, incluindo otimização de rotas, escolha de transportadoras mais eficientes e iniciativas para redução de emissões no transporte.", "score": null},
+        {"code": "e", "text": "A empresa possui estratégia de logística sustentável com metas de redução de emissões, monitoramento da pegada de carbono da distribuição, uso de modais mais eficientes ou de menor impacto ambiental e integração com fornecedores e parceiros logísticos.", "score": null}
+      ]
+    },
+    {
+      "dimension": "TRIAGEM",
+      "theme": "",
+      "code": "1.6",
+      "question": "CIDADE",
+      "inputType": "caixa de rolagem",
+      "score": null
+    },
+    {
+      "dimension": "TRIAGEM",
+      "theme": "",
+      "code": "1.7",
+      "question": "ESTADO",
+      "inputType": "caixa de rolagem",
+      "score": null
+    },
+    {
+      "dimension": "TRIAGEM",
+      "theme": "",
+      "code": "1.8",
+      "question": "A empresa pertence a:",
+      "options": [
+        {"code": "a", "text": "A empresa possui controle societário concentrado e não apresenta diversidade significativa entre seus acionistas ou sócios.", "score": null},
+        {"code": "b", "text": "A empresa possui alguma diversidade entre sócios ou acionistas, porém sem participação relevante de grupos historicamente sub-representados.", "score": null},
+        {"code": "c", "text": "A empresa possui diversidade significativa no quadro societário, incluindo participação expressiva de mulheres ou representantes de grupos historicamente sub-representados.", "score": null},
+        {"code": "d", "text": "A empresa é majoritariamente controlada ou fundada por mulheres ou por pessoas pertencentes a grupos historicamente sub-representados, ou possui compromisso formal com diversidade na estrutura societária e governança.", "score": null},
+        {"code": "e", "text": "A empresa é majoritariamente controlada ou fundada por mulheres ou por pessoas pertencentes a grupos historicamente sub-representados, ou possui compromisso formal com diversidade na estrutura societária e governança.", "score": null}
+      ]
+    }
+  ]
+}

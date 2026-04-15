@@ -1,0 +1,352 @@
+{
+  "sections": [
+    {
+      "theme": "Relações comunitárias",
+      "code": "6.1",
+      "question": "Como é a relação da sua empresa com a comunidade local?",
+      "message": "A relação com a comunidade local é um elemento fundamental da responsabilidade social das empresas. Organizações que mantêm diálogo transparente, contribuem para o desenvolvimento local e consideram os impactos de suas atividades sobre o território fortalecem sua legitimidade social, reduzem riscos reputacionais e ampliam seu potencial de gerar valor compartilhado.",
+      "materialTheme": "Relações comunitárias",
+      "options": [
+        {
+          "code": "a",
+          "text": "A empresa não possui relacionamento estruturado com a comunidade local",
+          "score": 1,
+          "weakPoint": "A ausência de relacionamento com a comunidade local pode gerar distanciamento entre a empresa e o território onde atua, dificultando a identificação de impactos sociais e oportunidades de contribuição para o desenvolvimento local.",
+          "recommendation": "Iniciar o diálogo com a comunidade local, identificando os principais grupos de interesse e avaliando oportunidades de aproximação e colaboração."
+        },
+        {
+          "code": "b",
+          "text": "Participamos de eventos e fazemos contribuições pontuais",
+          "score": 2,
+          "weakPoint": "Embora existam interações com a comunidade, essas iniciativas ainda ocorrem de forma pontual e não estruturada, o que limita a continuidade e o impacto das ações realizadas.",
+          "recommendation": "Estruturar ações de relacionamento comunitário, identificando prioridades do território e estabelecendo iniciativas de impacto social mais consistentes."
+        },
+        {
+          "code": "c",
+          "text": "Participamos dos eventos e fazemos doações periódicas",
+          "score": 3,
+          "strongPoint": "A empresa mantém relacionamento ativo com a comunidade local, participando de iniciativas e contribuindo para o fortalecimento do território onde atua.",
+          "recommendation": "Formalizar programas de relacionamento com a comunidade e monitorar os impactos sociais gerados pelas iniciativas realizadas."
+        },
+        {
+          "code": "d",
+          "text": "Possuímos metas e projetos estratégicos que envolvem a comunidade local",
+          "score": 4,
+          "strongPoint": "Possuímos metas e projetos estratégicos que envolvem a comunidade local",
+          "weakPoint": "A empresa desenvolve programas estruturados de relacionamento comunitário e investimento social, contribuindo para o desenvolvimento local e fortalecendo vínculos com o território.",
+          "recommendation": "Ampliar a mensuração dos resultados e impactos das iniciativas sociais desenvolvidas na comunidade."
+        },
+        {
+          "code": "e",
+          "text": "A comunidade em que estamos inseridos tem participação ativa no cotidiano da empresa, através de politicas de contratação e projetos de desenvolvimento social",
+          "score": 5,
+          "strongPoint": "A comunidade em que estamos inseridos tem participação ativa no cotidiano da empresa, através de politicas de contratação e projetos de desenvolvimento social",
+          "weakPoint": "A empresa integra o relacionamento com a comunidade em sua estratégia de sustentabilidade, promovendo parcerias e iniciativas que contribuem para o desenvolvimento socioeconômico do território.",
+          "recommendation": "Manter e ampliar as estratégias de impacto social, fortalecendo parcerias com organizações locais, instituições públicas e iniciativas comunitárias."
+        },
+        {
+          "code": "f",
+          "text": "não se aplica",
+          "score": null
+        }
+      ]
+    },
+    {
+      "theme": "Cadeia de fornecimento",
+      "code": "7.1",
+      "question": "Como é feita a gestão da sua cadeia de fornecimento?",
+      "options": [
+        {
+          "code": "a",
+          "text": "Não realizamos a gestão da nossa rede de fornecedores",
+          "score": 1,
+          "message": "A cadeia de fornecedores é um elemento fundamental para a gestão responsável das empresas. Muitas vezes, impactos socioambientais relevantes ocorrem fora das operações diretas da organização, ao longo da cadeia de valor. Empresas que estabelecem critérios de responsabilidade socioambiental para seus fornecedores fortalecem sua governança, reduzem riscos reputacionais e contribuem para a promoção de práticas empresariais mais éticas e sustentáveis em toda a cadeia produtiva.",
+          "weakPoint": "A empresa ainda não considera os riscos relacionados a violações de direitos humanos em sua cadeia de valor, o que pode expor a organização a riscos reputacionais, legais e operacionais. Questões como trabalho infantil, trabalho análogo à escravidão, discriminação ou condições inadequadas de trabalho podem ocorrer ao longo da cadeia produtiva sem que sejam identificadas ou prevenidas.",
+          "recommendation": "Iniciar o mapeamento dos principais riscos socioambientais na cadeia de valor, identificando fornecedores e atividades que possam estar associados a violações de direitos humanos e estabelecendo critérios mínimos de responsabilidade socioambiental para contratação."
+        },
+        {
+          "code": "b",
+          "text": "Nossos fornecedores passam por rigoroso processo de solicitação e diligência dos documentos legais",
+          "score": 2,
+          "weakPoint": "Embora a empresa já reconheça os riscos socioambientais em sua cadeia de valor, a ausência de mecanismos de monitoramento ou verificação limita a eficácia das medidas preventivas e pode permitir que práticas inadequadas ocorram sem identificação.",
+          "recommendation": "Estabelecer mecanismos de monitoramento e verificação das práticas adotadas por fornecedores e parceiros, incluindo critérios socioambientais em processos de contratação e avaliação de desempenho."
+        },
+        {
+          "code": "c",
+          "text": "Temos procedimentos para selecionar fornecedores por critérios financeiros, mas podemos usar questões sociais ou ambientais para desempate",
+          "score": 3,
+          "strongPoint": "A empresa monitora e fiscaliza seus fornecedores e parceiros, demonstrando compromisso com a prevenção de violações de direitos humanos e com a promoção de práticas responsáveis em sua cadeia de valor.",
+          "recommendation": "Formalizar diretrizes ou políticas corporativas relacionadas à prevenção de violações de direitos humanos e estabelecer indicadores para monitorar o desempenho socioambiental da cadeia de valor."
+        },
+        {
+          "code": "d",
+          "text": "Possuimos um procedimento de contratação que avalia o impacto socioambiental dos fornecedores",
+          "score": 4,
+          "strongPoint": "A empresa exige transparência e prestação de contas de seus fornecedores e contratadas em relação à prevenção de violações de direitos humanos, fortalecendo a governança e a responsabilidade socioambiental ao longo da cadeia de valor.",
+          "recommendation": "Manter e aprimorar os mecanismos de reporte e auditoria socioambiental, integrando essas práticas às políticas corporativas e aos processos de gestão de fornecedores."
+        },
+        {
+          "code": "e",
+          "text": "Buscamos trabalhar com fornecedores verificados e atuamos de forma proativa na verificação dos impactos socioambientais dos nossos fornecedores, pelo menos os mais significativos",
+          "score": 5,
+          "strongPoint": "A empresa possui normas formais e mecanismos estruturados para gestão de riscos socioambientais em sua cadeia de valor, demonstrando elevado nível de maturidade na prevenção de violações de direitos humanos e na promoção de práticas empresariais responsáveis.",
+          "recommendation": "Manter e fortalecer a implementação das normas existentes, ampliando a capacitação de fornecedores, promovendo transparência e integrando essas práticas às estratégias de sustentabilidade e governança da empresa."
+        },
+        {
+          "code": "f",
+          "text": "não se aplica",
+          "score": null
+        }
+      ]
+    },
+    {
+      "theme": "Direiros Humanos",
+      "code": "8.1",
+      "question": "De que forma a empresa previne violações aos direitos humanos em suas operações?",
+      "materialTheme": "Direiros Humanos",
+      "message": "Os impactos relativos à violação de direitos humanos são o maior risco reputacional para uma empresa, na prática estamos falando de medidas como prevenção ao trabalho análogo à escravidão e ao trabalho infantil. As medidas positivas podem ser a contratação de imigrantes ou o apoio à alguma organização que o faça.",
+      "options": [
+        {
+          "code": "a",
+          "text": "Não temos qualquer iniciativa para garantir o respeito aos direitos humanos em nossa organização",
+          "score": 1
+        },
+        {
+          "code": "b",
+          "text": "Trabalhamos as questões relativas aos direitos humanos apenas verbalmente",
+          "score": 2
+        },
+        {
+          "code": "c",
+          "text": "Possuímos o procedimento de instruir colaboradores e fornecedores sobre a importância em se combater o trabalho infantil, o trabalho análogo à escravidão e qualquer outra violação",
+          "score": 3,
+          "strongPoint": "Possuímos o procedimento de instruir colaboradores e fornecedores sobre a importância em se combater o trabalho infantil, o trabalho análogo à escravidão e qualquer outra violação"
+        },
+        {
+          "code": "d",
+          "text": "Nossos contratos preveem cláusulas preventivas sobre a responsabilidade de se combater o trabalho infantil, o trabalho análogo à escravidão e qualquer outra violação",
+          "score": 4,
+          "strongPoint": "Nossos contratos preveem cláusulas preventivas sobre a responsabilidade de se combater o trabalho infantil, o trabalho análogo à escravidão e qualquer outra violação"
+        },
+        {
+          "code": "e",
+          "text": "Colaboramos para movimentos e agendas transversais sobre direitos humanos e buscamos inovar para causar o letramento na sociedade",
+          "score": 5,
+          "strongPoint": "Colaboramos para movimentos e agendas transversais sobre direitos humanos e buscamos inovar para causar o letramento na sociedade"
+        },
+        {
+          "code": "f",
+          "text": "Não se aplica",
+          "score": null
+        }
+      ]
+    },
+    {
+      "theme": "Inclusão e Diversidade",
+      "code": "9.1",
+      "question": "Como é realizada a gestão de inclusão e diversidade na sua empresa?",
+      "message": "Empresas que valorizam a diversidade reconhecem e respeitam as diferenças entre pessoas, promovendo oportunidades iguais independentemente de gênero, raça, origem, idade, orientação sexual, deficiência ou condição social. Além de reduzir riscos de discriminação e fortalecer a cultura organizacional, iniciativas de inclusão contribuem para ampliar perspectivas, estimular a criatividade e gerar valor para a sociedade. Práticas positivas podem incluir políticas de diversidade, programas de inclusão de grupos historicamente sub-representados, contratação de pessoas com deficiência, imigrantes ou pessoas em situação de vulnerabilidade, bem como apoio a iniciativas que promovam equidade e respeito no ambiente de trabalho.",
+      "options": [
+        {
+          "code": "a",
+          "text": "Não conhecemos nossos indicadores de inclusão e diversidade",
+          "score": 1,
+          "weakPoint": "A ausência de iniciativas voltadas à inclusão e diversidade pode limitar a construção de um ambiente de trabalho plural e equitativo, além de aumentar riscos de discriminação e reduzir oportunidades de inovação e aprendizado organizacional.",
+          "recommendation": "Iniciar a reflexão sobre inclusão e diversidade na organização, identificando oportunidades para promover igualdade de oportunidades e respeito às diferenças no ambiente de trabalho."
+        },
+        {
+          "code": "b",
+          "text": "Não conhecemos nossos indicadores de sustentabilidade, mas temos algumas práticas esparsas",
+          "score": 2,
+          "weakPoint": "Reconhecemos a importância da diversidade, mas não possuímos ações estruturadas",
+          "recommendation": "Desenvolver ações iniciais de promoção da diversidade, como sensibilização da equipe, revisão de processos de recrutamento e incentivo à igualdade de oportunidades."
+        },
+        {
+          "code": "c",
+          "text": "Temos práticas estruturadas de inclusão e diversidade",
+          "score": 3,
+          "condition": "Abre 9.1.A"
+        },
+        {
+          "code": "d",
+          "text": "Temos práticas estruturadas de inclusão e diversidade e conhecemos nossos indicadores",
+          "score": 4,
+          "condition": "Abre 9.1.A"
+        },
+        {
+          "code": "e",
+          "text": "Somos uma empresa referência, com práticas avançadas de inclusão e diversidade",
+          "score": 5,
+          "condition": "Abre 9.1.A"
+        },
+        {
+          "code": "f",
+          "text": "Não se aplica",
+          "score": null
+        }
+      ]
+    },
+    {
+      "theme": "Práticas Trabalhistas",
+      "code": "10.1",
+      "question": "A empresa possui um manual do funcionário formalizado por escrito?",
+      "options": [
+        {"code": "1", "text": "A empresa não tem um manual do funcionário formalizado por escrito", "score": 1, "weight": 1},
+        {"code": "2", "text": "Apenas uma declaração de não discriminação e informações gerais sobre os horários de trabalho", "score": 2, "weight": 1},
+        {"code": "3", "text": "Uma política contra o assédio com mecanismos de denúncia e processos e procedimentos disciplinares, medidas disciplinares e possíveis sanções", "score": 3, "weight": 1},
+        {"code": "4", "text": "O manual do funcionário aborda além das questões anteriores políticas sobre questões de remuneração e desempenho, capacitação e licenças", "score": 4, "weight": 1},
+        {"code": "5", "text": "O manual do funcionário é construido com a participação das partes interessadas, possui uma declaração de neutralidade sobre o direito dos trabalhadores à negociação coletiva e à liberdade de associação, além de regras sobre direitos humanos como a proibição do trabalho infantil e do trabalho forçado ou compulsório", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "theme": "Práticas Trabalhistas",
+      "code": "10.2",
+      "question": "Qual o percentual de trabalhadores são terceirizados?",
+      "options": [
+        {"code": "1", "text": "Mais de 70% da força de trabalho", "score": 1, "weight": 1},
+        {"code": "2", "text": "Mais de 50% da força de trabalho", "score": 2, "weight": 1},
+        {"code": "3", "text": "Menos de 50% da força de trabalho", "score": 3, "weight": 1},
+        {"code": "4", "text": "Menos de 20% da força de trabalho", "score": 4, "weight": 1},
+        {"code": "5", "text": "Não contratamos trabalhadores terceirizados", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "theme": "Práticas Trabalhistas",
+      "code": "10.3",
+      "question": "Número de trabalhadores temporários no último ano fiscal?",
+      "options": [
+        {"code": "1", "text": "Mais de 70%", "score": 1, "weight": 1},
+        {"code": "2", "text": "Mais de 50%", "score": 2, "weight": 1},
+        {"code": "3", "text": "Menos de 50%", "score": 3, "weight": 1},
+        {"code": "4", "text": "Menos de 20%", "score": 4, "weight": 1},
+        {"code": "5", "text": "Não contratam trabalhadores temporários", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "theme": "Práticas Trabalhistas",
+      "code": "10.4",
+      "question": "A empresa oferece benefícios para aumentar a renda dos trabalhadores como a participação nos lucros e resultados ou acréscimo por produtividade",
+      "options": [
+        {"code": "1", "text": "Não", "score": 5, "weight": 1},
+        {"code": "2", "text": "Sim", "score": 0, "weight": 1}
+      ]
+    },
+    {
+      "theme": "Saúde e Segurança",
+      "code": "11.1",
+      "question": "Quais os benefícios que a empresa oferece para complementar os benefícios governamentais?",
+      "options": [
+        {"code": "1", "text": "Cobertura por invalidez ou seguro contra acidentes", "score": 1, "weight": 1},
+        {"code": "2", "text": "Seguro de vida", "score": 2, "weight": 1},
+        {"code": "3", "text": "Seguro odontológico privado", "score": 3, "weight": 1},
+        {"code": "4", "text": "Seguro de saúde privado", "score": 4, "weight": 1},
+        {"code": "5", "text": "Seguro de saúde privado complementar com extensão dos benefícios de saúde ao cônjuge e aos filhos", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "theme": "Saúde e Segurança",
+      "code": "11.2",
+      "question": "São feitas capacitações periódicas sobre o programa de saúde e segurança?",
+      "options": [
+        {"code": "1", "text": "Não há um programa formal de saúde e segurança", "score": 1, "weight": 1},
+        {"code": "2", "text": "Fazemos capacitações em saúde e segurança para todos os trabalhadores, que inclua pelo menos uma simulação de emergência por ano", "score": 2, "weight": 1},
+        {"code": "3", "text": "Registramos e divulgamos os dados sobre lesões, acidentes, dias perdidos ou dias de ausência para todos os trabalhadores", "score": 3, "weight": 1},
+        {"code": "4", "text": "Possuímos um sistema formal de denúncia de questões de segurança para que os funcionários possam apresentar suas preocupações relacionadas à segurança", "score": 4, "weight": 1},
+        {"code": "5", "text": "Existe uma comissão ou um funcionário responsável pela segurança ou um representante do programa de segurança que responda a um funcionário sênior (por exemplo, vice-presidente ou superior)", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "theme": "Saúde e Segurança",
+      "code": "11.3",
+      "question": "Qual a política da empresa em relação à manipulação de substâncias ou equipamentos perigosos?",
+      "options": [
+        {"code": "1", "text": "Todos os trabalhadores são informados dos riscos associados ao manuseio de materiais perigosos", "score": 1, "weight": 1},
+        {"code": "2", "text": "A empresa exige que todos os trabalhadores que estão em contato com materiais perigosos usem equipamentos de proteção, incluindo roupas adequadas e proteção para os olhos e os pés", "score": 2, "weight": 1},
+        {"code": "3", "text": "Todos os trabalhadores que estão em contato com materiais perigosos recebem capacitação inicial e continuada (pelo menos duas vezes por ano) relacionada ao armazenamento, manuseio e descarte adequados dos materiais", "score": 3, "weight": 1},
+        {"code": "4", "text": "A empresa monitora a saúde de todos os funcionários que trabalham com materiais perigosos e fornece a eles check-ups de saúde anuais", "score": 4, "weight": 1},
+        {"code": "5", "text": "A empresa realiza o monitoramento da saúde dos funcionários que trabalham em contato com materiais perigosos, fornecendo todas as instruções e materiais necessários para que não haja nenhum dano", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "theme": "Saúde e Segurança",
+      "code": "11.4",
+      "question": "A empresa monitora a incidência de acidentes graves e fatais no ambiente de trabalho?",
+      "options": [
+        {"code": "1", "text": "Não monitoramos", "score": 1, "weight": 1},
+        {"code": "2", "text": "Monitoramos e fazemos o acompanhamento preventivo", "score": 2, "weight": 1},
+        {"code": "3", "text": "Possuímos um forte sistema de prevenção à acidentes de trabalho, além da CIPA", "score": 3, "weight": 1},
+        {"code": "4", "text": "Buscamos monitorar e prevenir os danos, assim como a empresa fez investimentos em equipamentos mais seguros", "score": 4, "weight": 1},
+        {"code": "5", "text": "Temos os orgulho de reportar que não houveram acidentes no último ano fiscal", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "theme": "Diversidade",
+      "code": "12.1",
+      "question": "Qual o percentual dos seus trabalhadores são mulheres?",
+      "options": [
+        {"code": "1", "text": "Não monitoramos", "score": 1, "weight": 1},
+        {"code": "2", "text": "Até 10%", "score": 2, "weight": 1},
+        {"code": "3", "text": "Entre 10% e 15%", "score": 3, "weight": 1},
+        {"code": "4", "text": "Entre 15% e 25%", "score": 4, "weight": 1},
+        {"code": "5", "text": "50% ou mais", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "theme": "Diversidade",
+      "code": "12.2",
+      "question": "Qual o percentual dos seus trabalhadores são pessoas negras?",
+      "options": [
+        {"code": "1", "text": "Não monitoramos", "score": 1, "weight": 1},
+        {"code": "2", "text": "Até 10%", "score": 2, "weight": 1},
+        {"code": "3", "text": "Entre 10% e 15%", "score": 3, "weight": 1},
+        {"code": "4", "text": "Entre 15% e 25%", "score": 4, "weight": 1},
+        {"code": "5", "text": "50% ou mais", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "theme": "Diversidade",
+      "code": "12.3",
+      "question": "Qual o percentual dos seus trabalhadores são LGBTQIAPN+?",
+      "options": [
+        {"code": "1", "text": "Não monitoramos", "score": 1, "weight": 1},
+        {"code": "2", "text": "Até 10%", "score": 2, "weight": 1},
+        {"code": "3", "text": "Entre 10% e 15%", "score": 3, "weight": 1},
+        {"code": "4", "text": "Entre 15% e 25%", "score": 4, "weight": 1},
+        {"code": "5", "text": "50% ou mais", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "theme": "Diversidade",
+      "code": "12.4",
+      "question": "Qual o percentual dos seus trabalhadores possuem mais de 55 anos?",
+      "options": [
+        {"code": "1", "text": "Não monitoramos", "score": 1, "weight": 1},
+        {"code": "2", "text": "Até 10%", "score": 2, "weight": 1},
+        {"code": "3", "text": "Entre 10% e 15%", "score": 3, "weight": 1},
+        {"code": "4", "text": "Entre 15% e 25%", "score": 4, "weight": 1},
+        {"code": "5", "text": "50% ou mais", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "theme": "Diversidade",
+      "code": "12.5",
+      "question": "Existe uma politica de contratação inclusiva?",
+      "options": [
+        {"code": "1", "text": "Não", "score": 0, "weight": 1},
+        {"code": "2", "text": "Sim", "score": 5, "weight": 1}
+      ]
+    },
+    {
+      "theme": "Diversidade",
+      "code": "12.6",
+      "question": "Qual o percentual de trabalhadores são Pessoas Com Deficiência (PcDs)?",
+      "options": [
+        {"code": "1", "text": "Não monitoramos", "score": 1, "weight": 1},
+        {"code": "2", "text": "Até 10%", "score": 2, "weight": 1},
+        {"code": "3", "text": "Entre 10% e 15%", "score": 3, "weight": 1},
+        {"code": "4", "text": "Entre 15% e 25%", "score": 4, "weight": 1},
+        {"code": "5", "text": "50% ou mais", "score": 5, "weight": 1}
+      ]
+    }
+  ]
+}

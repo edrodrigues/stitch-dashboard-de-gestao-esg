@@ -1,0 +1,397 @@
+{
+  "sections": [
+    {
+      "theme": "Emissões de Carbono",
+      "code": "2.1",
+      "question": "Emissões de Carbono",
+      "message": "Os indicadores de emissões de gases de efeito estufa (GEE) são cada vez mais relevantes para a gestão das organizações, assim como os indicadores financeiros. Conhecer, monitorar e reportar as emissões de carbono permite que empresas compreendam melhor seu impacto climático e identifiquem oportunidades de redução de emissões e eficiência operacional.",
+      "materialTheme": "Emissões de Carbono",
+      "options": [
+        {
+          "code": "1",
+          "text": "Ainda não conhecemos nossas emissões de carbono",
+          "score": 1,
+          "strongPoint": "Emissões de Carbono",
+          "weakPoint": "Não realizar o inventário de emissões de gases de efeito estufa é um ponto fraco na gestão ambiental da organização, pois impede que a empresa conheça e compreenda seu impacto climático. Sem medir as emissões, torna-se difícil identificar oportunidades de redução, melhorar a eficiência operacional e estabelecer metas ambientais claras. Além disso, a ausência desse monitoramento pode reduzir a transparência da empresa diante de clientes, investidores e parceiros que cada vez mais valorizam práticas alinhadas à economia de baixo carbono.",
+          "recommendation": "Uma boa prática é realizar o Inventário de Emissões de Gases de Efeito Estufa, que consiste no levantamento e na quantificação das emissões geradas pelas atividades da organização, como consumo de energia, combustíveis, transporte, resíduos e outras operações. Esse inventário geralmente segue metodologias reconhecidas internacionalmente, como o GHG Protocol, e considera diferentes fontes de emissão, organizadas em categorias como Escopo 1 (emissões diretas), Escopo 2 (energia adquirida) e Escopo 3 (outras emissões indiretas da cadeia de valor). A partir desse diagnóstico, a organização pode estabelecer metas de redução de emissões, implementar ações de eficiência energética, reduzir sua pegada de carbono e contribuir para o enfrentamento das mudanças climáticas."
+        },
+        {
+          "code": "2",
+          "text": "Não conhecemos nossas emissões, mas existem práticas internas de descarbonização das atividades",
+          "score": 2,
+          "weakPoint": "Não realizar o inventário de emissões de gases de efeito estufa é um ponto fraco na gestão ambiental da organização, pois impede que a empresa conheça e compreenda seu impacto climático. Sem medir as emissões, torna-se difícil identificar oportunidades de redução, melhorar a eficiência operacional e estabelecer metas ambientais claras. Além disso, a ausência desse monitoramento pode reduzir a transparência da empresa diante de clientes, investidores e parceiros que cada vez mais valorizam práticas alinhadas à economia de baixo carbono.",
+          "recommendation": "Uma boa prática é realizar o Inventário de Emissões de Gases de Efeito Estufa, que consiste no levantamento e na quantificação das emissões geradas pelas atividades da organização, como consumo de energia, combustíveis, transporte, resíduos e outras operações. Esse inventário geralmente segue metodologias reconhecidas internacionalmente, como o GHG Protocol, e considera diferentes fontes de emissão, organizadas em categorias como Escopo 1 (emissões diretas), Escopo 2 (energia adquirida) e Escopo 3 (outras emissões indiretas da cadeia de valor). A partir desse diagnóstico, a organização pode estabelecer metas de redução de emissões, implementar ações de eficiência energética, reduzir sua pegada de carbono e contribuir para o enfrentamento das mudanças climáticas."
+        },
+        {
+          "code": "3",
+          "text": "Realizamos o nosso Inventário de Emissão de Gases de Efeito Estufa (GEE), mas ainda não possuímos metas",
+          "condition": "Abre 2.1.A",
+          "score": 3,
+          "strongPoint": "Realizar o inventário de emissões de gases de efeito estufa é um ponto forte da gestão ambiental da organização, pois demonstra compromisso com a transparência, o monitoramento de impactos climáticos e a melhoria contínua do desempenho ambiental. Ao quantificar suas emissões, a empresa passa a compreender melhor sua pegada de carbono, podendo identificar oportunidades de redução, estabelecer metas climáticas e implementar ações mais eficientes rumo a uma economia de baixo carbono.",
+          "recommendation": "Manter o inventário de emissões de gases de efeito estufa atualizado e alinhado a metodologias reconhecidas, como o GHG Protocol. Estabelecer metas claras de redução de emissões, implementar um programa estruturado de descarbonização e integrar ações de eficiência energética e redução de impactos climáticos às estratégias da organização. Considerar também investir em soluções baseadas na natureza, como restauração e conservação de florestas, bem como adquirir créditos de carbono de alta integridade para compensar emissões residuais. Essas ações fortalecem a gestão climática e contribuem para a transição para uma economia de baixo carbono."
+        },
+        {
+          "code": "4",
+          "text": "Realizamos o nosso Inventário de Emissão de Gases de Efeito Estufa e possuímos metas de redução",
+          "condition": "Abre 2.1.A",
+          "score": 4,
+          "strongPoint": "Realizar o inventário de emissões de gases de efeito estufa é um ponto forte da gestão ambiental da organização, pois demonstra compromisso com a transparência, o monitoramento de impactos climáticos e a melhoria contínua do desempenho ambiental. Ao quantificar suas emissões, a empresa passa a compreender melhor sua pegada de carbono, podendo identificar oportunidades de redução, estabelecer metas climáticas e implementar ações mais eficientes rumo a uma economia de baixo carbono.",
+          "recommendation": "Manter o inventário de emissões de gases de efeito estufa atualizado e alinhado a metodologias reconhecidas, como o GHG Protocol. Estabelecer metas claras de redução de emissões, implementar um programa estruturado de descarbonização e integrar ações de eficiência energética e redução de impactos climáticos às estratégias da organização. Considerar também investir em soluções baseadas na natureza, como restauração e conservação de florestas, bem como adquirir créditos de carbono de alta integridade para compensar emissões residuais. Essas ações fortalecem a gestão climática e contribuem para a transição para uma economia de baixo carbono."
+        },
+        {
+          "code": "5",
+          "text": "Realizamos o nosso Inventário de Emissão de Gases de Efeito Estufa, possuímos metas estabelecidas, existe o investimento na descarbonização das atividades e batemos nossas metas no último ano",
+          "condition": "Abre 2.1.A",
+          "score": 5,
+          "strongPoint": "Realizar o inventário de emissões de gases de efeito estufa é um ponto forte da gestão ambiental da organização, pois demonstra compromisso com a transparência, o monitoramento de impactos climáticos e a melhoria contínua do desempenho ambiental. Ao quantificar suas emissões, a empresa passa a compreender melhor sua pegada de carbono, podendo identificar oportunidades de redução, estabelecer metas climáticas e implementar ações mais eficientes rumo a uma economia de baixo carbono.",
+          "recommendation": "Manter o inventário de emissões de gases de efeito estufa atualizado e alinhado a metodologias reconhecidas, como o GHG Protocol. Estabelecer metas claras de redução de emissões, implementar um programa estruturado de descarbonização e integrar ações de eficiência energética e redução de impactos climáticos às estratégias da organização. Considerar também investir em soluções baseadas na natureza, como restauração e conservação de florestas, bem como adquirir créditos de carbono de alta integridade para compensar emissões residuais. Essas ações fortalecem a gestão climática e contribuem para a transição para uma economia de baixo carbono."
+        }
+      ]
+    },
+    {
+      "theme": "Emissões de Carbono",
+      "code": "2.1.A",
+      "question": "Forneça os dados relativos aos seu Inventário de Emissão de Gases de Efeito Estufa (GEE)",
+      "fields": [
+        {"label": "Emissões do ESCOPO 1", "inputType": "caixa de texto pequena", "unit": "Ton CO2e"},
+        {"label": "Emissões do ESCOPO 2", "inputType": "caixa de texto pequena", "unit": "Ton CO2e"},
+        {"label": "Emissões do ESCOPO 3", "inputType": "caixa de texto pequena", "unit": "Ton CO2e"},
+        {"option": "não se aplica"}
+      ]
+    },
+    {
+      "theme": "Emissões de Carbono",
+      "code": "2.1.B",
+      "question": "Já deixamos de emitir",
+      "fields": [
+        {"inputType": "caixa de texto pequena", "unit": "Ton CO2e"},
+        {"option": "não se aplica"}
+      ]
+    },
+    {
+      "theme": "Emissões de Carbono",
+      "code": "2.1.C",
+      "question": "Já compensamos",
+      "fields": [
+        {"inputType": "caixa de texto pequena", "unit": "Ton CO2e"},
+        {"option": "não se aplica"}
+      ]
+    },
+    {
+      "theme": "Água e efluentes",
+      "code": "3.1",
+      "question": "Como é a gestão de água e efluentes?",
+      "message": "Conhecer, monitorar e reportar o consumo de água e a geração de efluentes permite que as empresas compreendam melhor seus impactos sobre os recursos hídricos, identifiquem oportunidades de eficiência no uso da água e reduzam riscos ambientais e operacionais. A gestão adequada desses indicadores contribui para a preservação dos recursos naturais, para o cumprimento das exigências regulatórias e para o fortalecimento de práticas empresariais alinhadas aos princípios de sustentabilidade e aos padrões ESG.",
+      "materialTheme": "Água e efluentes",
+      "options": [
+        {
+          "code": "1",
+          "text": "Não monitoramos ainda",
+          "condition": "Não abre 2.2.A",
+          "score": 1,
+          "weakPoint": "Ausência de monitoramento do consumo de água",
+          "recommendation": "Implementar o monitoramento básico do consumo de água na empresa, utilizando contas de abastecimento, hidrômetros ou estimativas de consumo. O primeiro passo é compreender o volume utilizado para identificar oportunidades de redução."
+        },
+        {
+          "code": "2",
+          "text": "Monitoramos, mas não estabelecemos metas de redução",
+          "condition": "Abre 2.2.A",
+          "score": 2,
+          "weakPoint": "Não possuir metas claras em relação ao consumo de água",
+          "recommendation": "Implementar o monitoramento setorial do consumo de água, instalando hidrômetros ou controles internos em áreas estratégicas da operação, permitindo uma gestão mais eficiente do recurso."
+        },
+        {
+          "code": "3",
+          "text": "A empresa monitora o consumo de água e efluentes",
+          "condition": "Abre 3.1.A",
+          "score": 3,
+          "strongPoint": "A organização monitora o consumo de água em suas operações, permitindo acompanhar indicadores de eficiência hídrica e apoiar a tomada de decisão baseada em dados.",
+          "weakPoint": "Não possuir metas claras em relação ao consumo de água"
+        },
+        {
+          "code": "4",
+          "text": "Tem reduzido o seu consumo através da busca por metas de redução no último ano",
+          "condition": "Abre 3.1.A e B",
+          "score": 4,
+          "strongPoint": "A empresa monitora o consumo de água e implementa ações de eficiência hídrica, contribuindo para a redução de impactos ambientais e para o uso responsável dos recursos naturais."
+        },
+        {
+          "code": "5",
+          "text": "A empresa passou por uma transição e mais de 50% do consumo atual de água é proveniente de fontes ecoeficientes",
+          "condition": "Abre 3.1.A, B e C",
+          "score": 5,
+          "strongPoint": "Utilizar fontes diversas e mais sustentáveis para o fornecimento de água"
+        }
+      ]
+    },
+    {
+      "theme": "Água e efluentes",
+      "code": "3.1.A",
+      "question": "Consumo de água em litros no último ano fiscal?",
+      "materialTheme": "Consumo de água e efluentes",
+      "fields": [
+        {"inputType": "caixa de números", "unit": "litros"}
+      ]
+    },
+    {
+      "theme": "Água e efluentes",
+      "code": "3.1.B",
+      "question": "Qual a sua meta de redução em %",
+      "fields": [
+        {"inputType": "caixa de números", "unit": "%"}
+      ]
+    },
+    {
+      "theme": "Gestão Energética",
+      "code": "3.2",
+      "question": "Como a empresa gerencia o consumo de energia?",
+      "message": "Empresas que monitoram seus indicadores hídricos demonstram maior maturidade em sustentabilidade e capacidade de tomar decisões baseadas em dados para proteger um recurso cada vez mais estratégico para a economia e para o planeta.",
+      "materialTheme": "Gestão Energética",
+      "options": [
+        {
+          "code": "a",
+          "text": "Não monitoramos",
+          "condition": "Não abre 3.1.A",
+          "score": 1,
+          "weakPoint": "Ausência de monitoramento dos indicadores de energia",
+          "recommendation": "Iniciar o monitoramento do consumo de energia a partir das contas de eletricidade ou registros internos, criando uma base de dados para gestão energética."
+        },
+        {
+          "code": "b",
+          "text": "Monitoramos, mas não estabelecemos metas de redução",
+          "condition": "Abre 3.1.A",
+          "score": 2,
+          "weakPoint": "Ausência de metas de consumo de energia",
+          "recommendation": "Estabelecer indicadores de eficiência energética e iniciar o monitoramento por setor ou processo produtivo."
+        },
+        {
+          "code": "c",
+          "text": "A empresa monitora e tem reduzido o seu consumo",
+          "condition": "Abre 3.1.A",
+          "score": 3,
+          "strongPoint": "A organização monitora o consumo de energia em suas operações, permitindo acompanhar indicadores de eficiência energética.",
+          "weakPoint": "Monitorar o consumo de energia permite conhecer o seu desempenho em outras áreas, como emissão de carbono."
+        },
+        {
+          "code": "d",
+          "text": "Alcançamos as metas de redução no consumo no último ano fiscal",
+          "condition": "Abre 3.1.A",
+          "score": 4,
+          "strongPoint": "A organização monitora o consumo de energia em suas operações, permitindo acompanhar indicadores de eficiência energética.",
+          "weakPoint": "O alcance das metas estabelecidas para o consumo de energia revela os bons resultados das suas práticas ESG"
+        },
+        {
+          "code": "e",
+          "text": "A empresa possui tecnologias verdes implementadas para diversificar suas fontes de fornecimento de energia",
+          "condition": "Abre 3.1.A",
+          "score": 5,
+          "strongPoint": "A organização adota estratégias de eficiência energética e diversificação de fontes, contribuindo para a transição energética.",
+          "weakPoint": "A diversificação das metas estabelecidas para o consumo de energia revela os bons resultados das suas práticas ESG"
+        }
+      ]
+    },
+    {
+      "theme": "Gestão Energética",
+      "code": "3.2.A",
+      "question": "Consumo de energia no último ano fiscal?",
+      "fields": [
+        {"inputType": "caixa de números", "unit": "kWh"}
+      ]
+    },
+    {
+      "theme": "Gestão Energética",
+      "code": "3.2.B",
+      "question": "Fontes de fornecimento de energia",
+      "message": "Monitorar o consumo e as fontes de energia permite que a empresa identifique oportunidades de redução de desperdícios, aumente a eficiência dos processos e planeje a transição para fontes renováveis e mais responsáveis.",
+      "options": [
+        {
+          "code": "a",
+          "text": "Fornecimento regular e geradores movidos à diesel eventualmente",
+          "condition": "Não abre 3.1.C",
+          "score": 1,
+          "weakPoint": "A empresa depende exclusivamente de fontes convencionais de energia e utiliza geradores movidos a diesel em situações de contingência, o que pode aumentar as emissões de gases de efeito estufa, os custos operacionais e a exposição a riscos energéticos e climáticos.",
+          "recommendation": "Iniciar o monitoramento do consumo de energia e avaliar oportunidades de melhoria na eficiência energética, além de analisar a viabilidade de incorporar fontes renováveis ou tecnologias de menor impacto ambiental na matriz energética da empresa."
+        },
+        {
+          "code": "b",
+          "text": "Fornecimento regular",
+          "condition": "Não abre 3.1.C",
+          "score": 2,
+          "weakPoint": "Embora a empresa possua fornecimento regular de energia elétrica, ainda não incorpora fontes renováveis ou estratégias estruturadas de gestão energética, limitando oportunidades de redução de custos, emissões e riscos associados à volatilidade do mercado energético.",
+          "recommendation": "Monitorar o consumo energético e avaliar oportunidades de transição para fontes ecoeficientes, como energia solar ou contratação de energia renovável no mercado livre."
+        },
+        {
+          "code": "c",
+          "text": "Fornecimento regular e outras fontes ecoeficientes como energia solar",
+          "condition": "Abre 3.1.C",
+          "score": 3,
+          "strongPoint": "A empresa utiliza fontes complementares de energia ecoeficientes, demonstrando compromisso com a redução de impactos ambientais e com a diversificação de sua matriz energética.",
+          "recommendation": "Expandir o uso de fontes renováveis e estabelecer metas de eficiência energética e redução de emissões associadas ao consumo de energia."
+        },
+        {
+          "code": "d",
+          "text": "Energia adquirida no mercado livre ou geração interligada de energia fotovoltaica (solar)",
+          "condition": "Abre 3.1.C",
+          "score": 4,
+          "strongPoint": "A empresa adota estratégias avançadas de gestão energética ao adquirir energia no mercado livre ou de fontes renováveis, ampliando sua autonomia energética e reduzindo impactos ambientais associados ao consumo de eletricidade.",
+          "recommendation": "Manter a estratégia de contratação de energia renovável e avançar na implementação de metas de eficiência energética e monitoramento das emissões associadas ao consumo de energia."
+        },
+        {
+          "code": "e",
+          "text": "A empresa passou por uma transição energética, possui metas de redução ou transição para fontes ecoeficientes e geração própria de energia por biodigestão ou outras tecnologias verdes",
+          "condition": "Abre 3.1.C",
+          "score": 5,
+          "strongPoint": "A empresa possui estratégia estruturada de transição energética, com geração própria de energia limpa ou adoção de tecnologias sustentáveis, demonstrando elevado nível de maturidade na gestão energética e no compromisso com a redução de emissões e impactos ambientais.",
+          "recommendation": "Manter e ampliar a estratégia de transição energética, estabelecendo metas de longo prazo para eficiência energética, redução de emissões e aumento da participação de fontes renováveis na matriz energética da empresa."
+        }
+      ]
+    },
+    {
+      "theme": "Gestão Energética",
+      "code": "3.2.C",
+      "question": "Qual o percentual do fornecimento de energia é proveniente de fontes sustentáveis e ecoeficientes?",
+      "options": [
+        {"code": "a", "text": "Menos de 10%", "score": 1, "strongPoint": "utilizamos fontes energéticas mais eficientes"},
+        {"code": "b", "text": "10%", "score": 2, "strongPoint": "pelo menos 10% da nossa energia provém de fontes sustentáveis"},
+        {"code": "c", "text": "15%", "score": 3, "strongPoint": "pelo menos 15% da nossa energia provém de fontes sustentáveis"},
+        {"code": "d", "text": "20%", "score": 4, "strongPoint": "pelo menos 20% da nossa energia provém de fontes sustentáveis"},
+        {"code": "e", "text": "Mais de 50%", "score": 5, "strongPoint": "mais de 50% da nossa energia provém de fontes sustentáveis"}
+      ]
+    },
+    {
+      "theme": "Gestão dos Resíduos",
+      "code": "4.1",
+      "question": "Como a empresa gerencia os resíduos que produz?",
+      "message": "A gestão adequada de resíduos é um dos pilares da sustentabilidade empresarial. Monitorar a geração, separação e destinação de resíduos permite que a empresa reduza impactos ambientais, aumente a eficiência no uso de recursos e identifique oportunidades de economia circular. Empresas que adotam práticas estruturadas de gestão de resíduos contribuem para a redução da pressão sobre aterros, fortalecem cadeias de reciclagem e demonstram compromisso com padrões ESG cada vez mais exigidos por clientes, investidores e pela sociedade.",
+      "options": [
+        {
+          "code": "a",
+          "text": "Ainda não conhecemos o volume de resíduos que produzimos",
+          "score": 1,
+          "weakPoint": "A ausência de gestão estruturada de resíduos pode gerar impactos ambientais relevantes, além de riscos regulatórios e operacionais. Sem monitoramento ou segregação adequada, a empresa perde oportunidades de redução de desperdícios e de valorização de materiais recicláveis.",
+          "recommendation": "Identificar os tipos de resíduos gerados nas operações e implementar procedimentos básicos de segregação e destinação adequada, em conformidade com a legislação ambiental."
+        },
+        {
+          "code": "b",
+          "text": "Ainda não conhecemos o volume de resíduos que produzimos, mas existem práticas de redução",
+          "score": 2,
+          "weakPoint": "A ausência de gestão estruturada de resíduos pode gerar impactos ambientais relevantes, além de riscos regulatórios e operacionais. Sem monitoramento ou segregação adequada, a empresa perde oportunidades de redução de desperdícios e de valorização de materiais recicláveis.",
+          "recommendation": "Identificar os tipos de resíduos gerados nas operações e implementar procedimentos básicos de segregação e destinação adequada, em conformidade com a legislação ambiental."
+        },
+        {
+          "code": "c",
+          "text": "Conheçemos o volume de residuos que produzimos, possuímos práticas de redução e temos metas estabelecidas",
+          "condition": "Abre 4.1.a, 4.1.B",
+          "score": 3,
+          "strongPoint": "A empresa monitora a geração de resíduos em suas operações, demonstrando compromisso com a gestão ambiental e com o controle dos impactos associados às atividades produtivas.",
+          "recommendation": "Estabelecer metas de redução da geração de resíduos e ampliar iniciativas de reciclagem e reaproveitamento de materiais nos processos operacionais."
+        },
+        {
+          "code": "d",
+          "text": "Conheçemos o nosso volume de resíduos, possuímos metas de redução e garantimos a destinação final correta com a possibilidade de reuso",
+          "condition": "Abre 4.1.a, 4.1.B",
+          "score": 4,
+          "strongPoint": "A empresa adota práticas estruturadas de gestão de resíduos, incluindo monitoramento, segregação e ações de reciclagem, contribuindo para a redução de impactos ambientais e para a valorização de materiais.",
+          "recommendation": "Manter e expandir as iniciativas de redução e reciclagem, avaliando oportunidades de reaproveitamento de materiais e integração de princípios de economia circular nos processos produtivos."
+        },
+        {
+          "code": "e",
+          "text": "Conheçemos o nosso volume de resíduo, desviamos pelo menos 50% ou mais de residuos do aterro sanitário, reutilizamos nossos resíduos como matéria-prima e batemos nossas metas do ultimo ano",
+          "condition": "Abre 4.1.a, 4.1.B",
+          "score": 5,
+          "strongPoint": "A empresa possui gestão avançada de resíduos, com estratégias de economia circular e metas para redução da geração e desvio de resíduos de aterros, demonstrando elevado nível de maturidade em sustentabilidade e uso eficiente de recursos.",
+          "recommendation": "Manter e ampliar a estratégia de economia circular, estabelecendo metas de longo prazo para redução da geração de resíduos, aumento da circularidade de materiais e fortalecimento de cadeias de reciclagem e reaproveitamento."
+        },
+        {
+          "code": "f",
+          "text": "não se aplica",
+          "score": null
+        }
+      ]
+    },
+    {
+      "theme": "Gestão dos Resíduos",
+      "code": "4.1.A",
+      "question": "Qual o volume total dos resíduos produzidos durante o escopo informado ou no último ano?",
+      "message": "A gestão adequada de resíduos é um dos pilares da sustentabilidade empresarial. Monitorar a geração, separação e destinação de resíduos permite que a empresa reduza impactos ambientais, aumente a eficiência no uso de recursos e identifique oportunidades de economia circular.",
+      "materialTheme": "Gestão dos Resíduos",
+      "fields": [
+        {"inputType": "números", "unit": "kgs"}
+      ]
+    },
+    {
+      "theme": "Gestão dos Resíduos",
+      "code": "4.1.B",
+      "question": "Desvio de aterro (reuso, reciclagem ou compostagem)",
+      "fields": [
+        {"inputType": "números", "unit": "%"}
+      ]
+    },
+    {
+      "theme": "Gestão dos Resíduos",
+      "code": "4.2",
+      "question": "A empresa possui um plano de gerenciamento de resíduos?",
+      "options": [
+        {
+          "code": "1",
+          "text": "Não",
+          "condition": "Não Abre o 5.2",
+          "score": 0,
+          "weakPoint": "A ausência de um Plano de Gerenciamento de Resíduos limita a capacidade da empresa de organizar, monitorar e controlar a geração, segregação, armazenamento e destinação adequada dos resíduos gerados em suas operações. Além de aumentar riscos ambientais e operacionais, essa ausência pode representar não conformidade com a Política Nacional de Resíduos Sólidos (Lei nº 12.305/2010) e outras exigências regulatórias.",
+          "recommendation": "Elaborar e implementar um Plano de Gerenciamento de Resíduos, identificando os tipos de resíduos gerados, estabelecendo procedimentos de segregação, armazenamento e destinação ambientalmente adequada, além de definir responsabilidades e rotinas de monitoramento."
+        },
+        {
+          "code": "2",
+          "text": "Sim",
+          "condition": "Abre upload",
+          "score": 5,
+          "strongPoint": "A empresa possui um Plano de Gerenciamento de Resíduos, demonstrando compromisso com a gestão ambiental e com o controle adequado da geração, segregação e destinação de resíduos em suas operações.",
+          "recommendation": "Manter o Plano de Gerenciamento de Resíduos atualizado e monitorar sua implementação, estabelecendo indicadores de desempenho, metas de redução da geração de resíduos e ações de valorização de materiais, como reciclagem e economia circular."
+        }
+      ]
+    },
+    {
+      "theme": "Pegada ambiental do Produto ou serviço",
+      "code": "5.1",
+      "question": "A empresa conhece a pegada ambiental do seu produto ou serviço?",
+      "materialTheme": "Pegada ambiental do Produto ou serviço",
+      "options": [
+        {
+          "code": "a",
+          "text": "Ainda não conhecemos a pegada ambiental do nosso produto ou serviço",
+          "score": 1,
+          "weakPoint": "A empresa ainda não possui conhecimento estruturado sobre os impactos ambientais associados ao ciclo de vida de seus produtos ou serviços. Essa ausência de diagnóstico dificulta a identificação de oportunidades de redução de impactos ambientais, inovação sustentável e melhoria da eficiência no uso de recursos.",
+          "recommendation": "Realizar um diagnóstico inicial dos principais impactos ambientais associados aos produtos ou serviços oferecidos, identificando etapas do processo produtivo que concentram maior consumo de recursos naturais, geração de resíduos ou emissões."
+        },
+        {
+          "code": "b",
+          "text": "Ainda não conhecemos a pegada ambiental do nosso produto ou serviço, mas existem práticas de redução de impacto",
+          "score": 2,
+          "weakPoint": "Embora existam práticas voltadas à redução de impactos ambientais, a empresa ainda não possui uma avaliação estruturada da pegada ambiental de seus produtos ou serviços, o que limita a mensuração efetiva dos resultados dessas iniciativas.",
+          "recommendation": "Estruturar a avaliação da pegada ambiental dos produtos ou serviços, utilizando metodologias como análise de ciclo de vida ou indicadores ambientais que permitam mensurar os impactos e orientar estratégias de melhoria contínua."
+        },
+        {
+          "code": "c",
+          "text": "Conhecemos a pegada ambiental do nosso produto/serviço, possuímos práticas de redução do impaco e temos metas estabelecidas",
+          "score": 3,
+          "strongPoint": "A empresa monitora indicadores ambientais relevantes associados aos produtos ou serviços, permitindo maior controle sobre impactos ambientais e oportunidades de melhoria.",
+          "recommendation": "Ampliar a análise para uma abordagem de ciclo de vida, identificando impactos desde a obtenção das matérias-primas até o uso e descarte do produto."
+        },
+        {
+          "code": "d",
+          "text": "Conhecemos a pegada ambiental do nosso produto/serviço, possuímos metas de aumento da nossa ecoeficiência",
+          "score": 4,
+          "strongPoint": "A empresa avalia os impactos ambientais ao longo do ciclo de vida de seus produtos ou serviços, demonstrando maturidade na gestão ambiental e maior capacidade de identificar oportunidades de melhoria e inovação.",
+          "recommendation": "Utilizar os resultados da avaliação da pegada ambiental para orientar decisões estratégicas, como melhoria de processos, escolha de matérias-primas e desenvolvimento de produtos mais sustentáveis."
+        },
+        {
+          "code": "e",
+          "text": "Conhecemos a pegada ambiental do nosso produto/serviço e investimos em design circular e outras medidas para reduzir a pegada",
+          "score": 5,
+          "strongPoint": "A empresa utiliza a avaliação da pegada ambiental como ferramenta estratégica para inovação, eco-design e melhoria contínua de seus produtos ou serviços, demonstrando elevado nível de maturidade em sustentabilidade.",
+          "recommendation": "Manter a integração da avaliação da pegada ambiental nas decisões de desenvolvimento de produtos, ampliando a transparência e comunicação dos resultados para clientes, parceiros e investidores."
+        }
+      ]
+    }
+  ]
+}
