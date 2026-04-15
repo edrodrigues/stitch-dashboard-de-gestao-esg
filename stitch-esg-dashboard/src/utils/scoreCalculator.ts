@@ -1,5 +1,94 @@
 import type { CompanyGoals, ESGDelta, ESGScore, ESGSubScores, Question } from '../types';
 
+// Mapeamento de sub-scores agregados com pesos
+export const subScoreMappings: Record<string, {
+  questions: string[];
+  weights: number[];
+}> = {
+  // Environmental
+  emissoesCarbono: {
+    questions: ['environmental_2.1', 'environmental_2.1A', 'environmental_2.1B'],
+    weights: [0.6, 0.2, 0.2],
+  },
+  aguaEfluentes: {
+    questions: ['environmental_3.1', 'environmental_3.1A', 'environmental_3.1B'],
+    weights: [0.5, 0.25, 0.25],
+  },
+  energia: {
+    questions: ['environmental_3.2', 'environmental_3.2A', 'environmental_3.2B', 'environmental_3.2C'],
+    weights: [0.4, 0.2, 0.2, 0.2],
+  },
+  residuos: {
+    questions: ['environmental_4.1', 'environmental_4.1A', 'environmental_4.1B', 'environmental_4.2'],
+    weights: [0.4, 0.2, 0.2, 0.2],
+  },
+  pegadaAmbiental: {
+    questions: ['environmental_5.1'],
+    weights: [1.0],
+  },
+
+  // Social
+  relacoesComunitarias: {
+    questions: ['social_6.1'],
+    weights: [1.0],
+  },
+  cadeiaFornecimento: {
+    questions: ['social_7.1'],
+    weights: [1.0],
+  },
+  direitosHumanos: {
+    questions: ['social_8.1'],
+    weights: [1.0],
+  },
+  praticasTrabalhistas: {
+    questions: ['social_10.1', 'social_10.2', 'social_10.3', 'social_10.4'],
+    weights: [0.4, 0.2, 0.2, 0.2],
+  },
+  saudeSeguranca: {
+    questions: ['social_11.1', 'social_11.2', 'social_11.3', 'social_11.4'],
+    weights: [0.25, 0.25, 0.25, 0.25],
+  },
+  diversidade: {
+    questions: ['social_9.1', 'social_12.1', 'social_12.2', 'social_12.3',
+                'social_12.4', 'social_12.5', 'social_12.6'],
+    weights: [0.25, 0.15, 0.15, 0.15, 0.1, 0.1, 0.1],
+  },
+
+  // Governance
+  culturaValores: {
+    questions: ['governance_14.1'],
+    weights: [1.0],
+  },
+  satisfacaoCliente: {
+    questions: ['governance_15.1', 'governance_15.2', 'governance_15.3'],
+    weights: [0.4, 0.3, 0.3],
+  },
+  qualidadeProduto: {
+    questions: ['governance_16.1'],
+    weights: [1.0],
+  },
+  rotulagem: {
+    questions: ['governance_17.1'],
+    weights: [1.0],
+  },
+  gestaoRiscos: {
+    questions: ['governance_18.1', 'governance_18.2'],
+    weights: [0.6, 0.4],
+  },
+  requisitosLegais: {
+    questions: ['governance_19.1', 'governance_19.2'],
+    weights: [0.5, 0.5],
+  },
+  etica: {
+    questions: ['governance_20.1'],
+    weights: [1.0],
+  },
+  transparencia: {
+    questions: ['governance_20.2', 'governance_20.3'],
+    weights: [0.5, 0.5],
+  },
+};
+
 export const calculateESGScore = (
   formData: Record<string, number | string | (string | number)[]>,
   questions?: Question[]
@@ -81,10 +170,10 @@ export const calculateESGSubScores = (
 ): Partial<ESGSubScores> => {
   const subScores: Partial<ESGSubScores> = {};
 
-  const getQuestionScore = (category: string, questionId: string): number | undefined => {
-    const categoryQuestions = questions?.filter(q => q.category === category);
-    const question = categoryQuestions?.find(q => q.id === questionId);
-    if (question && formData[questionId]) {
+  // Helper para obter score de uma questão específica (0-100)
+  const getQuestionScore = (questionId: string): number | undefined => {
+    const question = questions?.find(q => q.id === questionId);
+    if (question && formData[questionId] !== undefined) {
       const value = formData[questionId];
       const option = question.options?.find(opt => opt.value === value);
       if (option?.points !== undefined) {
@@ -94,30 +183,26 @@ export const calculateESGSubScores = (
     return undefined;
   };
 
-  // Environmental subscores
-  subScores.emissoesCarbono = getQuestionScore('environmental', 'environmental_2.1');
-  subScores.aguaEfluentes = getQuestionScore('environmental', 'environmental_3.1');
-  subScores.energia = getQuestionScore('environmental', 'environmental_3.2');
-  subScores.residuos = getQuestionScore('environmental', 'environmental_4.1');
-  subScores.pegadaAmbiental = getQuestionScore('environmental', 'environmental_5.1');
+  // Calcular sub-scores agregados baseados nos mapeamentos
+  Object.entries(subScoreMappings).forEach(([subScoreKey, mapping]) => {
+    let weightedSum = 0;
+    let totalWeight = 0;
 
-  // Social subscores
-  subScores.relacoesComunitarias = getQuestionScore('social', 'social_6.1');
-  subScores.cadeiaFornecimento = getQuestionScore('social', 'social_7.1');
-  subScores.direitosHumanos = getQuestionScore('social', 'social_8.1');
-  subScores.praticasTrabalhistas = getQuestionScore('social', 'social_10.1');
-  subScores.saudeSeguranca = getQuestionScore('social', 'social_11.1');
-  subScores.diversidade = getQuestionScore('social', 'social_9.1');
+    mapping.questions.forEach((questionId, index) => {
+      const score = getQuestionScore(questionId);
+      const weight = mapping.weights[index];
 
-  // Governance subscores
-  subScores.culturaValores = getQuestionScore('governance', 'governance_14.1');
-  subScores.satisfacaoCliente = getQuestionScore('governance', 'governance_15.1');
-  subScores.qualidadeProduto = getQuestionScore('governance', 'governance_16.1');
-  subScores.rotulagem = getQuestionScore('governance', 'governance_17.1');
-  subScores.gestaoRiscos = getQuestionScore('governance', 'governance_18.1');
-  subScores.requisitosLegais = getQuestionScore('governance', 'governance_19.1');
-  subScores.etica = getQuestionScore('governance', 'governance_20.1');
-  subScores.transparencia = getQuestionScore('governance', 'governance_20.3');
+      if (score !== undefined) {
+        weightedSum += score * weight;
+        totalWeight += weight;
+      }
+    });
+
+    // Se pelo menos uma questão foi respondida, calcular a média ponderada
+    if (totalWeight > 0) {
+      subScores[subScoreKey as keyof ESGSubScores] = Math.round(weightedSum / totalWeight);
+    }
+  });
 
   return subScores;
 };
@@ -145,6 +230,31 @@ export const calculateESGDelta = (
     social: calculateDelta(currentScores.social, previousScores.social),
     governance: calculateDelta(currentScores.governance, previousScores.governance),
   };
+};
+
+// Calcular delta para sub-scores
+export const calculateSubScoresDelta = (
+  currentSubScores: Partial<ESGSubScores>,
+  previousSubScores?: Partial<ESGSubScores>
+): Partial<Record<keyof ESGSubScores, number>> => {
+  const delta: Partial<Record<keyof ESGSubScores, number>> = {};
+
+  if (!previousSubScores) {
+    return delta;
+  }
+
+  (Object.keys(currentSubScores) as Array<keyof ESGSubScores>).forEach(key => {
+    const current = currentSubScores[key] || 0;
+    const previous = previousSubScores[key] || 0;
+    
+    if (previous === 0) {
+      delta[key] = 0;
+    } else {
+      delta[key] = Math.round(((current - previous) / previous) * 100 * 10) / 10;
+    }
+  });
+
+  return delta;
 };
 
 export const calculateGoalsFromScores = (
@@ -190,4 +300,38 @@ export const formatDelta = (delta: number): string => {
   if (delta > 0) return `+${delta.toFixed(1)}%`;
   if (delta < 0) return `${delta.toFixed(1)}%`;
   return '0%';
+};
+
+// Função auxiliar para calcular o nível de maturidade baseado no score geral
+export const getMaturityLevel = (overallScore: number): {
+  level: 'iniciante' | 'desenvolvedor' | 'consolidador' | 'referencia';
+  label: string;
+  description: string;
+} => {
+  if (overallScore <= 25) {
+    return {
+      level: 'iniciante',
+      label: 'Iniciante',
+      description: 'Foco em compliance básico, inventários e políticas formais',
+    };
+  }
+  if (overallScore <= 50) {
+    return {
+      level: 'desenvolvedor',
+      label: 'Desenvolvedor',
+      description: 'Foco em metas quantitativas, certificações e monitoramento avançado',
+    };
+  }
+  if (overallScore <= 75) {
+    return {
+      level: 'consolidador',
+      label: 'Consolidador',
+      description: 'Foco em relatórios GRI, ISO 14001, auditorias e economia circular',
+    };
+  }
+  return {
+    level: 'referencia',
+    label: 'Referência',
+    description: 'Foco em inovação, liderança setorial e stakeholder engagement',
+  };
 };

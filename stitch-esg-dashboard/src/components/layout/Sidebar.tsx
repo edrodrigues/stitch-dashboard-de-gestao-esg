@@ -13,7 +13,8 @@ import {
   Lock,
   Trophy,
   ChevronLeft,
-  Menu
+  Menu,
+  Target
 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useAuth } from '../../context/useAuth';
@@ -29,6 +30,7 @@ export const Sidebar: React.FC = () => {
     { icon: Leaf, label: 'Ambiental', path: '/environmental', protected: true },
     { icon: Users, label: 'Social', path: '/social', protected: true },
     { icon: Gavel, label: 'Governança', path: '/governance', protected: true },
+    { icon: Target, label: 'Plano de Ações', path: '/action-plan', protected: false },
     { icon: BarChart3, label: 'Relatórios', path: '/reports', protected: false },
     { icon: Trophy, label: 'Ranking', path: '/ranking', protected: false },
   ];

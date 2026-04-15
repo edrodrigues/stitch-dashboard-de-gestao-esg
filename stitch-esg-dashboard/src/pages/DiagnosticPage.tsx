@@ -8,7 +8,7 @@ import { useAuth } from '../context/useAuth';
 import { db } from '../firebase';
 import { doc, getDoc, setDoc, updateDoc, collection, query, where, getDocs, Timestamp } from 'firebase/firestore';
 import { Check, Lightbulb, Rocket, ChevronRight, ChevronLeft, Leaf } from 'lucide-react';
-import { calculateESGScore, calculateESGDelta, calculateGoalsFromScores } from '../utils/scoreCalculator';
+import { calculateESGScore, calculateESGDelta, calculateGoalsFromScores, calculateESGSubScores } from '../utils/scoreCalculator';
 import { diagnosticQuestions } from '../data/questions';
 
 export const DiagnosticPage: React.FC = () => {
@@ -352,8 +352,26 @@ export const DiagnosticPage: React.FC = () => {
       const previousScores = companyOldData.esgScores || { environmental: 0, social: 0, governance: 0 };
 
       const newScores = calculateESGScore(answers, questions);
+      const newSubScores = calculateESGSubScores(answers, questions);
       const newDelta = calculateESGDelta(newScores, previousScores);
       const newGoals = calculateGoalsFromScores(newScores.environmental, newScores.social, newScores.governance);
+
+      // Separar sub-scores por pilar
+      const environmentalSubScores: Record<string, number> = {};
+      const socialSubScores: Record<string, number> = {};
+      const governanceSubScores: Record<string, number> = {};
+
+      Object.entries(newSubScores).forEach(([key, value]) => {
+        if (value !== undefined) {
+          if (['emissoesCarbono', 'aguaEfluentes', 'energia', 'residuos', 'pegadaAmbiental'].includes(key)) {
+            environmentalSubScores[key] = value;
+          } else if (['relacoesComunitarias', 'cadeiaFornecimento', 'direitosHumanos', 'praticasTrabalhistas', 'saudeSeguranca', 'diversidade'].includes(key)) {
+            socialSubScores[key] = value;
+          } else {
+            governanceSubScores[key] = value;
+          }
+        }
+      });
 
       const esgAvg = Math.round((newScores.environmental + newScores.social + newScores.governance) / 3);
       const months = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
@@ -374,7 +392,10 @@ export const DiagnosticPage: React.FC = () => {
         esgScores: newScores,
         esgDelta: newDelta,
         goals: newGoals,
-        evolutionData: evolutionData
+        evolutionData: evolutionData,
+        environmentalSubScores: environmentalSubScores,
+        socialSubScores: socialSubScores,
+        governanceSubScores: governanceSubScores,
       };
 
       if (answers['form_1.1']) {

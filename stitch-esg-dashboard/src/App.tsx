@@ -23,6 +23,7 @@ const GovernancePage = lazy(() => import('./pages/GovernancePage').then(m => ({ 
 const PrivacidadePage = lazy(() => import('./pages/PrivacidadePage').then(m => ({ default: m.PrivacidadePage })));
 const TermosPage = lazy(() => import('./pages/TermosPage').then(m => ({ default: m.TermosPage })));
 const CompliancePage = lazy(() => import('./pages/CompliancePage').then(m => ({ default: m.CompliancePage })));
+const ActionPlanPage = lazy(() => import('./pages/ActionPlanPage').then(m => ({ default: m.ActionPlanPage })));
 
 // Loading Component
 const PageLoader = () => (
@@ -134,6 +135,14 @@ function AppRoutes() {
           element={
             <ProtectedRoute>
               <RankingPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/action-plan" 
+          element={
+            <ProtectedRoute>
+              <ActionPlanPage />
             </ProtectedRoute>
           } 
         />
